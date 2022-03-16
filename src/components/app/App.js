@@ -1,16 +1,19 @@
-import SignIn from "../signIn/SignIn";
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles'; import bgImage from '../../assets/backGround.png';
-import {Container} from '@mui/material';
-import PassRecovery from "../passRecovery/PassRecovery";
+import { Container, CssBaseline } from '@mui/material';
+// import { createTheme, ThemeProvider, styled } from '@mui/material/styles'; 
 import AppHeader from "../appHeader/AppHeader";
+import { MainPage, ApartmentPage } from '../pages';
 
 function App() {
   return (
     <>
-  <AppHeader/>
-        {/* <SignIn/>  */}
-        {/* <PassRecovery/> */}
-
+      <CssBaseline />
+      <AppHeader />
+      <main>
+        <Container maxWidth='lg'>
+          {/* <MainPage/> */}
+          <ApartmentPage />
+        </Container>
+      </main>
     </>
   );
 }
