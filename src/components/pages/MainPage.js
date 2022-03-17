@@ -1,5 +1,5 @@
-import {Box, Divider, Grid, Typography } from "@mui/material";
-import { CottageOutlined} from '@mui/icons-material';
+import { Box, Divider, Grid, Typography } from "@mui/material";
+import { CottageOutlined } from '@mui/icons-material';
 import ApartCard from "../apartCard/ApartCard";
 
 const MainPage = () => {

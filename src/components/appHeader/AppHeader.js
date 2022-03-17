@@ -1,7 +1,7 @@
 import { AppBar, Container, Typography, Button, IconButton, Toolbar, Box, Avatar } from "@mui/material";
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
 import { blue } from "@mui/material/colors";
-
+import { Link } from "react-router-dom";
 const AppHeader = () => {
 
   return (
@@ -13,10 +13,15 @@ const AppHeader = () => {
             <Typography sx={{ color: blue[700] }} ml={2} component="h2" variant="h4">Apparts ЛК</Typography>
           </Box>
           <Box>
-            <Button
-              endIcon={<CottageOutlined />}>Апартаменты</Button>
-            <Button endIcon={<NotificationsNoneOutlined />} >Уведомления от УК</Button>
-            <IconButton><ExitToAppOutlined /></IconButton>
+            <Link to='/apartments'>
+              <Button
+                endIcon={<CottageOutlined />}>Апартаменты</Button>
+            </Link>
+            <Link to="/notithications">
+              <Button endIcon={<NotificationsNoneOutlined />} >Уведомления от УК</Button>
+            </Link>
+
+            <Link to='/signin'><IconButton ><ExitToAppOutlined /></IconButton></Link>
           </Box>
         </Toolbar>
       </Container>

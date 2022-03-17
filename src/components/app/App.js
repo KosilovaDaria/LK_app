@@ -1,7 +1,8 @@
 import { Container, CssBaseline } from '@mui/material';
+import { Outlet } from 'react-router-dom';
 // import { createTheme, ThemeProvider, styled } from '@mui/material/styles'; 
 import AppHeader from "../appHeader/AppHeader";
-import { MainPage, ApartmentPage } from '../pages';
+
 
 function App() {
   return (
@@ -10,8 +11,7 @@ function App() {
       <AppHeader />
       <main>
         <Container maxWidth='lg'>
-          {/* <MainPage/> */}
-          <ApartmentPage />
+          <Outlet />
         </Container>
       </main>
     </>

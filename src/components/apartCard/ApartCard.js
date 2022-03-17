@@ -1,6 +1,6 @@
 import { Grid, Card, CardContent, Typography, CardActions, Button, Box } from "@mui/material";
 import PieChart from "../pieChart/PieChart";
-
+import { Link,Outlet } from "react-router-dom";
 const ApartCard = () => {
   return (
     <Grid item md={6}>
@@ -19,13 +19,14 @@ const ApartCard = () => {
             Процент валдения: 100%
           </Typography>
           <CardActions>
-            <Button size="small" variant="contained">Подробнее</Button>
+            <Link to='/apartment'><Button size="small" variant="contained">Подробнее</Button></Link>
           </CardActions>
         </CardContent>
         <Box sx={{ mt: 5 }}>
           <PieChart />
         </Box>
       </Card>
+      <Outlet />
     </Grid>
 
 

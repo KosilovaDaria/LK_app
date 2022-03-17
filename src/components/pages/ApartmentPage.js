@@ -1,12 +1,16 @@
-import { Box, Typography, Divider, Card, CardContent, ButtonGroup, Button } from "@mui/material";
+import { Box, Typography, Divider, Card, CardContent, ButtonGroup, Button, TextField } from "@mui/material";
 import { CottageOutlined } from '@mui/icons-material';
-import { AdapterDateFns, LocalizationProvider, DatePicker } from '@mui/lab';
+import DateAdapter from '@mui/lab/AdapterDateFns';
+import { LocalizationProvider, DatePicker } from '@mui/lab';
+import ruLocale from 'date-fns/locale/ru'
 import { useState } from "react";
 import MonthStat from "../monthStat/MonthStat";
+import QuartStat from "../quarterStat/QuarterStat";
 
 
 const ApartmentPage = () => {
-  const [value, setValue] = useState(null);
+
+  const [value, setValue] = useState(new Date());
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', paddingBottom: 2, paddingTop: 2 }}>
@@ -22,23 +26,27 @@ const ApartmentPage = () => {
       <Card sx={{ height: '550px' }}>
         <CardContent sx={{ p: '50px' }}>
           <Typography gutterBottom variant="h6">Статистика по загрузке, среднему тарифу и доходам за период</Typography>
-          <ButtonGroup variant="outlined" aria-label="outlined primary button group">
-            <Button variant="contained">Месяц</Button>
-            <Button>Квартал</Button>
-            <Button>Год</Button>
-          </ButtonGroup>
-          {/* <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label="Basic example"
-            value={value}
-            onChange={(newValue) => {
-              setValue(newValue);
-            }}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider> */}
+          <Box maxWidth='550px' sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <ButtonGroup variant="outlined" aria-label="outlined primary button group">
+              <Button variant="contained">Месяц</Button>
+              <Button>Квартал</Button>
+              <Button>Год</Button>
+            </ButtonGroup>
+
+            <LocalizationProvider dateAdapter={DateAdapter} locale={ruLocale}>
+              <DatePicker
+                views={['year', 'month']}
+                value={value}
+                onChange={(newValue) => {
+                  setValue(newValue);
+                }}
+                renderInput={(params) => <TextField sx={{ '& .MuiOutlinedInput-input': { padding: 1 } }} {...params} />}
+              />
+            </LocalizationProvider>
+          </Box>
           <MonthStat />
-         <Box sx={{width:'100%', display:'flex', justifyContent:'center'}}><Button variant="contained">Отчеты агента</Button></Box> 
+          {/* <QuartStat/> */}
+          <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}><Button variant="contained">Отчеты агента</Button></Box>
         </CardContent>
       </Card>
     </>
