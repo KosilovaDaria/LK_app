@@ -1,8 +1,16 @@
 import { Chart, BarSeries, ArgumentAxis, ValueAxis } from '@devexpress/dx-react-chart-material-ui'
 import { Animation, Tooltip } from '@devexpress/dx-react-chart'
+import { useState, useEffect } from "react";
 
 
-const BarChart = () => {
+const BarChart = (stat) => {
+  console.log(stat.stat.stat)
+  const [statData, setStatData] = useState([]);
+  useEffect(() => {
+    setStatData(stat.stat.stat);
+  })
+  console.log(statData)
+
 
   const chartData = [
     { month: 'апрель', value: 62, units: '%' },
@@ -35,14 +43,14 @@ const BarChart = () => {
   }
 
   return (
-    <Chart data={chartData}
+    <Chart data={statData}
       width={500}
       height={300}>
       <ArgumentAxis />
       <ValueAxis max={100} showGrid={false} />
       <BarSeries
       
-        valueField='value'
+        valueField='occupancy'
         argumentField='month'
         pointComponent={BarWithLabel}
         color='rgb(105, 161, 172)'

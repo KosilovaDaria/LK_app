@@ -1,7 +1,15 @@
 import { Grid, Box, Typography} from "@mui/material";
 import {DateRange, Analytics, AccountBalanceWallet} from '@mui/icons-material';
+import { useState, useEffect } from "react";
 
-const MonthStat = () => {
+const MonthStat = (stat) => {
+  const [statData, setStatData] = useState([]);
+  useEffect(() => {
+    setStatData(stat.stat);
+  })
+  console.log(statData)
+ const {occupancy, averege, income} = statData;
+
   return (
     <>
       <Grid container spacing={2} mb={6}>
@@ -10,7 +18,7 @@ const MonthStat = () => {
             <Box sx={{ width: '200px', display: 'flex', alignItems: 'center' }}>
               <DateRange sx={{ mr: 1 }} />
               <Typography variant="h6"> Загрузка</Typography></Box>
-            <Typography variant="h1">73<Typography variant="h3" component={'span'}>%</Typography></Typography>
+            <Typography variant="h1">{occupancy}<Typography variant="h3" component={'span'}>%</Typography></Typography>
             <Typography>Апартаменты были сданы</Typography>
           </Box>
         </Grid>
@@ -19,7 +27,7 @@ const MonthStat = () => {
             <Box sx={{ width: '200px', display: 'flex', alignItems: 'center' }}>
               <Analytics sx={{ mr: 1 }} />
               <Typography variant="h6"> Средний тариф</Typography></Box>
-            <Typography variant="h2">1325<Typography variant="h4" component={'span'}>руб</Typography></Typography>
+            <Typography variant="h2">{averege}<Typography variant="h4" component={'span'}>руб</Typography></Typography>
             <Typography>Стоимость 1 суток аренды</Typography>
           </Box>
         </Grid>
@@ -28,7 +36,7 @@ const MonthStat = () => {
             <Box sx={{ width: '200px', display: 'flex', alignItems: 'center' }}>
               <AccountBalanceWallet sx={{ mr: 1 }} />
               <Typography variant="h6"> Доход</Typography></Box>
-            <Typography variant="h2">48250<Typography variant="h4" component={'span'}>руб</Typography></Typography>
+            <Typography variant="h2">{income}<Typography variant="h4" component={'span'}>руб</Typography></Typography>
             <Typography>Совокупный доход</Typography>
           </Box>
         </Grid>

@@ -2,7 +2,8 @@ import { Box, Divider, Grid, Typography } from "@mui/material";
 import { CottageOutlined } from '@mui/icons-material';
 import ApartCard from "../apartCard/ApartCard";
 
-const MainPage = () => {
+const MainPage = ({aparts}) => {
+
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', paddingBottom: 2, paddingTop: 2 }}>
@@ -11,8 +12,7 @@ const MainPage = () => {
       </Box>
       <Divider />
       <Grid container spacing={2}>
-        <ApartCard />
-        <ApartCard />
+        <ApartCard aparts={aparts}/>
       </Grid>
     </>
   )

@@ -4,11 +4,13 @@ import {DateRange, Analytics, AccountBalanceWallet} from '@mui/icons-material';
 import BarChart from "../barChart/BarChart";
 
 
-const QuartStat = () => {
+const QuartStat = (stat) => {
+  console.log(stat)
   return (
     <Grid container mt={6}>
       <Grid item md={6} sm={12}>
-        <BarChart />
+        
+        <BarChart stat={stat} />
       </Grid>
       <Grid item md={6} sm={12}>
         <Box>
