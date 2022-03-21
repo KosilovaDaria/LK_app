@@ -9,7 +9,7 @@ const ApartCard = ({ aparts }) => {
   useEffect(() => {
     setData(aparts)
   }, []);
-  // console.log(aparts)
+
   return (
     <>
       {data.map((item) => (
@@ -37,9 +37,7 @@ const ApartCard = ({ aparts }) => {
             </Box>
           </Card>
         </Grid>
-      )
-      )
-      }
+      ))}
       <Outlet />
     </>
   )

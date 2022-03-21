@@ -9,7 +9,7 @@ const BarChart = (stat) => {
   useEffect(() => {
     setStatData(stat.stat.stat);
   })
-  console.log(statData)
+  // console.log(statData)
 
 
   const chartData = [
@@ -43,14 +43,14 @@ const BarChart = (stat) => {
   }
 
   return (
-    <Chart data={statData}
+    <Chart data={chartData}
       width={500}
       height={300}>
       <ArgumentAxis />
       <ValueAxis max={100} showGrid={false} />
       <BarSeries
       
-        valueField='occupancy'
+        valueField='value'
         argumentField='month'
         pointComponent={BarWithLabel}
         color='rgb(105, 161, 172)'

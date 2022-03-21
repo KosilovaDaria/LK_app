@@ -1,14 +1,14 @@
-import { Grid, Box, Typography} from "@mui/material";
-import {DateRange, Analytics, AccountBalanceWallet} from '@mui/icons-material';
-import { useState, useEffect } from "react";
+import { Grid, Box, Typography } from "@mui/material";
+import { DateRange, Analytics, AccountBalanceWallet } from '@mui/icons-material';
 
-const MonthStat = (stat) => {
-  const [statData, setStatData] = useState([]);
-  useEffect(() => {
-    setStatData(stat.stat);
-  })
-  console.log(statData)
- const {occupancy, averege, income} = statData;
+const MonthStat = () => {
+  const statData =
+  {
+    month: "march",
+    occupancy: 73,
+    averege: 1325,
+    income: 48250
+  }
 
   return (
     <>
@@ -18,7 +18,7 @@ const MonthStat = (stat) => {
             <Box sx={{ width: '200px', display: 'flex', alignItems: 'center' }}>
               <DateRange sx={{ mr: 1 }} />
               <Typography variant="h6"> Загрузка</Typography></Box>
-            <Typography variant="h1">{occupancy}<Typography variant="h3" component={'span'}>%</Typography></Typography>
+            <Typography variant="h1">{statData.occupancy}<Typography variant="h3" component={'span'}>%</Typography></Typography>
             <Typography>Апартаменты были сданы</Typography>
           </Box>
         </Grid>
@@ -27,7 +27,7 @@ const MonthStat = (stat) => {
             <Box sx={{ width: '200px', display: 'flex', alignItems: 'center' }}>
               <Analytics sx={{ mr: 1 }} />
               <Typography variant="h6"> Средний тариф</Typography></Box>
-            <Typography variant="h2">{averege}<Typography variant="h4" component={'span'}>руб</Typography></Typography>
+            <Typography variant="h2">{statData.averege}<Typography variant="h4" component={'span'}>руб</Typography></Typography>
             <Typography>Стоимость 1 суток аренды</Typography>
           </Box>
         </Grid>
@@ -36,7 +36,7 @@ const MonthStat = (stat) => {
             <Box sx={{ width: '200px', display: 'flex', alignItems: 'center' }}>
               <AccountBalanceWallet sx={{ mr: 1 }} />
               <Typography variant="h6"> Доход</Typography></Box>
-            <Typography variant="h2">{income}<Typography variant="h4" component={'span'}>руб</Typography></Typography>
+            <Typography variant="h2">{statData.income}<Typography variant="h4" component={'span'}>руб</Typography></Typography>
             <Typography>Совокупный доход</Typography>
           </Box>
         </Grid>

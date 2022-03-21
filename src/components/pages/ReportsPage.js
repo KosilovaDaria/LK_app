@@ -1,21 +1,23 @@
-import { Box, Typography, Divider, Card, CardContent, ButtonGroup, Button, TextField, Container } from "@mui/material";
-import { CottageOutlined } from '@mui/icons-material';
-import DateAdapter from '@mui/lab/AdapterDateFns';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
-import ruLocale from 'date-fns/locale/ru'
-import { useState, useEffect } from "react";
-import MonthStat from "../monthStat/MonthStat";
-import QuartStat from "../quarterStat/QuartStat";
-import { useParams } from "react-router-dom";
-import { Link, Outlet } from "react-router-dom";
+import { Box, Typography, Container } from "@mui/material";
+import { ArrowBack, CottageOutlined } from '@mui/icons-material';
+import ReportsTable from "../reportsTable/ReportsTable";
+import TitleBar from "../titleBar/TitleBar";
 
 const ReportsPage = () => {
   return (
-    <> 
-    <Box sx={{ display: 'flex', alignItems: 'flex-end', paddingBottom: 2, paddingTop: 2 }} >
-    <CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />
-    <Typography variant="h6"> Отчеты</Typography>
-  </Box>
+    <>
+      <Container maxWidth='lg'>
+        <TitleBar
+          arrow={<ArrowBack sx={{ mr: 2 }} />}
+          icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
+          title='Отчеты' />
+        <Box>
+          <Typography>Адрес: С-Пб., ул. Новая, д.110а, корп 2 , подъезд 1, этаж 12 </Typography>
+          <Typography>Лицевой счет: № 223654</Typography>
+        </Box>
+        <Typography component="h2" variant="h5">Отчеты</Typography>
+        <ReportsTable />
+      </Container>
     </>
   )
 }

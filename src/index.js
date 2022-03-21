@@ -78,22 +78,19 @@ const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App  />} >
+      <Route path="/" element={<App />} >
         <Route path="apartments" element={<MainPage aparts={aparts} />} >
-        
+
         </Route>
         <Route path="apartment" element={<ApartmentPage aparts={aparts} />} >
-        <Route path=":apartmentId" element={<ApartmentPage aparts={aparts}/>} />
+          <Route path=":apartmentId" element={<ApartmentPage aparts={aparts}/>} />
+          {/* <Route path=":reports" element={<ReportsPage aparts={aparts}/>} /> */}
         </Route>
-        <Route path="reports" element={<ReportsPage aparts={aparts} />} />
-        
-        {/* <Route path="apartments" element={<MainPage aparts={aparts} />} >
-        <Route path=":apartmentId" element={<ApartmentPage aparts={aparts}/>} />
-        </Route> */}
-        
-        <Route path="notithications" element={<NotificationsPage aparts={aparts}/>} />
+        <Route path="/reports" element={<ReportsPage aparts={aparts}/>} />
+        <Route path="notithications" element={<NotificationsPage aparts={aparts} />} />
         <Route path="signin" element={<SignIn />} />
       </Route>
+
     </Routes>
   </BrowserRouter>,
   rootElement
