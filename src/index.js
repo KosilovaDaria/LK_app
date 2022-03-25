@@ -88,10 +88,11 @@ render(
         </Route>
         <Route path="apartment" element={<ApartLayout aparts={aparts} />} >
           <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} />
-          <Route path="reports/*" element={<Reports aparts={aparts} />} >
-        </Route>
-        
-        {/* <Route path=":reportId" element={<SingleReport aparts={aparts} />} /> */}
+          <Route path="reports" element={<Reports aparts={aparts} />} >
+            <Route path="report" element={<SingleReport aparts={aparts} />} />
+          </Route>
+
+
 
         </Route>
         {/* <Route path="report" element={<SingleReport aparts={aparts} />} /> */}

@@ -47,7 +47,7 @@ const ReportsList = () => {
       if (row.year === year) {
         return (
           <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="row"><Link to={`/report`}>{row.month}</Link></TableCell>
+            <TableCell component="th" scope="row"><Link to='report'>{row.month}</Link></TableCell>
             <TableCell align="right">{row.status}</TableCell>
             <TableCell align="right">{row.accept ? <AcceptButton startIcon={<ArrowDropDownCircle/>}> Принято</AcceptButton> : <DeclineButton  startIcon={<Cancel/>}>Не принято</DeclineButton>}</TableCell>
           </TableRow>
