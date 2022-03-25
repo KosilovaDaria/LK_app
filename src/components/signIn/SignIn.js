@@ -1,5 +1,6 @@
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Box, Typography, Container, Stack } from '@mui/material';
+import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography, Container, Stack } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import bgImage from '../../assets/backGround.png';
 
 const theme = createTheme({
@@ -85,12 +86,12 @@ export default function SignIn() {
             > Войти
             </Button>
             <Stack spacing={2} sx={{ textAlign: 'center' }}>
-              <Link href="#" variant="body2">
+              <Link to='/passrecovery'>
                 Забыли пароль?
               </Link>
-              <Link href="#" variant="body2">
+              {/* <Link >
                 {"Как создать аккаунт?"}
-              </Link>
+              </Link> */}
             </Stack>
           </Box>
         </Box>

@@ -2,14 +2,21 @@ import { Chart, PieSeries, Title } from '@devexpress/dx-react-chart-material-ui'
 import { Animation, Legend } from '@devexpress/dx-react-chart'
 
 
-const PieChart = (props) => {
-// console.log(props.data);
-// const data = props.data;
-// console.log(data);
+const PieChart = ({data}) => {
 
+console.log(data);
+// const newdata = data.find(item => item.month == 'march' );
+
+// //  const mapStatData = (keys) => data.find(item => keys.reduce((keyValue, key) => {
+// //   keyValue[key] = data[key];
+// //     return keyValue;
+// //   }, {}));
+//   //  console.log(mapStatData(["month", "occupancy"]));
+// console.log(newdata)
+const per = 80;
   const chartData = [
-    { sector: 'first', area: 73, occupancy: 'Загрузка 73%' },
-    { sector: 'second', area: 27, occupancy: 'Загрузка 23%' },
+    { sector: 'first', area: `${per}`, occupancy: 'Загрузка 73%' },
+    { sector: 'second', area: 20, occupancy: 'Загрузка 23%' },
   ]
   return (
     <Chart data={chartData}

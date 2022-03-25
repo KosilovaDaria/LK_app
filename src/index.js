@@ -1,15 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
-import ReactDOM from 'react-dom';
 import {
   BrowserRouter,
   Routes,
   Route,
 } from "react-router-dom";
 import App from './components/app/App';
-import { ApartmentPage, MainPage, NotificationsPage } from './components/pages';
 import SignIn from './components/signIn/SignIn';
-import ReportsPage from './components/pages/ReportsPage';
+import Apartments from './components/apartments/Apartments';
+import ApartLayout from './components/apartLayout/ApartLayout';
+import SingleApartment from './components/singleApartment/SingleApartment';
+import Reports from './components/reports/Reports';
+import SingleReport from './components/singleReport/SingleReport';
+import Notifications from './components/notifications/Notifications';
+import PassRecovery from './components/passRecovery/PassRecovery';
+import NotFound from './components/notFound/NotFound';
 
 const aparts = [
   {
@@ -17,7 +22,7 @@ const aparts = [
     owner: "Смирнов Иван Евгеньевич",
     name: "АК 'Волна' № 345 Студио",
     param: "345-Studio",
-    adress: "С-Пб., ул. Новая, д.110а, корп 2 , подъезд 1, этаж 12",
+    adress: "С-Пб., ул. Новая, д. 110 а, корп. 2, подъезд 1, этаж 12",
     contract: 12234556,
     ownership: 100,
     occupancy: 73,
@@ -79,18 +84,23 @@ render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} >
-        <Route path="apartments" element={<MainPage aparts={aparts} />} >
+        <Route path="apartments" element={<Apartments aparts={aparts} />} >
+        </Route>
+        <Route path="apartment" element={<ApartLayout aparts={aparts} />} >
+          <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} />
+          <Route path="reports/*" element={<Reports aparts={aparts} />} >
+        </Route>
+        
+        {/* <Route path=":reportId" element={<SingleReport aparts={aparts} />} /> */}
 
         </Route>
-        <Route path="apartment" element={<ApartmentPage aparts={aparts} />} >
-          <Route path=":apartmentId" element={<ApartmentPage aparts={aparts}/>} />
-          {/* <Route path=":reports" element={<ReportsPage aparts={aparts}/>} /> */}
-        </Route>
-        <Route path="/reports" element={<ReportsPage aparts={aparts}/>} />
-        <Route path="notithications" element={<NotificationsPage aparts={aparts} />} />
+        {/* <Route path="report" element={<SingleReport aparts={aparts} />} /> */}
+
+        <Route path="notifications" element={<Notifications aparts={aparts} />} />
         <Route path="signin" element={<SignIn />} />
+        <Route path="passrecovery" element={<PassRecovery />} />
+        <Route path="*" element={<NotFound />} />
       </Route>
-
     </Routes>
   </BrowserRouter>,
   rootElement
