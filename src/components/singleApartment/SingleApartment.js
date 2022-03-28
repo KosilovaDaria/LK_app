@@ -34,7 +34,7 @@ const SingleApartment = ({aparts}) => {
               <Typography gutterBottom variant="h6">Статистика по загрузке, среднему тарифу и доходам за период</Typography>
 
               <StatCard />
-              <Link to={`/apartment/reports`}>
+              <Link to='/apartments/reports'>
                 <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                   <Button sx={{ textTransform: 'none' }} variant="contained">
                     Отчеты агента

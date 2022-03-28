@@ -33,10 +33,10 @@ const ApartCard = ({ aparts }, ...props) => {
                   Процент валдения: {item.ownership} %
                 </Typography>
                 <CardActions>
-                  <Link to={`/apartment/${item.param}`} style={{ textDecoration: "none" }}>
+                  <Link to={`/apartments/${item.param}`} style={{ textDecoration: "none" }}>
                     <Button> Статистика</Button>
                   </Link>
-                  <Link to={`/apartment/reports`} style={{ textDecoration: "none" }}>
+                  <Link to={`/apartments/reports`} style={{ textDecoration: "none" }}>
                     <Button> Отчеты </Button>
                   </Link>
                 </CardActions>

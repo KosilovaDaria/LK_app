@@ -15,6 +15,7 @@ import SingleReport from './components/singleReport/SingleReport';
 import Notifications from './components/notifications/Notifications';
 import PassRecovery from './components/passRecovery/PassRecovery';
 import NotFound from './components/notFound/NotFound';
+import ReportLayout from './components/reportLayout/ReportLayout';
 
 const aparts = [
   {
@@ -84,19 +85,14 @@ render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} >
-        <Route path="apartments" element={<Apartments aparts={aparts} />} >
-        </Route>
-        <Route path="apartment" element={<ApartLayout aparts={aparts} />} >
+        <Route path="apartments" element={<ApartLayout aparts={aparts} />} >
+          <Route index element={<Apartments aparts={aparts} />} />
           <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} />
-          <Route path="reports" element={<Reports aparts={aparts} />} >
+          <Route path="reports" element={<ReportLayout aparts={aparts} />} >
+            <Route index element={<Reports aparts={aparts} />} />
             <Route path="report" element={<SingleReport aparts={aparts} />} />
           </Route>
-
-
-
         </Route>
-        {/* <Route path="report" element={<SingleReport aparts={aparts} />} /> */}
-
         <Route path="notifications" element={<Notifications aparts={aparts} />} />
         <Route path="signin" element={<SignIn />} />
         <Route path="passrecovery" element={<PassRecovery />} />
