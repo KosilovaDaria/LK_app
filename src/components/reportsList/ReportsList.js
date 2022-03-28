@@ -1,55 +1,43 @@
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Button } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, Paper, Button, Typography } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
-import { ArrowDropDownCircle, Cancel} from '@mui/icons-material';
+import { ArrowDropDownCircle} from '@mui/icons-material';
 import {  styled } from '@mui/material/styles';
 
-
-const CustomButton = styled(Button) ({
-  width: 135,
-  height: 22,
-  textTransform: 'none',
-  fontSize: 16,
-  borderRadius:'6px',
-  '&:focus': {
-    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-  },
+const NewReport = styled(Box) ({
+  width: 8, 
+  height: 8, 
+  borderRadius: '50%', 
+  margin: 6
 })
-const AcceptButton = styled(CustomButton)({
-  backgroundColor: 'rgba(103, 166, 235, 0.2)',
-  border: '1px solid rgba(9, 109, 217, 2)',
-  color: 'rgba(9, 109, 217, 1)',
-'&:hover':{
-  color: 'rgba(9, 109, 217, 1)',
-},
-});
-const DeclineButton = styled(CustomButton)({
-  backgroundColor: 'rgba(251, 158, 163, 0.2)',
-  border: '1px solid rgba(242, 94, 102, 1)',
-  color: 'rgba(242, 94, 102, 1)',
-'&:hover':{
-  color: 'rgba(242, 94, 102, 1)',
-},
-});
-
 
 const ReportsList = () => {
   const data = [
 
-    { id: 0, year: 2022, month: 'Февраль', status: 'Просмотрено', accept: true },
-    { id: 1, year: 2022, month: 'Январь', status: 'Не просмотрено', accept: false },
-    { id: 2, year: 2021, month: 'Март', status: 'Просмотрено', accept: true },
-    { id: 3, year: 2021, month: 'Февраль', status: 'Просмотрено', accept: false },
-    { id: 4, year: 2021, month: 'Январь', status: 'Просмотрено', accept: true },
+    { id: 0, year: 2022, month: 'Март', new: true, accept: true },
+    { id: 1, year: 2022, month: 'Февраль', new: true, accept: false },
+    { id: 2, year: 2022, month: 'Январь', new: true, accept: true },
+    { id: 3, year: 2021, month: 'Декабрь', new: true, accept: false },
+    { id: 4, year: 2021, month: 'Ноябрь', new: false, accept: true },
+    { id: 5, year: 2021, month: 'Октябрь', new: false, accept: false },
+    { id: 6, year: 2021, month: 'сентрябрь', new: false, accept: true },
+    { id: 7, year: 2021, month: 'Август', new: false, accept: true },
+    { id: 8, year: 2021, month: 'Июлб', new: false, accept: false },
+    { id: 9, year: 2021, month: 'Июнь', new: false, accept: true },
+    { id: 10, year: 2021, month: 'Май', new: true, accept: true },
+    { id: 11, year: 2021, month: 'Апрель', new: true, accept: false },
+    { id: 12, year: 2021, month: 'Март', new: false, accept: true },
+    { id: 13, year: 2021, month: 'Февраль', new: false, accept: false },
+    { id: 14, year: 2021, month: 'Январь', new: false, accept: true },
   ]
   function renderRow(data, year) {
     const rows = data.map((row) => {
       if (row.year === year) {
         return (
           <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell component="th" scope="row"><Link to='report'>{row.month}</Link></TableCell>
-            <TableCell align="right">{row.status}</TableCell>
-            <TableCell align="right">{row.accept ? <AcceptButton startIcon={<ArrowDropDownCircle/>}> Принято</AcceptButton> : <DeclineButton  startIcon={<Cancel/>}>Не принято</DeclineButton>}</TableCell>
+            <TableCell width={2}>{row.new ? <NewReport sx={{ bgcolor: 'primary.main' }} /> : <NewReport sx={{ bgcolor: '#fff' }} />}</TableCell>
+            <TableCell align="left" ><Link to='report' style={{ color:'#000' }}>{row.month}</Link></TableCell>
+            <TableCell sx={{display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(105, 161, 172, 1)'}}>{row.accept ? <><ArrowDropDownCircle fontSize="small" /><Typography ml={0.5}> Принято</Typography></>: '-'}</TableCell>
           </TableRow>
         )
       }
