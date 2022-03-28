@@ -30,7 +30,7 @@ const rows = [
 function ReportTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} size="small"  aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>№</TableCell>
@@ -62,9 +62,8 @@ function ReportTable() {
 const SingleReport = () => {
   return (
     <>
-      <Container maxWidth='lg'>
         <TitleBar
-          arrow={<Link to='/apartments'><ArrowBack sx={{ mr: 2 }} /></Link>}
+          arrow={<Link to='/apartments/reports'><ArrowBack sx={{ mr: 2 }} /></Link>}
           icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
           title='Отчеты' />
         <Box>
@@ -89,7 +88,6 @@ const SingleReport = () => {
 
        </Box>
        
-      </Container>
     </>
   )
 }
