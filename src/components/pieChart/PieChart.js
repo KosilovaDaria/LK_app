@@ -4,7 +4,7 @@ import { Animation, Legend } from '@devexpress/dx-react-chart'
 
 const PieChart = ({data}) => {
 
-console.log(data);
+// console.log(data);
 // const newdata = data.find(item => item.month == 'march' );
 
 // //  const mapStatData = (keys) => data.find(item => keys.reduce((keyValue, key) => {

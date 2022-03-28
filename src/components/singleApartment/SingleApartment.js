@@ -15,6 +15,7 @@ const SingleApartment = ({aparts}) => {
     setData(aparts);
     setApartmentId(params.apartmentId);
   }, [params.apartmentId]);
+  console.log(params);
   return (
     <>
       {data.map((item) => {
