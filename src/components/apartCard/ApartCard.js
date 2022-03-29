@@ -1,7 +1,7 @@
 import { Grid, Card, CardContent, Typography, CardActions, Button, Box } from "@mui/material";
 import PieChart from "../pieChart/PieChart";
 import { Link, Outlet } from "react-router-dom";
-import { Children, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const ApartCard = ({ aparts }, ...props) => {
 

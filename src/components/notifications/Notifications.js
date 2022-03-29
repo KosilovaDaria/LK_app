@@ -1,9 +1,9 @@
-import { Box, Typography,Accordion, AccordionSummary, AccordionDetails, Link, Checkbox  } from "@mui/material";
-import {NotificationsNoneOutlined, ExpandMore, Circle, CircleOutlined } from '@mui/icons-material';
-import { useState, useEffect } from "react";
+import { Box, Typography,Accordion, AccordionSummary, AccordionDetails, Link,   } from "@mui/material";
+import {NotificationsNoneOutlined,  } from '@mui/icons-material';
+import { useState,  } from "react";
 import TitleBar from "../titleBar/TitleBar";
 import {  styled } from '@mui/material/styles';
-
+import './style.css'
 const Notifications = ({ aparts }) => {
 
   const notificData = [
@@ -40,7 +40,7 @@ const Notifications = ({ aparts }) => {
       text: 'Выслан отчёт за январь по договору № №1765'
     },
     {
-      id:4,
+      id: 4,
       new: true,
       from: 'УК Волна',
       title: 'Замена счётчиков в ап. №345 ',
@@ -48,19 +48,19 @@ const Notifications = ({ aparts }) => {
       text: 'Замена счётчиков в ап. №345'
     },
     {
-      id:5,
+      id: 5,
       new: false,
       from: 'УК Волна',
       title: 'Заказ на генеральную уборку и химчистку мебели принят',
       date: '02.01 15:45',
       text: 'Заказ на генеральную уборку и химчистку мебели принят'
-    }, 
+    },
   ]
 
-  const NewNotification = styled(Box) ({
-    width: 10, 
-    height: 10, 
-    borderRadius: '50%', 
+  const NewNotification = styled(Box)({
+    width: 8,
+    height: 8,
+    borderRadius: '50%',
     margin: 6
   })
 
@@ -69,7 +69,7 @@ const Notifications = ({ aparts }) => {
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
   };
- 
+
 
   return (
     <>
@@ -78,8 +78,19 @@ const Notifications = ({ aparts }) => {
         title='Уведомления от УК' />
       <Box>
         {notificData.map(item => (
-          <Accordion key={item.id} disableGutters expanded={expanded === `panel${item.id}`} onChange={handleChange(`panel${item.id}`)} TransitionProps={{ unmountOnExit: true }}>
-            <AccordionSummary>
+          <Accordion
+          
+            key={item.id}
+            disableGutters
+            expanded={expanded === `panel${item.id}`}
+            onChange={handleChange(`panel${item.id}`)}
+            TransitionProps={{ unmountOnExit: true }}
+            sx={{
+              '& .MuiCollapse-wrapper': { width: '60%', marginLeft: '270px' },
+              '& .MuiAccordionDetails-root': { padding: '16px 5px' }
+            }}
+            >
+            <AccordionSummary expanded className="MuiAccordionSummary">
               {item.new ? <NewNotification sx={{ bgcolor: 'primary.main' }} /> : <NewNotification sx={{ bgcolor: '#fff' }} />}
               <Typography sx={{ width: '20%', flexShrink: 0, ml: 2 }}>
                 {item.from}
@@ -90,9 +101,10 @@ const Notifications = ({ aparts }) => {
               </Typography>
               <Typography>{item.date}</Typography>
             </AccordionSummary>
-            <AccordionDetails>
+            <AccordionDetails >
               <Typography >
-                {item.text}
+                {item.text}. 
+                 А еще, например, тут будет очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень очень много текста
               </Typography>
             </AccordionDetails>
           </Accordion>

@@ -1,9 +1,9 @@
-import { Button, ToggleButtonGroup, ToggleButton, Box, Typography, Grid, Stack } from "@mui/material";
+import { Button, ToggleButtonGroup, ToggleButton, Box, Typography, Grid, Stack, MenuItem } from "@mui/material";
 import { DateRange, Analytics, AccountBalanceWallet, ArrowBackIos } from '@mui/icons-material';
 import BarChart from "../barChart/BarChart";
 import { useState } from "react";
 import {  styled } from '@mui/material/styles';
-
+import './style.css';
 const QuarterStat = (stat) => {
   const statData = [
     {
@@ -124,6 +124,7 @@ console.log(barIndicator)
           </CustomToggleBtn>
         </ToggleButtonGroup> */}
         <Stack alignItems="flex-start">
+        
           <Button onClick={(e) => handlebarIndicator("occupancy", e)}
            sx={{textTransform:'none', color:'rgb(105, 161, 172)',
             '&:hover':

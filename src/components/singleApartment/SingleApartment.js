@@ -1,8 +1,8 @@
-import { Box, Typography, Container, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { ArrowBack, CottageOutlined } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import StatCard from "../statCard/StatCard";
 import TitleBar from "../titleBar/TitleBar";
 
