@@ -10,20 +10,17 @@ const ApartCard = ({ aparts }, ...props) => {
     setData(aparts)
   }, []);
 
-
-
-
   return (
     <>
       {data.map((item) => (
         <Grid item md={6} key={item.id}>
-          <Card sx={{ width: '540 px', minHeight: '300px', mt: 1 }}>
-            <Typography component="h2" variant="h5" sx={{ p: 2 }}>
+          <Card sx={{ width: '540 px', minHeight: '300px', mt: 1 }} elevation={5}>
+            <Typography variant="h2" sx={{ p: 2 }}>
               {item.name}
             </Typography>
-            <CardContent sx={{ display:'flex', flex: 1, pt:0 }}>
+            <CardContent sx={{ display: 'flex', flex: 1, pt: 0 }}>
               <Box >
-                <Typography variant="subtitle1" paragraph>
+                <Typography variant="body1" paragraph>
                   {item.adress}
                 </Typography>
                 <Typography>
@@ -33,15 +30,15 @@ const ApartCard = ({ aparts }, ...props) => {
                   Процент валдения: {item.ownership} %
                 </Typography>
                 <CardActions>
-                  <Link to={`/apartments/${item.param}`} style={{ textDecoration: "none" }}>
-                    <Button> Статистика</Button>
+                <Link to={`/apartments/${item.param}`} style={{ textDecoration: "none" }}>
+                    <Button variant="contained"> Статистика </Button>
                   </Link>
                   <Link to={`/apartments/reports`} style={{ textDecoration: "none" }}>
-                    <Button> Отчеты </Button>
+                    <Button variant="outlined"> Отчеты</Button>
                   </Link>
                 </CardActions>
               </Box>
-              <Box pl={4}>
+              <Box>
                 <PieChart data={item.stat} />
               </Box>
             </CardContent>

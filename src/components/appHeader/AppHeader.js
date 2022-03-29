@@ -1,6 +1,5 @@
 import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar, Tabs, Tab } from "@mui/material";
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
-import { blue } from "@mui/material/colors";
 import { Link, NavLink } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from "react";
@@ -10,12 +9,12 @@ const AppHeader = () => {
 
 
   return (
-    <AppBar position="static" color="transparent" elevation={3}>
+    <AppBar position="static" color="header" elevation={3}>
       <Container maxWidth='lg'>
         <Toolbar >
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
-            <Avatar sx={{ bgcolor: blue[700] }}>A</Avatar>
-            <Typography sx={{ color: blue[700] }} ml={2} component="h2" variant="h4">Apparts ЛК</Typography>
+            <Avatar sx={{ bgcolor:'primary.main', color:'header', fontSize:'34px', fontWeight:700 }}>A</Avatar>
+            <Typography color='primary'  ml={2} variant="h3">Apparts ЛК</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <NavLink to='/apartments'
@@ -24,7 +23,7 @@ const AppHeader = () => {
                   padding: '18px 10px 18px',
                   textDecoration: "none",
                   color: "#000",
-                  borderBottom: isActive ? '3px solid #096DD9' : "none"
+                  borderBottom: isActive ? '3px solid #096DD9' : "none",
                 }
               }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>

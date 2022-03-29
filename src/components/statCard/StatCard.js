@@ -50,8 +50,7 @@ const StatCard = () => {
   })
 
   return (
-    <Card minHeight='450px' >
-      <CardContent >
+    <>
         <Box maxWidth='550px' sx={{ display: 'flex', justifyContent: 'space-between' }}>
           <ToggleButtonGroup
             color="primary"
@@ -72,9 +71,9 @@ const StatCard = () => {
           <MonthPicker />
         </Box>
         {statComponent}
-      </CardContent>
+     
       <Outlet />
-    </Card>
+    </>
   )
 }
 export default StatCard;
