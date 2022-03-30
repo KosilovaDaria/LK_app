@@ -1,10 +1,10 @@
-import { Box, Typography, Container, Button } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import { ArrowBack, CottageOutlined, Download, ContentCopy } from '@mui/icons-material';
 import TitleBar from "../titleBar/TitleBar";
 import { Link } from "react-router-dom";
 import Subtitle from "../subtitle/Subtitle";
-
+import PopperPopup from "../popperPopup/PopperPopup";
 function createData(num, param, sum) {
   return { num, param, sum };
 }
@@ -84,13 +84,19 @@ const SingleReport = () => {
         title='Генеральный директор: ' 
         text=' Игнатьев А.Л.'/>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2, marginTop: 2 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
         <Typography sx={{flexGrow: 1}} variant="h1" component='h2'>Отчет агента № 3/22 за февраль</Typography>
-          <Button variant='contained' sx={{mr:1}}>Принять</Button>
-          <Button variant='outlined'sx={{mr:1}}><Download />Скачать</Button>
+         
+          {/* <Button variant='contained' sx={{mr:1}}>Принять</Button> */}
+          <PopperPopup />
+          <Button variant='outlined'sx={{mr:1, ml:1}}><Download />Скачать</Button>
           <Button variant='outlined'><ContentCopy />Печать</Button>
       </Box>
       <ReportTable />
+
+
+      
+
     </>
   )
 }
