@@ -1,5 +1,6 @@
-import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Box, Typography, Container, Stack } from '@mui/material';
+import { Button, CssBaseline, TextField, Box, Typography, Container } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { Link } from 'react-router-dom';
 import bgImage from '../../assets/backGround.png';
 
 const theme = createTheme({
@@ -52,8 +53,8 @@ export default function PassRecovery() {
           <Typography component="h1" variant="h4" >
             Восстановление пароля
           </Typography>
-          <Typography component="p" variant="subtitle1"  sx={{ mt: 3, mb: 2 }}>
-          Введите Ваш  адрес электронной почты, используемый для входа.Мы вышлем письмо с инструкцией
+          <Typography component="p" variant="subtitle1" sx={{ mt: 3, mb: 2 }}>
+            Введите Ваш  адрес электронной почты, используемый для входа. Мы вышлем письмо с инструкцией
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
@@ -66,13 +67,15 @@ export default function PassRecovery() {
               autoComplete="email"
               autoFocus
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            > Отправить
-            </Button>
+            <Link to='/signin' style={{ textDecoration: "none" }}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              > Отправить
+              </Button>
+            </Link>
           </Box>
         </Box>
       </CustomContainer>

@@ -78,20 +78,23 @@ export default function SignIn() {
               control={<Checkbox defaultChecked value="remember" color="primary" />}
               label="Запомнить меня"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            > Войти
-            </Button>
+            <Link to='/apartments' style={{ textDecoration: "none" }}>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2 }}
+              > Войти
+              </Button>
+            </Link>
+
             <Stack spacing={2} sx={{ textAlign: 'center' }}>
               <Link to='/passrecovery'>
                 Забыли пароль?
               </Link>
-              {/* <Link >
-                {"Как создать аккаунт?"}
-              </Link> */}
+              <Link to='/passrecovery'>
+                Как создать аккаунт?
+              </Link> 
             </Stack>
           </Box>
         </Box>

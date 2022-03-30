@@ -8,7 +8,7 @@ const BarChart = (stat) => {
   useEffect(() => {
     setStatData(stat.stat);
   })
-  // console.log(statData)
+  console.log(statData)
 
 
   const getPath = (x, width, y, y1) =>

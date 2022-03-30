@@ -1,8 +1,8 @@
 import { Container, CssBaseline } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles'; 
+import { createTheme, ThemeProvider } from '@mui/material/styles'; 
 import AppHeader from "../appHeader/AppHeader";
-import { Box, typography } from '@mui/system';
+import { Box } from '@mui/system';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
@@ -55,10 +55,7 @@ const mainTheme = createTheme({
       fontWeight: 400,
       fontSize: '16px',
     },
-    // body2: {
-    //   fontWeight: 400,
-    //   fontSize: '16px',
-    // },
+
     caption: {
       fontWeight: 400,
       fontSize: '14px',
@@ -68,7 +65,6 @@ const mainTheme = createTheme({
       fontSize: '14px',
     }
   
-
   },
   components: {
     // MuiButton: {
@@ -91,13 +87,9 @@ function App() {
         <Box sx={{ bgcolor:'background.main' }}>
         <AppHeader />
         <main>
-        
           <Container maxWidth='lg' >
-         
             <Outlet />
-           
           </Container>
-        
         </main>
         </Box>
       </ThemeProvider>

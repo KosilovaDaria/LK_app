@@ -59,7 +59,7 @@ const aparts = [
     occupancy: 63,
     stat: [
       {
-        month: "march",
+        month: "vfhn",
         occupancy: 85,
         averege: 1458,
         income: 50580
@@ -85,6 +85,7 @@ render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} >
+        <Route index element={<SignIn />} />
         <Route path="apartments" element={<ApartLayout aparts={aparts} />} >
           <Route index element={<Apartments aparts={aparts} />} />
           <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} />
@@ -94,10 +95,10 @@ render(
           </Route>
         </Route>
         <Route path="notifications" element={<Notifications aparts={aparts} />} />
-        <Route path="signin" element={<SignIn />} />
-        <Route path="passrecovery" element={<PassRecovery />} />
         <Route path="*" element={<NotFound />} />
       </Route>
+      <Route path="signin" element={<SignIn />} />
+      <Route path="/passrecovery" element={<PassRecovery />} />
     </Routes>
   </BrowserRouter>,
   rootElement
