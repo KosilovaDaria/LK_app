@@ -24,7 +24,7 @@ const SingleApartment = ({ aparts }) => {
           return (
             <Box key={item.id}>
               <TitleBar
-                arrow={<Link to='/apartments'><ArrowBack sx={{ mr: 2 }} /></Link>}
+                arrow={<Link to='/apartments' style={{color:'#000'}}><ArrowBack sx={{ mr: 2 }} /></Link>}
                 icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
                 title={item.name}
               />

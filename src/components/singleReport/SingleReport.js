@@ -62,7 +62,7 @@ const SingleReport = () => {
   return (
     <>
       <TitleBar
-        arrow={<Link to='/apartments/reports'><ArrowBack sx={{ mr: 2 }} /></Link>}
+        arrow={<Link to='/apartments/reports' style={{color:'#000'}}><ArrowBack sx={{ mr: 2 }} /></Link>}
         icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
         title='Отчеты' />
         <Subtitle 
