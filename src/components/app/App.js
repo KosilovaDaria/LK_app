@@ -67,6 +67,16 @@ const mainTheme = createTheme({
   
   },
   components: {
+    MuiTypography: {
+      variants: [
+        {
+          props:{ variant:"h1",  component:'h2'},
+          style: {
+            margin: '30px 0 24px',
+          }
+        }
+      ]
+    }
     // MuiButton: {
     //   styleOverrides: {
     //     root: {

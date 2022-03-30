@@ -1,9 +1,9 @@
 import { Box, Typography, Container, Button } from "@mui/material";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-
-import { ArrowBack, CottageOutlined, Download, ContentCopy} from '@mui/icons-material';
+import { ArrowBack, CottageOutlined, Download, ContentCopy } from '@mui/icons-material';
 import TitleBar from "../titleBar/TitleBar";
 import { Link } from "react-router-dom";
+import Subtitle from "../subtitle/Subtitle";
 
 function createData(num, param, sum) {
   return { num, param, sum };
@@ -30,7 +30,7 @@ const rows = [
 function ReportTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small"  aria-label="simple table">
+      <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>№</TableCell>
@@ -49,7 +49,6 @@ function ReportTable() {
               </TableCell>
               <TableCell align="left">{row.param}</TableCell>
               <TableCell align="right">{row.sum}</TableCell>
-              
             </TableRow>
           ))}
         </TableBody>
@@ -62,32 +61,36 @@ function ReportTable() {
 const SingleReport = () => {
   return (
     <>
-        <TitleBar
-          arrow={<Link to='/apartments/reports'><ArrowBack sx={{ mr: 2 }} /></Link>}
-          icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
-          title='Отчеты' />
-        <Box>
-          <Typography>Адрес: С-Пб., ул. Новая, д.110а, корп 2 , подъезд 1, этаж 12 </Typography>
-          <Typography>Лицевой счет: № 223654</Typography>
-          <Typography>Принципал: Смирнов И.Е.</Typography>
-          <Typography>Агент: ООО "Вист"</Typography>
-          <Typography>Адрес: С-Пб., ул. Новая, д.110а, корп 2 , подъезд 1, этаж 12 </Typography>
-          <Typography>Генеральный директор: Игнатьев А.Л.</Typography>
-        </Box>
-      <Box sx={{display:'flex', justifyContent:'space-between', marginBottom:2, marginTop:2}}>
-      <Typography component="h2" variant="h5">Отчет агента № 3/22 за февраль</Typography>
-      <Box>
-      <Button sx={{textTransform:'none', marginRight:'20px'}} variant='outlined'><Download/>Скачать</Button>
-      <Button sx={{textTransform:'none'}} variant='outlined'><ContentCopy/>Печать</Button>
-      </Box>
-     
-      </Box>
-       <ReportTable/>
-       <Box sx={{display:'flex', justifyContent:'space-between', alignContent:'center'}}>
-       <Button variant='contained' sx={{textTransform:'none'}}>Принять</Button>
+      <TitleBar
+        arrow={<Link to='/apartments/reports'><ArrowBack sx={{ mr: 2 }} /></Link>}
+        icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
+        title='Отчеты' />
+        <Subtitle 
+        title='Адрес:' 
+        text='С-Пб., ул. Новая, д.110а, корп 2 , подъезд 1, этаж 12'/>
+         <Subtitle 
+        title='Лицевой счет:' 
+        text='№ 223654'/>
+         <Subtitle 
+        title='Принципал: ' 
+        text='Смирнов И.Е.'/>
+         <Subtitle 
+        title='Агент: ' 
+        text='ООО "Вист"'/>
+         <Subtitle 
+        title='Адрес: ' 
+        text='С-Пб., ул. Новая, д.110а, корп 2 , подъезд 1, этаж 12'/>
+         <Subtitle 
+        title='Генеральный директор: ' 
+        text=' Игнатьев А.Л.'/>
 
-       </Box>
-       
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', marginBottom: 2, marginTop: 2 }}>
+        <Typography sx={{flexGrow: 1}} variant="h1" component='h2'>Отчет агента № 3/22 за февраль</Typography>
+          <Button variant='contained' sx={{mr:1}}>Принять</Button>
+          <Button variant='outlined'sx={{mr:1}}><Download />Скачать</Button>
+          <Button variant='outlined'><ContentCopy />Печать</Button>
+      </Box>
+      <ReportTable />
     </>
   )
 }

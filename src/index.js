@@ -84,8 +84,8 @@ const rootElement = document.getElementById("root");
 render(
   <BrowserRouter>
     <Routes>
+      <Route index element={<SignIn />} />
       <Route path="/" element={<App />} >
-        <Route index element={<SignIn />} />
         <Route path="apartments" element={<ApartLayout aparts={aparts} />} >
           <Route index element={<Apartments aparts={aparts} />} />
           <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} />
@@ -97,7 +97,7 @@ render(
         <Route path="notifications" element={<Notifications aparts={aparts} />} />
         <Route path="*" element={<NotFound />} />
       </Route>
-      <Route path="signin" element={<SignIn />} />
+      <Route path="/signin" element={<SignIn />} />
       <Route path="/passrecovery" element={<PassRecovery />} />
     </Routes>
   </BrowserRouter>,

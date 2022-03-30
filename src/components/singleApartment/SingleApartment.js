@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import StatCard from "../statCard/StatCard";
 import TitleBar from "../titleBar/TitleBar";
+import Subtitle from "../subtitle/Subtitle";
 
 const SingleApartment = ({ aparts }) => {
   let params = useParams();
@@ -27,31 +28,35 @@ const SingleApartment = ({ aparts }) => {
                 icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
                 title={item.name}
               />
+              <Subtitle
+                title='Адрес:'
+                text={item.adress} />
+              <Subtitle
+                title='Договор:'
+                text={item.contract} />
+              <Subtitle
+                title='Владелец: '
+                text={item.owner} />
+              <Typography variant="h1" component='h2'>Статистика по загрузке, среднему тарифу и доходам за период</Typography>
 
-              <Box>
-                <Typography variant="h2" mb={2}>Адрес:  {item.adress}</Typography>
-                <Typography variant="h2" mb={2}>Договор: № {item.contract}</Typography>
-                <Typography variant="h2" mb={4}>Владелец: {item.owner}, доля владения - {item.ownership}%</Typography>
-              </Box>
-
-              <Box sx={{ display: 'flex', alignItems: 'flex-end', p: '20px 0  40px 40px ' }} >
+              {/* <Box sx={{ display: 'flex', alignItems: 'flex-end'}} >
                 <QueryStats color="primary" fontSize="large" sx={{ mr: 2 }} />
                 <Typography variant="h1" component='h2'>Статистика по загрузке, среднему тарифу и доходам за период</Typography>
-              </Box>
+              </Box> */}
 
               <StatCard />
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-              <Link to='/apartments/reports' style={{textDecoration:'none'}}>              
-                  <Button sx={{padding:'8px 96px'}} variant="contained">
-                    Отчеты 
-                  </Button>               
-              </Link>
+                <Link to='/apartments/reports' style={{ textDecoration: 'none' }}>
+                  <Button sx={{ padding: '8px 96px' }} variant="contained">
+                    Отчеты
+                  </Button>
+                </Link>
               </Box>
             </Box>
           )
         }
       })}
-    
+
     </>
   )
 
