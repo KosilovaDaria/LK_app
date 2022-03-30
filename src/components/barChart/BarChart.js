@@ -46,7 +46,7 @@ const BarChart = (stat) => {
       width={600}
       height={300}>
       <ArgumentAxis />
-      <ValueAxis max={100} showGrid={false} />
+      <ValueAxis max={100}  />
       <BarSeries
         valueField='value'
         argumentField='month'

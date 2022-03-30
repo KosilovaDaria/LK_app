@@ -40,14 +40,13 @@ const SingleApartment = ({ aparts }) => {
               </Box>
 
               <StatCard />
-
-              <Link to='/apartments/reports'>
-                <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-                  <Button variant="contained">
-                    Отчеты агента
-                  </Button>
-                </Box>
+              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Link to='/apartments/reports' style={{textDecoration:'none'}}>              
+                  <Button sx={{padding:'8px 96px'}} variant="contained">
+                    Отчеты 
+                  </Button>               
               </Link>
+              </Box>
             </Box>
           )
         }

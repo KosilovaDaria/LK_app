@@ -4,6 +4,7 @@ import BarChart from "../barChart/BarChart";
 import { useState } from "react";
 import {  styled } from '@mui/material/styles';
 import './style.css';
+
 const QuarterStat = (stat) => {
   const statData = [
     {
@@ -28,7 +29,7 @@ const QuarterStat = (stat) => {
 
   const [barIndicator, setBarIndicator] = useState('occupancy');
 
-  const handlebarIndicator = ( newBarIndicator, event ) => {
+  const handlebarIndicator = ( event, newBarIndicator ) => {
     setBarIndicator(newBarIndicator);
   };
 console.log(barIndicator)
@@ -64,29 +65,27 @@ console.log(barIndicator)
 
       break;
   } 
-  // const CustomToggleBtnGroup = styled(ToggleButtonGroup) ({
-  //   '&:hover':{
-  //     backgroundColor:'rgb(105, 161, 172)',
-  //     color:'rgb(255, 255, 255)'
-  //   },
-  // })
 
-  // const CustomToggleBtn = styled(ToggleButton) ({
-  //   width: 200,
-  //   height:40,
-  //   textTransform: 'none',
-  //   fontSize: 16,
-  //   border:'none',
-  //   borderRadius: 10,
-  //   color:'rgb(105, 161, 172)',
-  //   justifyContent:'flex-start',
-  //   '&:hover':{
-  //     backgroundColor:'rgb(105, 161, 172)',
-  //     color:'rgb(255, 255, 255)'
-  //   },
+  const CustomToggleBtn = styled(ToggleButton) (({ customColor }) => ({
+    width: 258,
+    height:35,
+    textTransform: 'none',
+    fontSize: 16,
+    border:'none',
+    borderRadius: 5,
+    color: customColor,
+    justifyContent:'flex-start',
+    '&:hover':{
+      backgroundColor: customColor,
+      color:"white"
+    },
+    "&.Mui-selected, &.Mui-selected:hover": {
+      color: "white",
+      backgroundColor: customColor
+    }
   
 
-  // })
+  }))
 
   return (
     <Grid container mt={6}>
@@ -95,37 +94,59 @@ console.log(barIndicator)
         <BarChart stat={newStatData} />
       </Grid>
       <Grid item md={4} sm={12}>
-        {/* <ToggleButtonGroup
-        sx={{
-          '& .Mui-selected':{
-            color:'rgb(105, 161, 172',
-          }
-        }}
+      {/* <ToggleButtonGroup
           orientation="vertical"
-          color="standard"
-          // sx={{color:'rgb(105, 161, 172'}}
-          // color={'rgb(105, 161, 172'}
+          exclusive
+          
+        > */}
+          <CustomToggleBtn 
+          value='occupancy'
+          onChange={()=> setBarIndicator('occupancy')} 
+          customColor='#69A1AC'
+          selected= {true }>
+            <DateRange sx={{mr:1}}/> Загрузка
+          </CustomToggleBtn>
+          <CustomToggleBtn 
+          value='averege'
+          onChange={()=> setBarIndicator('averege')} 
+          customColor='#676EBC'
+          >
+            <Analytics sx={{mr:1}}/> Средний тариф
+          </CustomToggleBtn>
+          <CustomToggleBtn 
+          value='income'
+          onChange={()=> setBarIndicator('income')} 
+          customColor='#E58B1E'
+          >
+            <AccountBalanceWallet sx={{ mr: 1 }} />Доход
+          </CustomToggleBtn>
+        {/* </ToggleButtonGroup>  */}
+
+
+
+         {/* <ToggleButtonGroup
+          orientation="vertical"
           value={barIndicator}
           exclusive
           onChange={handlebarIndicator}
         >
-          <CustomToggleBtn value="occupancy">
+          <CustomToggleBtn value="occupancy" customColor='#69A1AC'>
             <DateRange sx={{mr:1}}/> Загрузка
           </CustomToggleBtn>
-          <CustomToggleBtn value="averege"
-            sx={{color:'rgb(103, 110, 188)', '&:hover':{ backgroundColor:'rgb(105, 161, 172)'}}} 
+          <CustomToggleBtn value="averege" customColor='#676EBC'
           >
             <Analytics sx={{mr:1}}/> Средний тариф
           </CustomToggleBtn>
-          <CustomToggleBtn value="income"
-            sx={{color:'rgb(229, 139, 30)', '&:hover':{ backgroundColor:'rgb(105, 161, 172)'}}} 
+          <CustomToggleBtn value="income" customColor='#E58B1E'
           >
             <AccountBalanceWallet sx={{ mr: 1 }} />Доход
           </CustomToggleBtn>
-        </ToggleButtonGroup> */}
-        <Stack alignItems="flex-start">
+        </ToggleButtonGroup>  */}
+
+
+        {/* <Stack alignItems="flex-start">
         
-          <Button onClick={(e) => handlebarIndicator("occupancy", e)}
+          <Button onClick={(e) => handlebarIndicator("occupancy", e) }
            sx={{textTransform:'none', color:'rgb(105, 161, 172)',
             '&:hover':
             { backgroundColor:'rgb(105, 161, 172)', color:'rgb(255, 255, 255)'},
@@ -142,7 +163,7 @@ console.log(barIndicator)
           sx={{textTransform:'none', color:'rgb(229, 139, 30)', '&:hover':{ backgroundColor:'rgb(229, 139, 30)', color:'rgb(255, 255, 255)'}}}>
             <AccountBalanceWallet sx={{ mr: 1 }} />Доход
             </Button>
-        </Stack>
+        </Stack> */}
 
       </Grid>
     </Grid>

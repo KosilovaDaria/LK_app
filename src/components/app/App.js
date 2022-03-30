@@ -62,6 +62,10 @@ const mainTheme = createTheme({
     caption: {
       fontWeight: 400,
       fontSize: '14px',
+    },
+    button: {
+      fontWeight: 500,
+      fontSize: '14px',
     }
   
 
