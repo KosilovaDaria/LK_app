@@ -1,4 +1,4 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button,IconButton, Link as MuiLink } from "@mui/material";
 import { ArrowBack, CottageOutlined, QueryStats } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -24,8 +24,8 @@ const SingleApartment = ({ aparts }) => {
           return (
             <Box key={item.id}>
               <TitleBar
-                arrow={<Link to='/apartments' style={{color:'#000'}}><ArrowBack sx={{ mr: 2 }} /></Link>}
-                icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
+                arrow={<IconButton component={Link} to='/apartments' ><ArrowBack/></IconButton>}
+                icon={<CottageOutlined color="primary" fontSize="large" sx={{ m: '0 10px 0'}} />}
                 title={item.name}
               />
               <Subtitle
@@ -33,7 +33,7 @@ const SingleApartment = ({ aparts }) => {
                 text={item.adress} />
               <Subtitle
                 title='Договор:'
-                text={item.contract} />
+                text={item.contract }/>
               <Subtitle
                 title='Владелец: '
                 text={item.owner} />
@@ -46,11 +46,13 @@ const SingleApartment = ({ aparts }) => {
 
               <StatCard />
               <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <Link to='/apartments/reports' style={{ textDecoration: 'none' }}>
-                  <Button sx={{ padding: '8px 96px' }} variant="contained">
-                    Отчеты
-                  </Button>
-                </Link>
+                <Button
+                  sx={{ padding: '8px 96px' }}
+                  variant="contained"
+                  component={Link}
+                  to='/apartments/reports'>
+                  Отчеты
+                </Button>
               </Box>
             </Box>
           )

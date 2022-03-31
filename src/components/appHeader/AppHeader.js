@@ -14,7 +14,8 @@ const AppHeader = () => {
         <Toolbar >
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
             <Avatar sx={{ bgcolor:'primary.main', color:'header', fontSize:'34px', fontWeight:700 }}>A</Avatar>
-            <Typography color='primary'  ml={2} variant="h3">Apparts ЛК</Typography>
+            <Typography sx={{ display: { xs: 'none', sm: 'block'} }}
+            color='primary'  ml={2} variant="h3">Apparts ЛК</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <NavLink to='/apartments'
@@ -27,8 +28,8 @@ const AppHeader = () => {
                 }
               }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography>Апартаменты</Typography>
-                <CottageOutlined sx={{ ml: 1 }} color="primary" />
+                <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'block'}, mr: 1  }}>Апартаменты</Typography>
+                <CottageOutlined color="primary" />
               </Box>
             </NavLink>
             <NavLink to='/notifications'
@@ -41,9 +42,9 @@ const AppHeader = () => {
                 }
               }}>
               <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Typography>Уведомления от УК </Typography>
+                <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'block'}, mr: 1  }}>Уведомления от УК </Typography>
                 <Badge badgeContent={3} color="primary">
-                  <NotificationsNoneOutlined color="primary" sx={{ ml: 1 }} />
+                  <NotificationsNoneOutlined color="primary" />
                 </Badge>
               </Box>
             </NavLink>

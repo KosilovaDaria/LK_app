@@ -1,6 +1,6 @@
-import { Box, Typography, Button } from "@mui/material";
+import { Box, Typography, Button, IconButton } from "@mui/material";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
-import { ArrowBack, CottageOutlined, Download, ContentCopy } from '@mui/icons-material';
+import { ArrowBack, InsertChartOutlined, Download, ContentCopy } from '@mui/icons-material';
 import TitleBar from "../titleBar/TitleBar";
 import { Link } from "react-router-dom";
 import Subtitle from "../subtitle/Subtitle";
@@ -62,8 +62,8 @@ const SingleReport = () => {
   return (
     <>
       <TitleBar
-        arrow={<Link to='/apartments/reports' style={{color:'#000'}}><ArrowBack sx={{ mr: 2 }} /></Link>}
-        icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
+        arrow={<IconButton component={Link} to='/apartments' ><ArrowBack/></IconButton>}
+        icon={<InsertChartOutlined color="primary" fontSize="large" sx={{ m: '0 10px 0'}} />}
         title='Отчеты' />
         <Subtitle 
         title='Адрес:' 

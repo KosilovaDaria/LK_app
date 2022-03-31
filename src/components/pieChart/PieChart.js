@@ -25,10 +25,10 @@ const per = 80;
       <PieSeries
         valueField='area'
         argumentField='area'
-        outerRadius={1.2}
-        innerRadius={0.7}
+        outerRadius={1}
+        innerRadius={0.65}
       />
-      <Title text={chartData[0].occupancy}></Title>
+      {/* <Title text={chartData[0].occupancy}></Title> */}
       <Animation />
     </Chart>
   )
