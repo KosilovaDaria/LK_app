@@ -28,7 +28,6 @@ const per = 80;
         outerRadius={1}
         innerRadius={0.65}
       />
-      {/* <Title text={chartData[0].occupancy}></Title> */}
       <Animation />
     </Chart>
   )

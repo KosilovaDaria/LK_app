@@ -10,11 +10,11 @@ const AppHeader = () => {
 
   return (
     <AppBar position="static" color="header" elevation={3}>
-      <Container maxWidth='lg'>
+      <Container maxWidth='xl'>
         <Toolbar >
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
             <Avatar sx={{ bgcolor:'primary.main', color:'header', fontSize:'34px', fontWeight:700 }}>A</Avatar>
-            <Typography sx={{ display: { xs: 'none', sm: 'block'} }}
+            <Typography sx={{ display: { xs: 'none',  sm: 'none', md: 'none', lg: 'block'} }}
             color='primary'  ml={2} variant="h3">Apparts ЛК</Typography>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -35,7 +35,7 @@ const AppHeader = () => {
             <NavLink to='/notifications'
               style={({ isActive }) => {
                 return {
-                  padding: '18px 20px 18px',
+                  padding: '18px 10px 18px',
                   textDecoration: "none",
                   color: "#000",
                   borderBottom: isActive ? '3px solid #096DD9' : "none"

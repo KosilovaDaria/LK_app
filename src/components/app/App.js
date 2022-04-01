@@ -1,13 +1,13 @@
 import { Container, CssBaseline } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { createTheme, ThemeProvider } from '@mui/material/styles'; 
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles'; 
 import AppHeader from "../appHeader/AppHeader";
 import { Box } from '@mui/system';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-const mainTheme = createTheme({
+let theme = createTheme({
   palette: {
     primary: {
       main: '#096DD9',
@@ -17,7 +17,8 @@ const mainTheme = createTheme({
       main: '#6F757D'
     },
     header: '#fff',
-    background: '#FBFCFD',
+    background: 'red',
+    // background: '#FBFCFD',
 
     emerald: {
       main: '#69A1AC',
@@ -66,6 +67,17 @@ const mainTheme = createTheme({
     }
   
   },
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 361,
+      s: 520,
+      md: 700,
+      lg: 1000,
+      xl: 1200,
+    },
+  },
+  
   components: {
     MuiTypography: {
       variants: [
@@ -77,31 +89,23 @@ const mainTheme = createTheme({
         }
       ]
     }
-    // MuiButton: {
-    //   styleOverrides: {
-    //     root: {
-    //       textTransform: 'none',
-    //     },
-    //   },
-    // },
     
-  }
+  },
+
   
 })
-
+theme = responsiveFontSizes(theme,{breakpoints:['xs', 'sm', 'md'],disableAlign: false, factor: 5, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'caption', 'button'] });
 function App() {
   return (
     <>
-      <ThemeProvider theme={mainTheme}>
+      <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Box sx={{ bgcolor:'background.main' }}>
         <AppHeader />
         <main>
-          <Container maxWidth='lg' >
+          <Container maxWidth='xl' >
             <Outlet />
           </Container>
         </main>
-        </Box>
       </ThemeProvider>
     </>
   );

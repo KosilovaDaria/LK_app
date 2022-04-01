@@ -5,7 +5,7 @@ import bgImage from '../../assets/backGround.png';
 
 const theme = createTheme({
   appBackGround: {
-    solor: 'grey.800',
+    color: 'grey.800',
     size: 'cover',
     repeat: 'no-repeat',
     position: 'center',
