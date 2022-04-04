@@ -20,7 +20,7 @@ const ApartCard = ({ aparts }, ...props) => {
     mt: 1,
     [theme.breakpoints.up('xs')]: {
       width: '100%',
-      display: 'block',
+      margin:'0 auto'
     },
     [theme.breakpoints.between('sm', 's')]: {
       width: '320px',
@@ -46,7 +46,7 @@ const ApartCard = ({ aparts }, ...props) => {
     },
   }))
 
-  const TextContent = styled(Box)(({ theme }) => ({
+  const TextContent = styled(Box)({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
@@ -54,7 +54,7 @@ const ApartCard = ({ aparts }, ...props) => {
     maxWidth: '350px',
     minWidth: '200px',
     maxHeight: '150px',
-  }))
+  })
 
   const ChartBox = styled(Box)(({ theme }) => ({
     position: 'relative',
@@ -108,7 +108,8 @@ const ApartCard = ({ aparts }, ...props) => {
   return (
     <>
       {data.map((item) => (
-        <Grid item xs={12} sm={12} md={12} lg={6} key={item.id}  >
+        <Grid item xs={12} sm={12} md={12} lg={6} key={item.id} >
+        {/* <Grid item key={item.id} > */}
           <CustomCard >
             <CustomContent>
               <TextContent>

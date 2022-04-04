@@ -45,8 +45,6 @@ const StatCard = () => {
       backgroundColor:'rgba(9, 109, 217, 1)',
       color:'rgb(255, 255, 255)'
     },
-
-
   })
 
   return (
@@ -68,7 +66,7 @@ const StatCard = () => {
               Год
             </CustomToggleBtn>
           </ToggleButtonGroup>
-          <MonthPicker />
+          {/* <MonthPicker /> */}
         </Box>
         {statComponent}
      

@@ -82,32 +82,33 @@ const QuarterStat = (stat) => {
       color: "white",
       backgroundColor: selectedcolor,
     }
-
-
   }))
 
   return (
-    <Grid container mt={6} >
-      <Grid item md={9} sm={12}>
+    <Grid container mt={6}  >
+      <Grid item lg={6} l={7} md={8} s={10} sm={12} >
         <BarChart stat={newStatData} />
       </Grid>
-      <Grid item md={3} sm={12}>
+      <Grid item lg={6} l={5} md={5} sm={5} xs={5} textAlign='right'>
         <ToggleButtonGroup
-          orientation="vertical"
+          orientation='vertical'
           value={barIndicator}
           exclusive
           onChange={handlebarIndicator}
         >
           <CustomToggleBtn value="occupancy" selectedcolor='#69A1AC'>
-            <DateRange sx={{ mr: 1 }} /> Загрузка
+            <DateRange sx={{ mr: 1 }} />
+            <Typography variant="body1">Загрузка</Typography>
           </CustomToggleBtn>
           <CustomToggleBtn value="averege" selectedcolor='#676EBC'
           >
-            <Analytics sx={{ mr: 1 }} /> Средний тариф
+            <Analytics sx={{ mr: 1 }} /> 
+            <Typography variant="body1">Средний тариф</Typography>
           </CustomToggleBtn>
           <CustomToggleBtn value="income" selectedcolor='#E58B1E'
           >
-            <AccountBalanceWallet sx={{ mr: 1 }} />Доход
+            <AccountBalanceWallet sx={{ mr: 1 }} /> 
+            <Typography variant="body1">Доход</Typography>
           </CustomToggleBtn>
         </ToggleButtonGroup>
 

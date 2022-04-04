@@ -14,23 +14,43 @@ const MonthStat = () => {
     income: 48250,
   }
 
-  const CustomBox = styled(Paper)({
-    width: 350,
-    height: 250, 
+  const CustomBox = styled(Paper)(({ theme }) => ({
+    maxWidth: '350px',
+    minWidth: '250px',
+    minHeight: '250px',
+    // width: 350,
+    // height: 250, 
     borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-between',
-    padding:'20px 0'
+    padding:'20px 0',
+    margin:'0 auto'
 
-  })
+    
+    // [theme.breakpoints.up('xs')]: {
+    //   width: '100%',
+    //   // margin:'0 auto'
+    // },
+    // [theme.breakpoints.between('sm', 's')]: {
+    //   width: '320px',
+    // },
+    // [theme.breakpoints.between('lg', 'xl')]: {
+    //   minWidth: '70%',
+    // },
+    // [theme.breakpoints.up('xl')]: {
+    //   minWidth: '100%',
+    // }
+  }))
+
+  
 
 
   return (
     <>
-      <Grid container spacing={2} mt={4} mb={4} justifyContent="space-between">
-        <Grid item>
+      <Grid container spacing={'18px'} mt={4} mb={4} justifyContent="space-between">
+        <Grid item xl={4} lg={4} l={4} md={6} s={12} sm={12} xs={12}>
           <CustomBox elevation={6} sx={{ background: 'linear-gradient(320deg, rgba(77, 153, 168, 0.54) , rgba(105, 161, 172, 0.1) 100%)' }}>
             <MonthStatCard
               icon={<DateRange color='emerald' sx={{ mr: 1 }} />}
@@ -44,7 +64,7 @@ const MonthStat = () => {
             </MonthStatCard>
           </CustomBox>
         </Grid>
-        <Grid item>
+        <Grid item xl={4} lg={4} l={4} md={6} s={12} sm={12} xs={12}>
           <CustomBox elevation={6} sx={{ background: 'linear-gradient(320deg, rgba(103, 110, 188, 0.58), rgba(103, 110, 188, 0.1) 100%)' }}>
             <MonthStatCard
               icon={<Analytics color='purple' sx={{ mr: 1 }} />}
@@ -58,7 +78,7 @@ const MonthStat = () => {
             </MonthStatCard>
           </CustomBox>
         </Grid>
-        <Grid item>
+        <Grid item xl={4} lg={4} l={4} md={6} s={12} sm={12} xs={12}>
           <CustomBox elevation={6} sx={{ background: 'linear-gradient(320deg, rgba(229, 139, 30, 0.58), rgba(229, 139, 30, 0.11) 100%)' }}>
             <MonthStatCard
               icon={<AccountBalanceWallet color='orange' sx={{ mr: 1 }} />}

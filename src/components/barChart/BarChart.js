@@ -18,7 +18,7 @@ const BarChart = (stat) => {
       H ${x} 
       Z`;
 
-  const labelStyle = { fill: 'rgb(105, 161, 172)', fontSize: '30px' };
+  const labelStyle = { fill: 'rgb(105, 161, 172)', fontSize: '20px' };
   
   const BarWithLabel = ({ arg, barWidth, maxBarWidth, val, startVal, color, value, style, }) => {
     const width = maxBarWidth * barWidth;
@@ -43,8 +43,9 @@ const BarChart = (stat) => {
 
   return (
     <Chart data={statData}
-      width={600}
-      height={300}>
+      // width={600}
+      height={300}
+      >
       <ArgumentAxis />
       <ValueAxis max={100}  />
       <BarSeries

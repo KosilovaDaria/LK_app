@@ -2,7 +2,6 @@ import { Container, CssBaseline } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles'; 
 import AppHeader from "../appHeader/AppHeader";
-import { Box } from '@mui/system';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
@@ -71,8 +70,9 @@ let theme = createTheme({
     values: {
       xs: 0,
       sm: 361,
-      s: 520,
+       s: 520,
       md: 700,
+       l: 850,
       lg: 1000,
       xl: 1200,
     },
