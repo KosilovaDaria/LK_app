@@ -17,16 +17,11 @@ const ApartCard = ({ aparts }, ...props) => {
     minWidth: '320px',
     minHeight: '300px',
     boxShadow: '0px -3px 15px rgba(54, 60, 69, 0.2)',
-    mt: 1,
+    margin:'0 auto',
     [theme.breakpoints.up('xs')]: {
-      width: '100%',
-      margin:'0 auto'
-    },
+      width: '100%',    },
     [theme.breakpoints.between('sm', 's')]: {
       width: '320px',
-    },
-    [theme.breakpoints.between('lg', 'xl')]: {
-      minWidth: '70%',
     },
     [theme.breakpoints.up('xl')]: {
       minWidth: '100%',
@@ -38,10 +33,7 @@ const ApartCard = ({ aparts }, ...props) => {
     [theme.breakpoints.up('xs')]: {
       display: 'block',
     },
-    [theme.breakpoints.between('s', 'xl')]: {
-      display: 'flex',
-    },
-    [theme.breakpoints.up('xl')]: {
+    [theme.breakpoints.up('s')]: {
       display: 'flex',
     },
   }))
@@ -102,13 +94,13 @@ const ApartCard = ({ aparts }, ...props) => {
     [theme.breakpoints.up('lg')]: {
       width: '50%',
       justifyContent: 'flex-start',
-      padding: '0 16px'
+      // padding: '0 16px'
     }
   }))
   return (
     <>
       {data.map((item) => (
-        <Grid item xs={12} sm={12} md={12} lg={6} key={item.id} >
+        <Grid item  md={12} lg={6} key={item.id} >
         {/* <Grid item key={item.id} > */}
           <CustomCard >
             <CustomContent>

@@ -86,20 +86,25 @@ const Notifications = ({ aparts }) => {
             onChange={handleChange(`panel${item.id}`)}
             TransitionProps={{ unmountOnExit: true }}
             sx={{
-              '& .MuiCollapse-wrapper': { width: '60%', marginLeft: '270px' },
-              '& .MuiAccordionDetails-root': { padding: '16px 5px' }
+              '& .MuiCollapse-wrapper': 
+              { maxWidth:'600px',
+              minWidth:'200px',
+                width: {xl:'90%', xs:'60%'}, 
+              marginLeft:{xl:'23%', xs:'23%'} 
+            },
+              // '& .MuiAccordionDetails-root': { padding: '16px 5px' }
             }}
             >
             <AccordionSummary expanded className="MuiAccordionSummary">
-              {item.new ? <NewNotification sx={{ bgcolor: 'primary.main' }} /> : <NewNotification sx={{ bgcolor: '#fff' }} />}
+              {item.new ? <NewNotification sx={{ bgcolor: 'primary.main' }} /> : <NewNotification sx={{ bgcolor: 'none' }} />}
               <Typography sx={{ width: '20%', flexShrink: 0, ml: 2 }}>
                 {item.from}
               </Typography>
-              <Typography sx={{ width: '65%', flexShrink: 1 }} >
+              <Typography sx={{ width: '65%', flexShrink: 1 }} noWrap>
                 {item.title}
-                <Link> (посмотреть)</Link>
+                {/* <Link> (посмотреть)</Link> */}
               </Typography>
-              <Typography>{item.date}</Typography>
+              <Typography sx={{ width: '15%'}} >{item.date}</Typography>
             </AccordionSummary>
             <AccordionDetails >
               <Typography >

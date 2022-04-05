@@ -11,7 +11,7 @@ const AppHeader = () => {
   return (
     <AppBar position="static" color="header" elevation={3}>
       <Container maxWidth='xl'>
-        <Toolbar >
+        <Toolbar  p={0}>
           <Box sx={{ flexGrow: 1, display: 'flex' }}>
             <Avatar sx={{ bgcolor:'primary.main', color:'header', fontSize:'34px', fontWeight:700 }}>A</Avatar>
             <Typography sx={{ display: { xs: 'none',  sm: 'none', md: 'none', lg: 'block'} }}
@@ -36,6 +36,7 @@ const AppHeader = () => {
               style={({ isActive }) => {
                 return {
                   padding: '18px 10px 18px',
+                  marginRight:'20px',
                   textDecoration: "none",
                   color: "#000",
                   borderBottom: isActive ? '3px solid #096DD9' : "none"
@@ -48,7 +49,7 @@ const AppHeader = () => {
                 </Badge>
               </Box>
             </NavLink>
-            <Link to='/signin'><IconButton ><ExitToAppOutlined color="primary" /></IconButton></Link>
+            <Link to='/signin'><IconButton margin={10}><ExitToAppOutlined color="secondary" /></IconButton></Link>
           </Box>
         </Toolbar>
       </Container>

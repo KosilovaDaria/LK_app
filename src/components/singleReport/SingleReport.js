@@ -30,7 +30,7 @@ const rows = [
 function ReportTable() {
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} size="small" aria-label="simple table">
+      <Table sx={{ minWidth: 350 }} size="small" aria-label="simple table">
         <TableHead>
           <TableRow>
             <TableCell>№</TableCell>
@@ -62,7 +62,7 @@ const SingleReport = () => {
   return (
     <>
       <TitleBar
-        arrow={<IconButton component={Link} to='/apartments' ><ArrowBack/></IconButton>}
+        arrow={<IconButton component={Link} to='/apartments/reports' ><ArrowBack/></IconButton>}
         icon={<InsertChartOutlined color="primary" fontSize="large" sx={{ m: '0 10px 0'}} />}
         title='Отчеты' />
         <Subtitle 

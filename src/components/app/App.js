@@ -69,7 +69,7 @@ let theme = createTheme({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 361,
+      sm: 359,
        s: 520,
       md: 700,
        l: 850,
@@ -94,7 +94,7 @@ let theme = createTheme({
 
   
 })
-theme = responsiveFontSizes(theme,{breakpoints:['xs', 'sm', 'md'],disableAlign: false, factor: 5, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'caption', 'button'] });
+theme = responsiveFontSizes(theme,{breakpoints:['xs', 'sm', 'md'],disableAlign: false, factor: 3, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'caption', 'button'] });
 function App() {
   return (
     <>

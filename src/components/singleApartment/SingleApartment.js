@@ -45,7 +45,7 @@ const SingleApartment = ({ aparts }) => {
               </Box> */}
 
               <StatCard />
-              <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+              <Box sx={{ display: 'flex', justifyContent:{xs:'space-around',l:'flex-end'}, mt:4 }}>
                 <Button
                   sx={{ padding: '8px 96px' }}
                   variant="contained"

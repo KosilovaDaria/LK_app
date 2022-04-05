@@ -41,10 +41,14 @@ const StatCard = () => {
     height:40,
     textTransform: 'none',
     fontSize: 16,
-    '&:hover':{
-      backgroundColor:'rgba(9, 109, 217, 1)',
-      color:'rgb(255, 255, 255)'
+    '&:hover': {
+      backgroundColor: 'rgba(9, 109, 217, 1)',
+      color: "white"
     },
+    "&.Mui-selected, &.Mui-selected:hover": {
+      color: "white",
+      backgroundColor: 'rgba(9, 109, 217, 1)',
+    }
   })
 
   return (

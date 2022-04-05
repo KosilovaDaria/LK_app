@@ -85,11 +85,11 @@ const QuarterStat = (stat) => {
   }))
 
   return (
-    <Grid container mt={6}  >
-      <Grid item lg={6} l={7} md={8} s={10} sm={12} >
-        <BarChart stat={newStatData} />
+    <Grid container mt={6} justifyContent="center" >
+      <Grid item lg={6} l={7} md={8} s={10} sm={12} xs={12}>
+        <BarChart stat={newStatData}/>
       </Grid>
-      <Grid item lg={6} l={5} md={5} sm={5} xs={5} textAlign='right'>
+      <Grid item lg={6} l={5} md={12} sm={12} xs={12} sx={{textAlign:{xs:'center', l:'right'}}}>
         <ToggleButtonGroup
           orientation='vertical'
           value={barIndicator}

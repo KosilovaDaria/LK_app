@@ -14,7 +14,7 @@ const MonthStat = () => {
     income: 48250,
   }
 
-  const CustomBox = styled(Paper)(({ theme }) => ({
+  const CustomBox = styled(Paper)({
     maxWidth: '350px',
     minWidth: '250px',
     minHeight: '250px',
@@ -27,22 +27,7 @@ const MonthStat = () => {
     justifyContent: 'space-between',
     padding:'20px 0',
     margin:'0 auto'
-
-    
-    // [theme.breakpoints.up('xs')]: {
-    //   width: '100%',
-    //   // margin:'0 auto'
-    // },
-    // [theme.breakpoints.between('sm', 's')]: {
-    //   width: '320px',
-    // },
-    // [theme.breakpoints.between('lg', 'xl')]: {
-    //   minWidth: '70%',
-    // },
-    // [theme.breakpoints.up('xl')]: {
-    //   minWidth: '100%',
-    // }
-  }))
+  })
 
   
 
