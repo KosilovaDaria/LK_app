@@ -10,7 +10,7 @@ const ApartCard = ({ aparts }, ...props) => {
   useEffect(() => {
     setData(aparts)
   }, []);
-
+console.log(aparts)
 
   const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
@@ -97,6 +97,9 @@ const ApartCard = ({ aparts }, ...props) => {
       // padding: '0 16px'
     }
   }))
+
+
+  
   return (
     <>
       {data.map((item) => (

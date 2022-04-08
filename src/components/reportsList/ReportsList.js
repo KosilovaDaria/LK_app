@@ -2,15 +2,21 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box, 
 import { Link, Outlet } from 'react-router-dom';
 import { ArrowDropDownCircle} from '@mui/icons-material';
 import {  styled } from '@mui/material/styles';
+import { useEffect, useState } from 'react';
+import useService from '../../services/services';
+
 
 const NewReport = styled(Box) ({
   width: 8, 
   height: 8, 
   borderRadius: '50%', 
-  margin: 6
+  margin: 'auto'
 })
 
+
 const ReportsList = () => {
+
+
   const data = [
 
     { id: 0, year: 2022, month: 'Март', new: true, accept: true },
@@ -34,7 +40,7 @@ const ReportsList = () => {
       if (row.year === year) {
         return (
           <TableRow key={row.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell width={2}>{row.new ? <NewReport sx={{ bgcolor: 'primary.main' }} /> : <NewReport sx={{ bgcolor: '#fff' }} />}</TableCell>
+            <TableCell width='5px'>{row.new ? <NewReport sx={{ bgcolor: 'primary.main' }} /> : <NewReport sx={{ bgcolor: 'none' }} />}</TableCell>
             <TableCell align="left" ><Link to='report' style={{ color:'#000' }}>{row.month}</Link></TableCell>
             <TableCell sx={{display:'flex', alignItems:'center', justifyContent:'center', color:'rgba(105, 161, 172, 1)'}}>{row.accept ? <><ArrowDropDownCircle fontSize="small" /><Typography ml={0.5}> Принято</Typography></>: '-'}</TableCell>
           </TableRow>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { render } from 'react-dom';
 import {
   BrowserRouter,
@@ -16,7 +16,6 @@ import Notifications from './components/notifications/Notifications';
 import PassRecovery from './components/passRecovery/PassRecovery';
 import NotFound from './components/notFound/NotFound';
 import ReportLayout from './components/reportLayout/ReportLayout';
-
 const aparts = [
   {
     id: 0,
@@ -81,6 +80,7 @@ const aparts = [
 ]
 
 const rootElement = document.getElementById("root");
+
 render(
   <BrowserRouter>
     <Routes>
@@ -88,7 +88,12 @@ render(
       <Route path="/" element={<App />} >
         <Route path="apartments" element={<ApartLayout aparts={aparts} />} >
           <Route index element={<Apartments aparts={aparts} />} />
-          <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} />
+          <Route path=":apartmentId" element={<SingleApartment aparts={aparts} />} >
+            {/* <Route path="reports" element={<ReportLayout aparts={aparts} />} >
+              <Route index element={<Reports aparts={aparts} />} />
+              <Route path="report" element={<SingleReport aparts={aparts} />} />
+            </Route> */}
+          </Route>
           <Route path="reports" element={<ReportLayout aparts={aparts} />} >
             <Route index element={<Reports aparts={aparts} />} />
             <Route path="report" element={<SingleReport aparts={aparts} />} />

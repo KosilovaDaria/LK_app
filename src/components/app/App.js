@@ -6,6 +6,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+
 let theme = createTheme({
   palette: {
     primary: {
@@ -96,6 +97,12 @@ let theme = createTheme({
 })
 theme = responsiveFontSizes(theme,{breakpoints:['xs', 'sm', 'md'],disableAlign: false, factor: 3, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'caption', 'button'] });
 function App() {
+// const [selectedApart, setSelectedApart] = useState(null);
+// const onApartLoad = (id) => {
+//   setSelectedApart(id)
+// }
+// console.log(selectedApart)
+
   return (
     <>
       <ThemeProvider theme={theme}>

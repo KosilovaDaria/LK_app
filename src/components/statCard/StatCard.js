@@ -2,6 +2,7 @@ import { Box, Typography, Card, CardContent, Button, ToggleButtonGroup, ToggleBu
 import { useState, useEffect } from "react";
 import MonthStat from "../monthStat/MonthStat";
 import QuarterStat from "../quarterStat/QuarterStat";
+import YearStat from "../yearStat/YearStat";
 import { useParams } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import MonthPicker from "../monthPicker/MonthPicker";
@@ -28,9 +29,9 @@ const StatCard = () => {
       case 'quartal':
         return (<QuarterStat />);
       case 'year':
-        return (<QuarterStat />);
+        return (<YearStat />);
       default:
-        return (<MonthStat />);
+        return (< MonthStat/>);
     }
   }
 
