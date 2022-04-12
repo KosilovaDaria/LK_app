@@ -24,21 +24,49 @@ const useService = () => {
 
 const getAllApartments = async () => {
   const res = await request(`${_api}`);
-  // console.log(res)                                                                                                                                                                ;
+  // console.log(res.apartment)                                                                                                                                                                ;
   return res.apartment.map(_transformApartment);
 }
-               
-const getApartment = async (id) => {
-  const res = await request(`${_api}`);
-  return _transformApartment(res.apartment[0]);             
-}     
 
-const getReportsList = async () => {
-  const res = await request(`${_api}`);
-  // console.log(res)                                                                                                                                                                ;
-  return res.apartment.map(_transformApartment); 
+const getApartment = async (id) => {
+  const res = await fetch('/db.json')
+  .then(res =>{
+    return res.json();
+  })
+  .then(res =>{
+    return res.apartment?.find(item => item.urlparam === id );
+  });
+  return _transformApartment(res);  
+}
+  //doesnt work?           
+// const getApartment = async (id) => {
+//   const res = await request(`${_api}`)
+//   .then(res => res.apartment)
+//   .then(res => res.find(item => item.id === id ))
+//   return res;             
+// }     
+
+const getStatistic = async (id) => {
+  const res = await fetch('/db.json')
+  .then(res =>{
+    return res.json();
+  })
+  .then(res =>{
+    return res.apartment?.find(item => item.urlparam === id );
+  });
+  return res.statistic;  
 }
 
+
+const getReportsList = async (id) => {
+  const res = await request(`${_api}`);                                                                                                                                                               ;
+  return res.apartment.map(_transformStatistic); 
+}
+
+const getNotifications = async () => {
+  const res = await request(`${_api}`);                                                                                                                                                               ;
+  return res.notifications; 
+}
 
 
 const _transformApartment = (apartment) => {
@@ -50,7 +78,20 @@ const _transformApartment = (apartment) => {
     contract: apartment.contract,
     ownership: apartment.ownership,
     occupancy:apartment.statistic[0].occupancy,
-    reports:apartment.reports
+    
+  }
+}
+const _transformStatistic = (statistic) => {
+  return {
+    id: statistic.id,
+    name: statistic.name,
+    urlparam:statistic.urlparam,
+    adress: statistic.adress,
+    contract: statistic.contract,
+    ownership: statistic.ownership,
+    occupancy:statistic.statistic[0].occupancy,
+    reports:statistic.reports,
+    statistic: statistic.statistic,
   }
 }
 
@@ -70,7 +111,7 @@ const _transformReport = (report) =>{
   }
 }
 
-return {getAllApartments, getApartment, getReportsList}
+return {getAllApartments, getApartment, getStatistic, getReportsList, getNotifications}
 
 }
 

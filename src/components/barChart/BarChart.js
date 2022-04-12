@@ -34,7 +34,9 @@ const BarChart = (stat) => {
           y={(val - 4)}
           width={100}
           textAnchor="middle"
-          style={labelStyle}>
+          style={labelStyle}
+          fontSize='5px'
+          >
           {value}
         </Chart.Label>
       </>

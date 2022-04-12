@@ -13,9 +13,8 @@ const PieChart = ({data}) => {
 // //   }, {}));
 //   //  console.log(mapStatData(["month", "occupancy"]));
 // console.log(newdata)
-const per = 80;
   const chartData = [
-    { sector: 'first', area: `${per}`, occupancy: 'Загрузка 73%' },
+    { sector: 'first', area: 73, occupancy: 'Загрузка 73%' },
     { sector: 'second', area: 20, occupancy: 'Загрузка 23%' },
   ]
   return (

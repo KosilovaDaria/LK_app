@@ -84,13 +84,17 @@ const SingleReport = () => {
         title='Генеральный директор: ' 
         text=' Игнатьев А.Л.'/>
 
-      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems:'center' }}>
+      <Box sx={{ display: 'flex', flexDirection:{xs:'column', md:'row'}, justifyContent: 'space-between', alignItems:'center' }}>
         <Typography sx={{flexGrow: 1}} variant="h1" component='h2'>Отчет агента № 3/22 за февраль</Typography>
          
           {/* <Button variant='contained' sx={{mr:1}}>Принять</Button> */}
+          <Box  sx={{display:'flex'}}>
           <PopperPopup />
           <Button variant='outlined'sx={{mr:1, ml:1}}><Download />Скачать</Button>
           <Button variant='outlined'><ContentCopy />Печать</Button>
+
+          </Box>
+          
       </Box>
       <ReportTable />
 

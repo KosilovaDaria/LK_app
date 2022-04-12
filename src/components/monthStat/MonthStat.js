@@ -2,8 +2,17 @@ import { Grid, Box,Paper, Typography } from "@mui/material";
 import { DateRange, Analytics, AccountBalanceWallet } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import MonthStatCard from "../monthStatCard/MonthStatCard";
+import { useState, useEffect } from "react";
 
-const MonthStat = () => {
+const MonthStat = (props) => {
+
+  const {stat} = props;
+  // console.log(stat);
+  const [statDat, setStatDat] = useState([]);
+  useEffect(() => {
+    setStatDat(stat)
+  }, [stat]);
+console.log(statDat)
 
 
   const statData =

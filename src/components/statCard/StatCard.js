@@ -7,25 +7,42 @@ import { useParams } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
 import MonthPicker from "../monthPicker/MonthPicker";
 import {  styled } from '@mui/material/styles';
+import useService from '../../services/services';
 
 
-const StatCard = () => {
-  let params = useParams();
-  const [apartmentId, setApartmentId] = useState(null);
+const StatCard = (props) => {
+  // let params = useParams();
+  const { apartId } = props;
+  // console.log(apartId)
+
+  const [stat, setStat] = useState([]);
+  
+  const { getStatistic } = useService();
 
   useEffect(() => {
-    setApartmentId(params.apartmentId);
-  }, [params.apartmentId]);
+    onRequest();
+  }, []);
 
-  const [statistic, setStatistic] = useState('month');
+  const onRequest = () => {
+    getStatistic(apartId)
+        .then(onStatisticLoaded)
+        .catch(() => console.log('didnt work'))
+}
 
-  const handleStatistic = (event, newStatistic) => {
-    setStatistic(newStatistic);
+  const onStatisticLoaded = (apartStat) => {
+    setStat(apartStat)
+
+  }
+  // console.log(stat[0].averege)
+
+  const [statMonth, setStatMonth] = useState('month');
+  const handleStatMonth= (event, newStatMonth) => {
+    setStatMonth(newStatMonth);
   };
   function renderStatComponent(val) {
     switch (val) {
       case 'month':
-        return (<MonthStat />);
+        return (<MonthStat/>);
       case 'quartal':
         return (<QuarterStat />);
       case 'year':
@@ -35,7 +52,7 @@ const StatCard = () => {
     }
   }
 
-  const statComponent = renderStatComponent(statistic);
+  const statComponent = renderStatComponent(statMonth);
 
   const CustomToggleBtn = styled(ToggleButton) ({
     width: 85,
@@ -54,12 +71,12 @@ const StatCard = () => {
 
   return (
     <>
-        <Box maxWidth='550px' sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Box maxWidth='550px' sx={{ display: 'flex', flexDirection:{xs:'column', s:'row'}, justifyContent: 'space-between', alignItems:'center', mt:2 }}>
           <ToggleButtonGroup
             color="primary"
-            value={statistic}
+            value={statMonth}
             exclusive
-            onChange={handleStatistic}
+            onChange={handleStatMonth}
           >
             <CustomToggleBtn value="month" >
               Месяц
@@ -71,7 +88,7 @@ const StatCard = () => {
               Год
             </CustomToggleBtn>
           </ToggleButtonGroup>
-          {/* <MonthPicker /> */}
+          <MonthPicker />
         </Box>
         {statComponent}
      

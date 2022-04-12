@@ -1,6 +1,6 @@
 import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar, Tabs, Tab } from "@mui/material";
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, Outlet } from "react-router-dom";
 import { styled } from '@mui/material/styles';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -9,6 +9,7 @@ const AppHeader = () => {
 
 
   return (
+    <>
     <AppBar position="static" color="header" elevation={3}>
       <Container maxWidth='xl'>
         <Toolbar  p={0}>
@@ -54,6 +55,10 @@ const AppHeader = () => {
         </Toolbar>
       </Container>
     </AppBar>
+    <Outlet/>
+   
+    </>
+    
   )
 }
 

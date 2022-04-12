@@ -1,10 +1,28 @@
 import { Container, CssBaseline } from '@mui/material';
 import { Outlet } from 'react-router-dom';
-import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles'; 
+import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import AppHeader from "../appHeader/AppHeader";
+import SignIn from '../signIn/SignIn';
+import Apartments from '../apartments/Apartments';
+import ApartLayout from '../apartLayout/ApartLayout';
+import SingleApartment from '../singleApartment/SingleApartment';
+import Reports from '../reports/Reports';
+import SingleReport from '../singleReport/SingleReport';
+import Notifications from '../notifications/Notifications';
+import PassRecovery from '../passRecovery/PassRecovery';
+import NotFound from '../notFound/NotFound';
+import ReportLayout from '../reportLayout/ReportLayout';
+import { useEffect, useState } from 'react';
+
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 
 let theme = createTheme({
@@ -65,57 +83,86 @@ let theme = createTheme({
       fontWeight: 500,
       fontSize: '14px',
     }
-  
+
   },
   breakpoints: {
     values: {
       xs: 0,
-      sm: 359,
-       s: 520,
+      sm: 360,
+      s: 520,
       md: 700,
-       l: 850,
+      l: 850,
       lg: 1000,
       xl: 1200,
     },
   },
-  
+
   components: {
     MuiTypography: {
       variants: [
         {
-          props:{ variant:"h1",  component:'h2'},
+          props: { variant: "h1", component: 'h2' },
           style: {
             margin: '30px 0 24px',
           }
-        }
+        },
       ]
     }
-    
+
   },
 
-  
+
 })
-theme = responsiveFontSizes(theme,{breakpoints:['xs', 'sm', 'md'],disableAlign: false, factor: 3, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'caption', 'button'] });
+theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disableAlign: false, factor: 4, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'body1', 'caption', 'button'] });
+
 function App() {
-// const [selectedApart, setSelectedApart] = useState(null);
-// const onApartLoad = (id) => {
-//   setSelectedApart(id)
-// }
-// console.log(selectedApart)
+  
+  const [selectedApart, setSelectedApart] = useState(null);
+  const onApartmentSelected = (id) => {
+    setSelectedApart(id)
+  }
+
 
   return (
-    <>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <AppHeader />
-        <main>
-          <Container maxWidth='xl' >
-            <Outlet />
-          </Container>
-        </main>
-      </ThemeProvider>
-    </>
-  );
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<SignIn />} />
+          <Route path="/" element={<AppHeader />} >
+            <Route path="apartments" element={<ApartLayout />} >
+              <Route index element={<Apartments onApartmentSelected={onApartmentSelected} />} />
+              <Route path=":apartmentId" element={<SingleApartment apartId={selectedApart} />} >
+
+              </Route>
+              <Route path="reports" element={<ReportLayout />} >
+                <Route index element={<Reports />} />
+                <Route path="report" element={<SingleReport />} />
+              </Route>
+            </Route>
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/passrecovery" element={<PassRecovery />} />
+        </Routes>
+      </BrowserRouter>
+    </ThemeProvider>
+  )
+
+  // return (
+  //   <>
+  //     <ThemeProvider theme={theme}>
+  //       <CssBaseline />
+  //       <AppHeader />
+  //       <main>
+  //         <Container maxWidth='xl' >
+  //           <Outlet />
+  //         </Container>
+  //       </main>
+  //     </ThemeProvider>
+  //   </>
+  // );
 }
 
 export default App;

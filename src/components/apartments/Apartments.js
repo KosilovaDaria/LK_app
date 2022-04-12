@@ -8,10 +8,9 @@ import TitleBar from "../titleBar/TitleBar";
 import useService from '../../services/services';
 import { useEffect, useState } from 'react';
 
-const Apartments = ({ aparts }, props) => {
+const Apartments = ( props) => {
   
   const[apartmentList, setapartmentList] = useState([]);
-
   const {getAllApartments} = useService();
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const Apartments = ({ aparts }, props) => {
   const onApartmentListLoaded = (newApartmentList) => {
     setapartmentList(newApartmentList);
   }
-  console.log(apartmentList)
+  // console.log(apartmentList)
 
 
   const CustomCard = styled(Card)(({ theme }) => ({
@@ -141,7 +140,7 @@ const Apartments = ({ aparts }, props) => {
                   {/* <Typography variant="h1">{item.statistic[0].occupancy}%</Typography> */}
                   <Typography variant="h1">{item.occupancy}%</Typography>
                 </ChartText>
-                {/* <PieChart data={item.stat} sx={{ margin: "auto" }} /> */}
+                <PieChart  sx={{ margin: "auto" }} />
               </ChartBox>
             </CustomContent>
             <CardButtons>
@@ -156,7 +155,8 @@ const Apartments = ({ aparts }, props) => {
                 variant="outlined"
                 component={Link}
                 to={`/apartments/${item.urlparam}`}
-                onClick={()=> {props.onApartLoad(item.id)}}
+                // onClick={()=> {props.onApartmentSelected(item.id)}}
+                onClick={()=> {props.onApartmentSelected(item)}}
                 >
                 Статистика
               </Button>
@@ -192,3 +192,6 @@ const Apartments = ({ aparts }, props) => {
 }
 
 export default Apartments;
+
+
+
