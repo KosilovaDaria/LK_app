@@ -1,5 +1,4 @@
-import { Container, CssBaseline } from '@mui/material';
-import { Outlet } from 'react-router-dom';
+import {CssBaseline } from '@mui/material';
 import { createTheme, ThemeProvider, responsiveFontSizes } from '@mui/material/styles';
 import AppHeader from "../appHeader/AppHeader";
 import SignIn from '../signIn/SignIn';
@@ -23,6 +22,7 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import useService from '../../services/services';
 
 
 let theme = createTheme({
@@ -116,12 +116,52 @@ let theme = createTheme({
 theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disableAlign: false, factor: 4, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'body1', 'caption', 'button'] });
 
 function App() {
-  
+
   const [selectedApart, setSelectedApart] = useState(null);
+  //получение id апартамента при клике на карточку
   const onApartmentSelected = (id) => {
     setSelectedApart(id)
   }
 
+  //Для отрисовки списка уведомлений и количества уведомлений в хэдере (для демонстрации)
+  const { getNotifications } = useService();
+  const [notifList, setNotifList] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [newNotifCount, setNewNotifCount] = useState(0);
+
+  //(для демонстрации)
+  useEffect(() => {
+    onRequest();
+  }, [])
+
+  //запуск функции по получению кол-ва новых уведомлений при измении массива списка уведомлений (для демонстрации)
+  useEffect(() => {
+    getNewNotifCount(notifList);
+  }, [notifList])
+
+  //(для демонстрации)
+  const onRequest = () => {
+    getNotifications()
+      .then(onNotificationsLoaded)
+      .catch(() => console.log('Erorr'))
+  }
+
+  //Записть состояния списка уведомлений (для демонстрации)
+  const onNotificationsLoaded = (notifications) => {
+    setNotifList(notifications);
+    setLoading(false);
+  }
+
+  //получение кол-ва новых уведомлений (для демонстрации)
+  const getNewNotifCount = (arr) => {
+    const notifCount = arr.filter(item => item.new === true);
+    setNewNotifCount(notifCount.length)
+  }
+
+  //перезапись кол-ва новых уведомлений (для демонстрации)
+  const changeNotifCount = (newList) => {
+    getNewNotifCount(newList)
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -129,7 +169,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route index element={<SignIn />} />
-          <Route path="/" element={<AppHeader />} >
+          <Route path="/" element={<AppHeader newNotifCount={newNotifCount} />} >
             <Route path="apartments" element={<ApartLayout />} >
               <Route index element={<Apartments onApartmentSelected={onApartmentSelected} />} />
               <Route path=":apartmentId" element={<SingleApartment apartId={selectedApart} />} >
@@ -140,7 +180,7 @@ function App() {
                 <Route path="report" element={<SingleReport />} />
               </Route>
             </Route>
-            <Route path="notifications" element={<Notifications />} />
+            <Route path="notifications" element={<Notifications changeNotifCount={changeNotifCount} notifList={notifList} loading={loading} newNotifCount={newNotifCount} />} />
             <Route path="*" element={<NotFound />} />
           </Route>
           <Route path="/signin" element={<SignIn />} />

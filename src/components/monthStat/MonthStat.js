@@ -1,4 +1,4 @@
-import { Grid, Box,Paper, Typography } from "@mui/material";
+import { Grid, Box, Paper, Typography } from "@mui/material";
 import { DateRange, Analytics, AccountBalanceWallet } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import MonthStatCard from "../monthStatCard/MonthStatCard";
@@ -12,7 +12,8 @@ const MonthStat = (props) => {
   useEffect(() => {
     setStatDat(stat)
   }, [stat]);
-console.log(statDat)
+
+  // console.log(statDat)
 
 
   const statData =
@@ -37,9 +38,6 @@ console.log(statDat)
     padding:'20px 0',
     margin:'0 auto'
   })
-
-  
-
 
   return (
     <>
