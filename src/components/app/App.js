@@ -12,6 +12,7 @@ import PassRecovery from '../passRecovery/PassRecovery';
 import NotFound from '../notFound/NotFound';
 import ReportLayout from '../reportLayout/ReportLayout';
 import { useEffect, useState } from 'react';
+import { useParams } from "react-router-dom";
 
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -122,6 +123,47 @@ function App() {
   const onApartmentSelected = (id) => {
     setSelectedApart(id)
   }
+// console.log(selectedApart)
+
+//для отрисовки новых отчетов и чтение отчетов
+
+const [reportsList, setReportsList] = useState([]);
+
+  const { getReportsList } = useService();
+
+  useEffect(() => {
+    onRequestReports();
+  }, [selectedApart])
+
+  const onRequestReports = () => {
+    getReportsList(selectedApart)
+      .then(onReportsListLoaded)
+  }
+  const onReportsListLoaded = (newReportsList) => {
+    setReportsList(newReportsList);
+  }
+//изменения статуса отчета на прочитано
+const changeReportStatusUnread = (id) => { 
+  reportsList.map(item => (item.reportId === id && (item.unread == true)) ? item.unread = !item.unread : item.unread);
+  getReport(selectedApart, id)
+  .then(onReportLoaded) 
+}
+//изменения статуса отчета на принято
+const changeReportStatusAccept = (id) => {
+  reportsList.map(item => (item.reportId === id && (item.accept == false)) ? item.accept = !item.accept : item.accept);
+}
+
+//для отрисовки одного отчета
+
+  const [report, setReport] = useState([]);
+  const [reportContent, setReportContent] = useState([]);
+
+  const { getReport } = useService();
+  const onReportLoaded = (newReport) => {
+    setReport(newReport);
+    setReportContent(newReport.content)
+  }
+  // console.log(report)
 
   //Для отрисовки списка уведомлений и количества уведомлений в хэдере (для демонстрации)
   const { getNotifications } = useService();
@@ -172,12 +214,12 @@ function App() {
           <Route path="/" element={<AppHeader newNotifCount={newNotifCount} />} >
             <Route path="apartments" element={<ApartLayout />} >
               <Route index element={<Apartments onApartmentSelected={onApartmentSelected} />} />
-              <Route path=":apartmentId" element={<SingleApartment apartId={selectedApart} />} >
+              <Route path=":apartmentId" element={<SingleApartment  onApartmentSelected={onApartmentSelected} />} >
 
               </Route>
               <Route path="reports" element={<ReportLayout />} >
-                <Route index element={<Reports />} />
-                <Route path="report" element={<SingleReport />} />
+                <Route index element={<Reports apartId={selectedApart} reportsList={reportsList} changeReportStatusUnread={changeReportStatusUnread}/>} />
+                <Route path=":reportId" element={<SingleReport apartId={selectedApart} reportContent={reportContent} report={report} changeReportStatusAccept={changeReportStatusAccept}/>} />
               </Route>
             </Route>
             <Route path="notifications" element={<Notifications changeNotifCount={changeNotifCount} notifList={notifList} loading={loading} newNotifCount={newNotifCount} />} />

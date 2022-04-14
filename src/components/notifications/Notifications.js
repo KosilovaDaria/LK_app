@@ -7,7 +7,6 @@ import Clamp from 'react-multiline-clamp';
 import TitleBar from "../titleBar/TitleBar";
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from "../errorMessage/ErrorMessage";
-import './style.css'
 
 const Notifications = (props) => {
   const {notifList, loading} = props;
@@ -38,7 +37,7 @@ const Notifications = (props) => {
   //   setError(true);
   // }
   //функция обновляющая статус на прочитано
-  const setNotifStatus = (id, arr) => {
+  const changeNotifStatus = (id, arr) => {
    arr.map(item => (item.id === id && (item.new = true)) ? item.new = !item.new : item.new);
     // const newArr = arr.map(item => (item.id === id && (item.new = true)) ? item.new = !item.new : item.new);
     // return newNotifList;
@@ -49,7 +48,7 @@ const Notifications = (props) => {
   const [expanded, setExpanded] = useState(false);
   const handleChange = (panel, id) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
-    setNotifStatus(id, notifList);
+    changeNotifStatus(id, notifList);
   };
 
   

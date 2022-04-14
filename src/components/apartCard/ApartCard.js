@@ -4,22 +4,26 @@ import { Link, Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { styled } from '@mui/material/styles';
 
+
+// ЭТОТ КОМПОНЕНТ НЕ АКТУАЛЕН
+// ВЕСЬ КОД В КОМПОНЕНТЕ APARTMENTS
 const ApartCard = ({ aparts }, ...props) => {
 
   const [data, setData] = useState([]);
+
   useEffect(() => {
     setData(aparts)
   }, []);
-console.log(aparts)
-
+ 
   const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
     minWidth: '320px',
     minHeight: '300px',
     boxShadow: '0px -3px 15px rgba(54, 60, 69, 0.2)',
-    margin:'0 auto',
+    margin: '0 auto',
     [theme.breakpoints.up('xs')]: {
-      width: '100%',    },
+      width: '100%',
+    },
     [theme.breakpoints.between('sm', 's')]: {
       width: '320px',
     },
@@ -98,13 +102,11 @@ console.log(aparts)
     }
   }))
 
-
-  
   return (
     <>
       {data.map((item) => (
-        <Grid item  md={12} lg={6} key={item.id} >
-        {/* <Grid item key={item.id} > */}
+        <Grid item md={12} lg={6} key={item.id} >
+          {/* <Grid item key={item.id} > */}
           <CustomCard >
             <CustomContent>
               <TextContent>
@@ -134,7 +136,9 @@ console.log(aparts)
                 sx={{ mr: 2 }}
                 variant="contained"
                 component={Link}
-                to={`/apartments/reports`}>
+                to={`/apartments/reports`}
+                // onClick={() => {props.onApartmentSelected(item.id)}}
+                >
                 Отчеты
               </Button>
               <Button

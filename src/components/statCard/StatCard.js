@@ -34,6 +34,7 @@ const StatCard = (props) => {
 
   }
   // console.log(stat[0].averege)
+  console.log(stat)
 
   const [statMonth, setStatMonth] = useState('month');
   const handleStatMonth= (event, newStatMonth) => {
@@ -42,13 +43,13 @@ const StatCard = (props) => {
   function renderStatComponent(val) {
     switch (val) {
       case 'month':
-        return (<MonthStat/>);
+        return (<MonthStat />);
       case 'quartal':
         return (<QuarterStat />);
       case 'year':
         return (<YearStat />);
       default:
-        return (< MonthStat/>);
+        return (< MonthStat />);
     }
   }
 

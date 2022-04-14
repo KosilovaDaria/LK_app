@@ -7,6 +7,9 @@ import ApartCard from "../apartCard/ApartCard";
 import TitleBar from "../titleBar/TitleBar";
 import useService from '../../services/services';
 import { useEffect, useState } from 'react';
+import { Chart, PieSeries, Title } from '@devexpress/dx-react-chart-material-ui'
+import { Animation, Legend } from '@devexpress/dx-react-chart'
+import { Doughnut } from 'react-chartjs-2';
 
 const Apartments = ( props) => {
   
@@ -19,13 +22,13 @@ const Apartments = ( props) => {
 
   const onRequest = () => {
     getAllApartments()
-        .then(onApartmentListLoaded)
+        .then(onApartmentListLoaded);
+
+        
 }
   const onApartmentListLoaded = (newApartmentList) => {
     setapartmentList(newApartmentList);
   }
-  // console.log(apartmentList)
-
 
   const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
@@ -140,7 +143,18 @@ const Apartments = ( props) => {
                   {/* <Typography variant="h1">{item.statistic[0].occupancy}%</Typography> */}
                   <Typography variant="h1">{item.occupancy}%</Typography>
                 </ChartText>
-                <PieChart  sx={{ margin: "auto" }} />
+                {/* <PieChart  sx={{ margin: "auto" }} dataC={item.chartdata} /> */}
+                <Chart data={item.chartdata}
+                  width={200}
+                  height={200}>
+                  <PieSeries
+                    valueField='area'
+                    argumentField='area'
+                    outerRadius={1}
+                    innerRadius={0.65}
+                  />
+                  <Animation />
+                </Chart>
               </ChartBox>
             </CustomContent>
             <CardButtons>
@@ -148,7 +162,9 @@ const Apartments = ( props) => {
                 sx={{ mr: 2 }}
                 variant="contained"
                 component={Link}
-                to={`/apartments/reports`}>
+                to={`/apartments/reports`}
+                onClick={()=> {props.onApartmentSelected(item.id)}}
+                >
                 Отчеты
               </Button>
               <Button
@@ -156,7 +172,6 @@ const Apartments = ( props) => {
                 component={Link}
                 to={`/apartments/${item.urlparam}`}
                 // onClick={()=> {props.onApartmentSelected(item.id)}}
-                onClick={()=> {props.onApartmentSelected(item)}}
                 >
                 Статистика
               </Button>
@@ -173,7 +188,7 @@ const Apartments = ( props) => {
   }
 
   const items = renderItems(apartmentList);
-
+// console.log(apartmentList)
 
   return (
     <>

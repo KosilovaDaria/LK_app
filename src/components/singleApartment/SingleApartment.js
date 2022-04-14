@@ -31,7 +31,7 @@ const SingleApartment = (props) => {
     //  }
     getApartment(apartmentId)
       .then(onApartLoaded)
-      .catch(onError)
+      .catch(onError);
   }
   const onApartLoaded = (newApartment) => {
     setApartment(newApartment);
@@ -79,7 +79,9 @@ const SingleApartment = (props) => {
             sx={{ padding: '8px 96px' }}
             variant="contained"
             component={Link}
-            to='/apartments/reports'>
+            to='/apartments/reports'
+            onClick={()=> {props.onApartmentSelected(apartment.id)}}
+            >
             Отчеты
           </Button>
         </Box>

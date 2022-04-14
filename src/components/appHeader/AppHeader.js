@@ -7,7 +7,11 @@ import { useParams } from "react-router-dom";
 import useService from '../../services/services';
 
 const AppHeader = (props) => {
- const {newNotifCount} = props;
+
+  //(для демонстрации)
+  const { newNotifCount } = props;
+
+  //(для работы)
   // const { getNewNotifCount } = useService();
   // const [newNotifCount, setNewNotifCount] = useState(0)
 
