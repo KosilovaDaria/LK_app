@@ -63,7 +63,7 @@ let theme = createTheme({
     },
     subtitle1: {
       fontWeight: 500,
-      fontSize: '92px',
+      fontSize: '16px',
     },
     subtitle2: {
       fontWeight: 500,
@@ -128,15 +128,13 @@ function App(props) {
       <BrowserRouter>
         <UserProvider>
           <Routes>
-            <Route path="/" element={<ProtectedRoute><AppHeader /></ProtectedRoute>}>
+            <Route path="/" element={<AppHeader />}>
               <Route index element={<AppHeader />} />
-              <Route path="apartments" element={<ProtectedRoute><ApartLayout /></ProtectedRoute>} >
+              <Route path="apartments" element={<ApartLayout />} >
                 <Route index element={<Apartments
                 // onApartmentSelect={onApartmentSelected} 
                 />} />
-                <Route path=":apartmentId" element={<ProtectedRoute>
-                  <ReportLayout />
-                </ProtectedRoute>} >
+                <Route path=":apartmentId" element={<ReportLayout />} >
                   <Route index element={<SingleApartment
                   // onApartmentSelected={onApartmentSelected} 
                   />} />
@@ -146,11 +144,7 @@ function App(props) {
                   </Route>
                 </Route>
               </Route>
-              <Route path="notifications" element={
-                <ProtectedRoute>
-                  <Notifications />
-                </ProtectedRoute>
-              } />
+              <Route path="notifications" element={<Notifications />} />
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route path="/signin" element={

@@ -49,7 +49,7 @@ const MonthStat = (props) => {
               title={'Загрузка'}
               subtitle={'Апартаменты были несвободны'}
             >
-              <Typography variant="subtitle1" color='emerald.main'>
+              <Typography sx={{fontSize: '92px'}} color='emerald.main'>
                 {statData.occupancy}
                 <Typography component={'span'} variant="h1"> %</Typography>
               </Typography>
