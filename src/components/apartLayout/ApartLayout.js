@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 const ApartLayout = () => {
   return (
     <Container maxWidth='xl'>
-    <Outlet/>
+      <Outlet />
     </Container>
   )
 }

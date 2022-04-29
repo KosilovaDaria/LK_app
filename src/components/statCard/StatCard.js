@@ -1,19 +1,17 @@
-import { Box, Typography, Card, CardContent, Button, ToggleButtonGroup, ToggleButton, } from "@mui/material";
+import { Box, ToggleButtonGroup, ToggleButton, } from "@mui/material";
+import {  styled } from '@mui/material/styles';
 import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import useService from '../../services/services';
+import MonthPicker from "../monthPicker/MonthPicker";
 import MonthStat from "../monthStat/MonthStat";
 import QuarterStat from "../quarterStat/QuarterStat";
 import YearStat from "../yearStat/YearStat";
-import { useParams } from "react-router-dom";
-import { Link, Outlet } from "react-router-dom";
-import MonthPicker from "../monthPicker/MonthPicker";
-import {  styled } from '@mui/material/styles';
-import useService from '../../services/services';
-
 
 const StatCard = (props) => {
-  // let params = useParams();
+
   const { apartId } = props;
-  // console.log(apartId)
 
   const [stat, setStat] = useState([]);
   

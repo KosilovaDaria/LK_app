@@ -2,6 +2,7 @@ import { useCallback } from "react";
 
 const useService = () => {
   const _api = './db.json';
+  // const _api = 'http://lk.local';
 
   const request = useCallback(async (url, method = 'GET', body = null, headers = { 'Content-Type': 'application/json' }) => {
     // setLoading(true);
@@ -22,7 +23,7 @@ const useService = () => {
     }
   }, []);
 //Получение списка апартаментов
-  const getAllApartments = async () => {
+  const getAllApartments = async (id) => {
     const res = await request(`${_api}`);
     // console.log(res.apartment)                                                                                                                                                                ;
     return res.apartment.map(_transformApartment);
@@ -57,15 +58,18 @@ const useService = () => {
     return res.statistic;
   }
 
-
 //получение списка отчетов
   const getReportsList = async (id) => {
     const res = await fetch('/db.json')
       .then(res => {
         return res.json();
       })
+      // .then(res => {
+      //   return res.apartment?.find(item => item.id === id);
+      // });
+      //поиск по URL-параметрам
       .then(res => {
-        return res.apartment?.find(item => item.id === id);
+        return res.apartment?.find(item => item.urlparam === id);
       });
     return res.reports;
   }
@@ -75,15 +79,20 @@ const useService = () => {
       .then(res => {
         return res.json();
       })
+      //поиск по URL-параметрам
       .then(res => {
-        return res.apartment?.find(item => item.id === apartmentId);
+        return res.apartment?.find(item => item.urlparam === apartmentId);
       })
-      // .then(res => {
-      //   return res.reports?.find(item => item.urlparam === reportId);
-      // });
       .then(res => {
-        return res.reports?.find(item => item.reportId === reportId);
+        return res.reports?.find(item => item.urlparam === reportId);
       });
+      //поиск по айдишникам
+      // .then(res => {
+      //   return res.apartment?.find(item => item.id === apartmentId);
+      // })
+      // .then(res => {
+      //   return res.reports?.find(item => item.reportId === reportId);
+      // });
     return res;
   }
 

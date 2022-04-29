@@ -20,7 +20,12 @@
     "@testing-library/user-event": "^13.5.0",
     "chart.js": "^3.7.1",
     "date-fns": "^2.28.0",
+    "faker": "^6.6.6",
+    "json-server": "^0.17.0",
+    "jsonwebtoken": "^8.5.1",
     "material-ui-popup-state": "^2.0.0",
+    "mobx": "^6.5.0",
+    "mobx-react-lite": "^3.3.0",
     "react": "^17.0.2",
     "react-chartjs-2": "^4.1.0",
     "react-dom": "^17.0.2",
@@ -28,12 +33,16 @@
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
     "web-vitals": "^2.1.4"
+
+    
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "rest-api": "json-server --watch db.json",
+    "start-auth": "node server.js"
   },
   "eslintConfig": {
     "extends": [
@@ -52,5 +61,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0"
   }
 }

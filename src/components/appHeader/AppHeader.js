@@ -1,17 +1,19 @@
-import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar, Tabs, Tab } from "@mui/material";
+import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar, } from "@mui/material";
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
-import { Link, NavLink, Outlet } from "react-router-dom";
-import { styled } from '@mui/material/styles';
+import { NavLink, Outlet } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
 import useService from '../../services/services';
+import { useUser } from "../userContext/UserContext";
 
-const AppHeader = (props) => {
+const AppHeader = () => {
 
-  //(для демонстрации)
-  const { newNotifCount } = props;
+  const { logOut, getCurrentUser } = useUser();
 
-  //(для работы)
+  useEffect(() => {
+    getCurrentUser();
+  }, [])
+
+  // //запросы для получения кол-ва новых уведомлений запускать раз в 10 секунд для постоянного отслеживания 
   // const { getNewNotifCount } = useService();
   // const [newNotifCount, setNewNotifCount] = useState(0)
 
@@ -28,6 +30,10 @@ const AppHeader = (props) => {
   // const onNewNotifCountLoaded = (newNotif) => {
   //   setNewNotifCount(newNotif.length);
   // }
+
+  const handleLogout = () => {
+    logOut()
+  }
 
   return (
     <>
@@ -66,20 +72,20 @@ const AppHeader = (props) => {
                 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, mr: 1 }}>Уведомления от УК </Typography>
-                  <Badge badgeContent={newNotifCount} color="primary">
+                  <Badge badgeContent={5} color="primary">
                     <NotificationsNoneOutlined color="primary" />
                   </Badge>
                 </Box>
               </NavLink>
-              <Link to='/signin'><IconButton margin={10}><ExitToAppOutlined color="secondary" /></IconButton></Link>
+              <IconButton
+                onClick={handleLogout}
+                margin={10}><ExitToAppOutlined color="secondary" /></IconButton>
             </Box>
           </Toolbar>
         </Container>
       </AppBar>
       <Outlet />
-
     </>
-
   )
 }
 

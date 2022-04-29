@@ -1,33 +1,39 @@
-import {  styled, } from "@mui/material";
-import { CottageOutlined } from '@mui/icons-material';
 import { Grid, Card, Typography, Button, Box } from "@mui/material";
-import PieChart from "../pieChart/PieChart";
-import { Link, Outlet } from "react-router-dom";
-import ApartCard from "../apartCard/ApartCard";
-import TitleBar from "../titleBar/TitleBar";
-import useService from '../../services/services';
+import { CottageOutlined } from '@mui/icons-material';
+import {  styled } from "@mui/material";
+import { Chart, PieSeries } from '@devexpress/dx-react-chart-material-ui';
+import { Animation } from '@devexpress/dx-react-chart';
 import { useEffect, useState } from 'react';
-import { Chart, PieSeries, Title } from '@devexpress/dx-react-chart-material-ui'
-import { Animation, Legend } from '@devexpress/dx-react-chart'
-import { Doughnut } from 'react-chartjs-2';
+import { Link } from "react-router-dom";
+import { useUser } from '../userContext/UserContext';
+import useService from '../../services/services';
+import TitleBar from "../titleBar/TitleBar";
+import Spinner from '../spinner/Spinner';
 
-const Apartments = ( props) => {
-  
-  const[apartmentList, setapartmentList] = useState([]);
-  const {getAllApartments} = useService();
+const Apartments = (props) => {
+  const { user, getCurrentUser } = useUser();
+
+  const [apartmentList, setapartmentList] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const { getAllApartments } = useService();
 
   useEffect(() => {
     onRequest();
   }, [])
 
+  useEffect(() => {
+    getCurrentUser();
+  }, [])
+
   const onRequest = () => {
     getAllApartments()
-        .then(onApartmentListLoaded);
+      .then(onApartmentListLoaded);
 
-        
-}
+  }
   const onApartmentListLoaded = (newApartmentList) => {
     setapartmentList(newApartmentList);
+    setLoading(false)
   }
 
   const CustomCard = styled(Card)(({ theme }) => ({
@@ -35,9 +41,10 @@ const Apartments = ( props) => {
     minWidth: '320px',
     minHeight: '300px',
     boxShadow: '0px -3px 15px rgba(54, 60, 69, 0.2)',
-    margin:'0 auto',
+    margin: '0 auto',
     [theme.breakpoints.up('xs')]: {
-      width: '100%',    },
+      width: '100%',
+    },
     [theme.breakpoints.between('sm', 's')]: {
       width: '320px',
     },
@@ -119,8 +126,7 @@ const Apartments = ( props) => {
   function renderItems(arr) {
     const items = arr.map((item) => {
       return (
-        <Grid item  md={12} lg={6} key={item.id} >
-        {/* <Grid item key={item.id} > */}
+        <Grid item md={12} lg={6} key={item.id} >
           <CustomCard >
             <CustomContent>
               <TextContent>
@@ -140,10 +146,8 @@ const Apartments = ( props) => {
               <ChartBox>
                 <ChartText>
                   <Typography variant="h2">Загрузка</Typography>
-                  {/* <Typography variant="h1">{item.statistic[0].occupancy}%</Typography> */}
                   <Typography variant="h1">{item.occupancy}%</Typography>
                 </ChartText>
-                {/* <PieChart  sx={{ margin: "auto" }} dataC={item.chartdata} /> */}
                 <Chart data={item.chartdata}
                   width={200}
                   height={200}>
@@ -162,17 +166,17 @@ const Apartments = ( props) => {
                 sx={{ mr: 2 }}
                 variant="contained"
                 component={Link}
-                to={`/apartments/reports`}
-                onClick={()=> {props.onApartmentSelected(item.id)}}
-                >
+                // to={`/apartments/reports`}
+                to={`/apartments/${item.urlparam}/reports`}
+                onClick={() => { props.onApartmentSelect(item.id) }}
+              >
                 Отчеты
               </Button>
               <Button
                 variant="outlined"
                 component={Link}
                 to={`/apartments/${item.urlparam}`}
-                // onClick={()=> {props.onApartmentSelected(item.id)}}
-                >
+              >
                 Статистика
               </Button>
             </CardButtons>
@@ -182,26 +186,27 @@ const Apartments = ( props) => {
     })
     return (
       <>
-      {items}
+        {items}
       </>
-    ) ;
+    );
   }
 
+  const userName = user ? (user.lastname + ' ' + user.firstname + ' ' + user.surname) : null;
   const items = renderItems(apartmentList);
-// console.log(apartmentList)
 
   return (
     <>
       <TitleBar
         icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
-        title='Смирнов Иван Евгеньевич' />
-      <Grid container spacing={2}
-      direction="row"
-      justifyContent="center"
-      alignItems="center">
-        {items}
-        {/* <ApartCard aparts={apartmentList}/> */}
-      </Grid>
+        title={userName}
+      />
+      {loading ? <Spinner /> :
+        <Grid container spacing={2}
+          direction="row"
+          justifyContent="center"
+          alignItems="center">
+          {items}
+        </Grid>}
     </>
   )
 }
