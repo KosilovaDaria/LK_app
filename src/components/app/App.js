@@ -116,11 +116,13 @@ theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disab
 
 function App(props) {
 
-  // const [selectedApart, setSelectedApart] = useState(null);
-  // //получение id апартамента при клике на карточку
-  // const onApartmentSelected = (id) => {
-  //   setSelectedApart(id)
-  // }
+  const [selectedApart, setSelectedApart] = useState(null);
+  //получение id апартамента при клике на карточку
+  const onApartmentSelected = (id) => {
+    setSelectedApart(id)
+  }
+ 
+
 
   return (
     <ThemeProvider theme={theme}>
@@ -128,25 +130,24 @@ function App(props) {
       <BrowserRouter>
         <UserProvider>
           <Routes>
-            <Route path="/" element={<AppHeader />}>
-              <Route index element={<AppHeader />} />
+             <Route path="/" element={
+              <UserProvider><AppHeader /></UserProvider>} >
               <Route path="apartments" element={<ApartLayout />} >
-                <Route index element={<Apartments
-                // onApartmentSelect={onApartmentSelected} 
-                />} />
-                <Route path=":apartmentId" element={<ReportLayout />} >
-                  <Route index element={<SingleApartment
-                  // onApartmentSelected={onApartmentSelected} 
-                  />} />
-                  <Route path="reports" element={<ReportLayout />} >
-                    <Route index element={<Reports />} />
-                    <Route path=":reportId" element={<SingleReport />} />
-                  </Route>
+                <Route index element={<UserProvider><Apartments onApartmentSelect={onApartmentSelected} /></UserProvider>} />
+                <Route path=":apartmentId" element={<SingleApartment onApartmentSelected={onApartmentSelected} />} >
+                </Route>
+                <Route path="reports" element={<ReportLayout />} >
+                  <Route index element={<Reports apartId={selectedApart}/>} />
+                  <Route path=":reportId" element={<SingleReport apartId={selectedApart}/>} />
                 </Route>
               </Route>
-              <Route path="notifications" element={<Notifications />} />
+              <Route path="notifications" element={
+                <ProtectedRoute>
+                    <Notifications />
+                </ProtectedRoute>
+              } />
               <Route path="*" element={<NotFound />} />
-            </Route>
+            </Route> 
             <Route path="/signin" element={
               <UserProvider>
                 <SignIn />
@@ -161,26 +162,23 @@ function App(props) {
 export default App;
 
 
-// репортсы не вложены в синглапартмент 
-//              <Route path="/" element={
-//               <UserProvider><AppHeader /></UserProvider>} >
-//               <Route path="apartments" element={<ApartLayout />} >
-//                 <Route index element={<UserProvider><Apartments onApartmentSelect={onApartmentSelected} /></UserProvider>} />
-//                 <Route path=":apartmentId" element={<SingleApartment onApartmentSelected={onApartmentSelected} />} >
-//                 </Route>
-//                 <Route path="reports" element={<ReportLayout />} >
-//                   <Route index element={<Reports apartId={selectedApart}
-//                   // reportsList={reportsList} changeReportStatusUnread={changeReportStatusUnread} 
-//                   />} />
-//                   <Route path=":reportId" element={<SingleReport apartId={selectedApart}
-//                   //  reportContent={reportContent} report={report} changeReportStatusAccept={changeReportStatusAccept} 
-//                   />} />
-//                 </Route>
-//               </Route>
-//               <Route path="notifications" element={
-//                 <ProtectedRoute>
-//                     <Notifications />
-//                 </ProtectedRoute>
-//               } />
-//               <Route path="*" element={<NotFound />} />
-//             </Route> 
+// репортсы вложенные в синглапартмент 
+//             <Route path="/" element={<AppHeader />}>
+            //   <Route index element={<ApartLayout />} />
+            //   <Route path="apartments" element={<ApartLayout />} >
+            //     <Route index element={<Apartments
+            //     // onApartmentSelect={onApartmentSelected} 
+            //     />} />
+            //     <Route path=":apartmentId" element={<ReportLayout />} >
+            //       <Route index element={<SingleApartment
+            //       // onApartmentSelected={onApartmentSelected} 
+            //       />} />
+            //       <Route path="reports" element={<ReportLayout />} >
+            //         <Route index element={<Reports />} />
+            //         <Route path=":reportId" element={<SingleReport />} />
+            //       </Route>
+            //     </Route>
+            //   </Route>
+            //   <Route path="notifications" element={<Notifications />} />
+            //   <Route path="*" element={<NotFound />} />
+            // </Route>

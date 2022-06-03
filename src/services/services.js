@@ -59,40 +59,40 @@ const useService = () => {
   }
 
 //получение списка отчетов
-  const getReportsList = async (id) => {
-    const res = await fetch('/db.json')
-      .then(res => {
-        return res.json();
-      })
-      // .then(res => {
-      //   return res.apartment?.find(item => item.id === id);
-      // });
-      //поиск по URL-параметрам
-      .then(res => {
-        return res.apartment?.find(item => item.urlparam === id);
-      });
-    return res.reports;
-  }
+  // const getReportsList = async (id) => {
+  //   const res = await fetch('/db.json')
+  //     .then(res => {
+  //       return res.json();
+  //     })
+  //     .then(res => {
+  //       return res.apartment?.find(item => item.id === id);
+  //     });
+  //     // //поиск по URL-параметрам
+  //     // .then(res => {
+  //     //   return res.apartment?.find(item => item.urlparam === id);
+  //     // });
+  //   return res.reports;
+  // }
 
   const getReport = async (apartmentId, reportId) => {
     const res = await fetch('/db.json')
       .then(res => {
         return res.json();
       })
-      //поиск по URL-параметрам
+      // //поиск по URL-параметрам
+      // .then(res => {
+      //   return res.apartment?.find(item => item.urlparam === apartmentId);
+      // })
+      // .then(res => {
+      //   return res.reports?.find(item => item.urlparam === reportId);
+      // });
+      //поиск по айдишникам
       .then(res => {
-        return res.apartment?.find(item => item.urlparam === apartmentId);
+        return res.apartment?.find(item => item.id === apartmentId);
       })
       .then(res => {
         return res.reports?.find(item => item.urlparam === reportId);
       });
-      //поиск по айдишникам
-      // .then(res => {
-      //   return res.apartment?.find(item => item.id === apartmentId);
-      // })
-      // .then(res => {
-      //   return res.reports?.find(item => item.reportId === reportId);
-      // });
     return res;
   }
 
@@ -123,7 +123,7 @@ const useService = () => {
   }
 
 
-  return { getAllApartments, getApartment, getStatistic, getReportsList, getReport, getNotifications, getNewNotifCount }
+  return { getAllApartments, getApartment, getStatistic,  getReport, getNotifications, getNewNotifCount }
 
 }
 

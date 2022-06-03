@@ -9,26 +9,69 @@ import Subtitle from "../subtitle/Subtitle";
 import Spinner from '../spinner/Spinner';
 
 const Reports = (props) => {
-
-  let { apartmentId } = useParams();
-
+  const reports= [
+    {
+      id: 7,
+      date: '2022-05'
+    },
+    {
+      id: 6,
+      date: '2022-04'
+    },
+    {
+      id: 5,
+      date: '2022-03'
+    },
+    {
+      id: 4,
+      date: '2022-02'
+    },
+    {
+      id: 3,
+      date: '2021-12'
+    },
+    {
+      id: 2,
+      date: '2021-11'
+    },
+    {
+      id: 1,
+      date: '2021-10'
+    },
+    {
+      id: 0,
+      date: '2021-09'
+    }
+  ];
   const [reportsList, setReportsList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { getReportsList } = useService();
-
   useEffect(() => {
-    onRequest();
+    setReportsList(reports);
+    setLoading(false);
+    // localStorage.setItem('apartments', JSON.stringify(reportList))
   }, [])
+console.log(reportsList)
+  // let { apartmentId } = useParams();
+  //  const { apartId } = props;
 
-  const onRequest = () => {
-    getReportsList(apartmentId)
-      .then(onReportsListLoaded)
-  }
-  const onReportsListLoaded = (newReportsList) => {
-    setReportsList(newReportsList);
-    setLoading(false)
-  }
+  // const [reportsList, setReportsList] = useState([]);
+  // const [loading, setLoading] = useState(true);
+
+  // const { getReportsList } = useService();
+
+  // useEffect(() => {
+  //   onRequest();
+  // }, [])
+
+  // const onRequest = () => {
+  //   getReportsList(apartId)
+  //     .then(onReportsListLoaded)
+  // }
+  // const onReportsListLoaded = (newReportsList) => {
+  //   setReportsList(newReportsList);
+  //   setLoading(false)
+  // }
   const NewReport = styled(Box)({
     width: 8,
     height: 8,
@@ -49,17 +92,18 @@ const Reports = (props) => {
 
   function renderRow(data, year) {
     const rows = data.map((row) => {
-      if (getYear(`${row.month}`) == year) {
+      if (getYear(`${row.date}`) == year) {
         return (
-          <TableRow key={row.reportId} sx={{ '&:last-child td': { border: 0 }, '&:nth-of-type(even)': { background: '#F8F8F8' } }}>
+          <TableRow key={row.id} sx={{ '&:last-child td': { border: 0 }, '&:nth-of-type(even)': { background: '#F8F8F8' } }}>
             <TableCell width='5px'>{row.unread ? <NewReport sx={{ bgcolor: 'orange.main' }} /> : <NewReport sx={{ bgcolor: 'none' }} />}</TableCell>
             <TableCell align="left" >
               <Link
-                to={`/apartments/${apartmentId}/reports/${row.urlparam}`}
+                to={`/apartments/reports/${row.date}`}
+                // to={`/apartments/${apartmentId}/reports/${row.urlparam}`}
                 style={{ color: '#000' }}
               // onClick={() => props.changeReportStatusUnread(row.reportId)}
               >
-                {getMonthName(new Date(`${row.month}`))}
+                {getMonthName(new Date(`${row.date}`))}
               </Link>
             </TableCell>
             <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(105, 161, 172, 1)' }}>{row.accept ? <><ArrowDropDownCircle fontSize="small" /><Typography ml={0.5}> Принято</Typography></> : '-'}</TableCell>
@@ -98,7 +142,7 @@ const Reports = (props) => {
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>{rows2022} </TableBody>
+              <TableBody>{rows2022}</TableBody>
               <TableHead>
                 <TableRow>
                   <TableCell>2021</TableCell>

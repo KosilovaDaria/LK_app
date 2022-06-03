@@ -32,51 +32,51 @@ export default function SignIn() {
   const handleLogin = async (event) => {
     event.preventDefault();
 
-// //рабочий вариант с запросом
-//     const data = new FormData(event.currentTarget);
+//рабочий вариант с запросом
+    const data = new FormData(event.currentTarget);
 
-//     let response = await fetch('http://lk.local/auth/login', {
+    let response = await fetch('http://lk.local/auth/login', {
 
-//       method: 'POST',
-//       body: JSON.stringify({
-//         email: data.get('email'),
-//         password: data.get('password'),
-//         rememberMe: data.get('rememberMe')
-//       }),
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
+      method: 'POST',
+      body: JSON.stringify({
+        email: data.get('email'),
+        password: data.get('password'),
+        rememberMe: data.get('rememberMe')
+      }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
 
-//     let result = await response.json();
-//     console.log(result)
-//     localStorage.setItem('user', JSON.stringify(result.user))
-//     if (result.success === true) {
-//       getCurrentUser()
+    let result = await response.json();
+    console.log(result)
+    localStorage.setItem('user', JSON.stringify(result.user))
+    if (result.success === true) {
+      getCurrentUser()
       
-//     } else {
-//       console.log('no user')
-//     }
+    } else {
+      console.log('no user')
+    }
 
 
     //эмуляция для проверки работы локалстореджа
-    let userr = {
-      email: "kosilova@edelink.ru",
-      ext_headoffice_id: "1",
-      ext_id: "827",
-      ext_sys_shortname: "ecvilocal",
-      firstname: "Дарья",
-      id: "1",
-      lastname: "Косилова",
-      status: "1",
-      surname: "Дмитриевна"
-    }
-    localStorage.setItem('user', JSON.stringify(userr));
-    getCurrentUser();
-    console.log('sign in')
+//     let userr = {
+//       email: "kosilova@edelink.ru",
+//       ext_headoffice_id: "1",
+//       ext_id: "827",
+//       ext_sys_shortname: "ecvilocal",
+//       firstname: "Дарья",
+//       id: "1",
+//       lastname: "Косилова",
+//       status: "1",
+//       surname: "Дмитриевна"
+//     }
+//     localStorage.setItem('user', JSON.stringify(userr));
+//     getCurrentUser();
+//     console.log('sign in')
 
   };
-console.log(user +' sign in')
+// console.log(user +' sign in')
 
   return (
     <ThemeProvider theme={theme}>

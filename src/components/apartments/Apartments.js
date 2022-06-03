@@ -11,30 +11,89 @@ import TitleBar from "../titleBar/TitleBar";
 import Spinner from '../spinner/Spinner';
 
 const Apartments = (props) => {
+
+
   const { user, getCurrentUser } = useUser();
 
   const [apartmentList, setapartmentList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const { getAllApartments } = useService();
-
-  useEffect(() => {
-    onRequest();
-  }, [])
+  const getAparts = async(action, body) => {
+    const res = await fetch('http://lk.local/app/data', {
+      method: 'POST',
+      body: JSON.stringify({action, ...body}),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return await res.json()
+  }
 
   useEffect(() => {
     getCurrentUser();
   }, [])
 
-  const onRequest = () => {
-    getAllApartments()
-      .then(onApartmentListLoaded);
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user)
+    getAparts('getAparts', {
+      user_id: parseInt(user.id)
+    })
+    .then(res=>{ 
+      console.log(res);
+      console.log(res.response);
+      return res.response;
+      })
+    .then(res => {
+          localStorage.setItem('apartments', JSON.stringify(res))
+      console.log(res);
+      setapartmentList(res);
+      setLoading(false)
+    })
+  },[])
+ 
+  // const aparts = [
+  //   {
+  //     address: "ОАО \"Пархоменко-Плаза\", Санкт-Петербург, ул. Капиталистическая, 25",
+  //     contract_id: "18",
+  //     contract_num: "123456",
+  //     id: "417",
+  //     interest: "1.00",
+  //     loading: "24",
+  //     name: "607 Улучшенный двухместный",
+  //   }
+  // ]
 
-  }
-  const onApartmentListLoaded = (newApartmentList) => {
-    setapartmentList(newApartmentList);
-    setLoading(false)
-  }
+  // useEffect(() => {
+  //   getCurrentUser();
+  // }, [])
+
+  // useEffect(() => {
+  //   setapartmentList(aparts);
+  //   setLoading(false);
+  //   localStorage.setItem('apartments', JSON.stringify(aparts))
+  // }, [])
+
+
+  // const { getAllApartments } = useService();
+
+  // useEffect(() => {
+  //   onRequest();
+  // }, [])
+
+  // useEffect(() => {
+  //   getCurrentUser();
+  // }, [])
+
+  // const onRequest = () => {
+  //   getAllApartments()
+  //     .then(onApartmentListLoaded);
+
+  // }
+  // const onApartmentListLoaded = (newApartmentList) => {
+  //   setapartmentList(newApartmentList);
+  //   setLoading(false)
+  // }
 
   const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
@@ -63,15 +122,21 @@ const Apartments = (props) => {
     },
   }))
 
-  const TextContent = styled(Box)({
+  const TextContent = styled(Box)(({ theme }) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     maxWidth: '350px',
     minWidth: '200px',
-    maxHeight: '150px',
-  })
+    [theme.breakpoints.up('xs')]: {
+      maxHeight: '200px',
+    },
+    [theme.breakpoints.up('s')]: {
+      maxHeight: '150px',
+    },
+    
+  }))
 
   const ChartBox = styled(Box)(({ theme }) => ({
     position: 'relative',
@@ -126,7 +191,9 @@ const Apartments = (props) => {
   function renderItems(arr) {
     const items = arr.map((item) => {
       return (
-        <Grid item md={12} lg={6} key={item.id} >
+        <Grid item md={12} lg={6} 
+        key={item.id} 
+        >
           <CustomCard >
             <CustomContent>
               <TextContent>
@@ -134,26 +201,29 @@ const Apartments = (props) => {
                   {item.name}
                 </Typography>
                 <Typography mb={2}>
-                  {item.adress}
+                  {item.address}
                 </Typography>
                 <Typography >
-                  Договор управления: № {item.contract}
+                  Договор управления: № {item.contract_num}
                 </Typography>
                 <Typography>
-                  Процент валдения: {item.ownership} %
+                  Процент владения: {parseInt(item.interest) * 100} %
                 </Typography>
               </TextContent>
               <ChartBox>
                 <ChartText>
                   <Typography variant="h2">Загрузка</Typography>
-                  <Typography variant="h1">{item.occupancy}%</Typography>
+                  <Typography variant="h1">{item.loading}%</Typography>
                 </ChartText>
-                <Chart data={item.chartdata}
+                <Chart data={[
+                  {value: item.loading},
+                  {value: 100 - item.loading},
+                ]}
                   width={200}
                   height={200}>
                   <PieSeries
-                    valueField='area'
-                    argumentField='area'
+                    valueField='value'
+                    argumentField='value'
                     outerRadius={1}
                     innerRadius={0.65}
                   />
@@ -166,8 +236,8 @@ const Apartments = (props) => {
                 sx={{ mr: 2 }}
                 variant="contained"
                 component={Link}
-                // to={`/apartments/reports`}
-                to={`/apartments/${item.urlparam}/reports`}
+                to={`/apartments/reports`}
+                // to={`/apartments/${item.urlparam}/reports`}
                 onClick={() => { props.onApartmentSelect(item.id) }}
               >
                 Отчеты
@@ -175,7 +245,7 @@ const Apartments = (props) => {
               <Button
                 variant="outlined"
                 component={Link}
-                to={`/apartments/${item.urlparam}`}
+                to={`/apartments/${item.id}`}
               >
                 Статистика
               </Button>
@@ -192,7 +262,7 @@ const Apartments = (props) => {
   }
 
   const userName = user ? (user.lastname + ' ' + user.firstname + ' ' + user.surname) : null;
-  const items = renderItems(apartmentList);
+  const items = user ? renderItems(apartmentList) : console.log('no user');
 
   return (
     <>

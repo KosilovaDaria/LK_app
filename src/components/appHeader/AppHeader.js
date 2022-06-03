@@ -7,7 +7,7 @@ import { useUser } from "../userContext/UserContext";
 
 const AppHeader = () => {
 
-  const { logOut, getCurrentUser } = useUser();
+  const {user, logOut, getCurrentUser } = useUser();
 
   useEffect(() => {
     getCurrentUser();
