@@ -14,19 +14,49 @@ const Notifications = () => {
   const [notifList, setNotifList] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const getNotice = async (action, body) => {
+    const res = await fetch('http://lk.local/app/data', {
+      method: 'POST',
+      body: JSON.stringify({ action, ...body }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return await res.json()
+  }
   useEffect(() => {
-    onRequest();
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user)
+    getNotice('getNotice', {
+      user_id: parseInt(user.id)
+    })
+    .then(res=>{ 
+      console.log(res);
+      console.log(res.response);
+      return res.response;
+      })
+      .then(res => {
+        console.log(res);
+        setNotifList(res);
+        setLoading(false)
+      })
   }, [])
 
-  const onRequest = () => {
-    getNotifications()
-      .then(onNotificationsLoaded)
-  }
 
-  const onNotificationsLoaded = (notifications) => {
-    setNotifList(notifications);
-    setLoading(false);
-  }
+
+  // useEffect(() => {
+  //   onRequest();
+  // }, [])
+
+  // const onRequest = () => {
+  //   getNotifications()
+  //     .then(onNotificationsLoaded)
+  // }
+
+  // const onNotificationsLoaded = (notifications) => {
+  //   setNotifList(notifications);
+  //   setLoading(false);
+  // }
 
   //функция обновляющая статус на прочитано
   const changeNotifStatus = (id, arr) => {
@@ -111,7 +141,7 @@ const Notifications = () => {
           </AccordionSummary>
           <AccordionDetails >
             <Typography sx={{ fontSize: { xs: '12px', md: '16px' } }}>
-              {item.text}
+              {item.content}
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -124,7 +154,7 @@ const Notifications = () => {
     )
   }
 
-  const items = renderItems(notifList);
+  const items = notifList ? renderItems(notifList) : <Spinner /> ;
   const spinner = loading ? <Spinner /> : null;
 
   return (

@@ -9,69 +9,64 @@ import Subtitle from "../subtitle/Subtitle";
 import Spinner from '../spinner/Spinner';
 
 const Reports = (props) => {
-  const reports= [
-    {
-      id: 7,
-      date: '2022-05'
-    },
-    {
-      id: 6,
-      date: '2022-04'
-    },
-    {
-      id: 5,
-      date: '2022-03'
-    },
-    {
-      id: 4,
-      date: '2022-02'
-    },
-    {
-      id: 3,
-      date: '2021-12'
-    },
-    {
-      id: 2,
-      date: '2021-11'
-    },
-    {
-      id: 1,
-      date: '2021-10'
-    },
-    {
-      id: 0,
-      date: '2021-09'
-    }
-  ];
-  const [reportsList, setReportsList] = useState([]);
+
+  const [reportList, setReportList] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    setReportsList(reports);
-    setLoading(false);
-    // localStorage.setItem('apartments', JSON.stringify(reportList))
-  }, [])
-console.log(reportsList)
-  // let { apartmentId } = useParams();
-  //  const { apartId } = props;
+  const getReports = async (action, body) => {
+    const res = await fetch('http://lk.local/app/data', {
+      method: 'POST',
+      body: JSON.stringify({ action, ...body }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return await res.json()
+  }
 
-  // const [reportsList, setReportsList] = useState([]);
+  useEffect(() => {
+    getReports('getReports', {
+      apartment_id: 111,
+      contract_id: "123",
+    })
+    .then(res=>{ 
+      console.log(res);
+      console.log(res.response);
+      return res.response;
+      })
+      .then(res => {
+        console.log(res);
+        setReportList(res);
+        setLoading(false)
+      })
+  }, [])
+
+
+  // const reports= [
+  //   {id: 12, date: '2022-04'},
+  //   {id: 12, date: '2022-03'},
+  //   {id: 12, date: '2022-02'},
+  //   {id: 12, date: '2022-01'},
+  //   {id: 12, date: '2021-12'},
+  //   {id: 12, date: '2021-11'},
+  //   {id: 12, date: '2021-10'},
+  //   {id: 12, date: '2021-09'},
+  //   {id: 12, date: '2021-08'},
+  //   {id: 12, date: '2021-07'}
+  // ];
+  // const [reportList, setReportsList] = useState([]);
   // const [loading, setLoading] = useState(true);
 
-  // const { getReportsList } = useService();
-
   // useEffect(() => {
-  //   onRequest();
+  //   setReportsList(reports);
+  //   setLoading(false);
   // }, [])
+  //   console.log(reportsList)
 
-  // const onRequest = () => {
-  //   getReportsList(apartId)
-  //     .then(onReportsListLoaded)
-  // }
-  // const onReportsListLoaded = (newReportsList) => {
-  //   setReportsList(newReportsList);
-  //   setLoading(false)
-  // }
+  
+
+  
+
   const NewReport = styled(Box)({
     width: 8,
     height: 8,
@@ -114,12 +109,13 @@ console.log(reportsList)
     return rows;
   }
 
-  const rows2022 = renderRow(reportsList, 2022);
-  const rows2021 = renderRow(reportsList, 2021);
+  // const rows2022 = reportList ? renderRow(reportList, 2022) : null;
+  // const rows2021 = reportList ? renderRow(reportList, 2021) : null;
 
-  return (
+  return ( 
     <>
-      {loading ? <Spinner /> :
+    
+       {loading ? <Spinner /> :
         <>
           <TitleBar
             arrow={<IconButton component={Link} to='/apartments' ><ArrowBack /></IconButton>}
@@ -142,7 +138,7 @@ console.log(reportsList)
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>{rows2022}</TableBody>
+              <TableBody>{renderRow(reportList, 2022)}</TableBody>
               <TableHead>
                 <TableRow>
                   <TableCell>2021</TableCell>
@@ -150,12 +146,12 @@ console.log(reportsList)
                   <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>{rows2021}</TableBody>
+              <TableBody>{renderRow(reportList, 2021)}</TableBody>
             </Table>
             <Outlet />
           </TableContainer>
         </>
-      }
+      } 
     </>
   )
 }

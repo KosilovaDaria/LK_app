@@ -12,7 +12,7 @@ export const UserProvider = ({ children }) => {
   //если сторедж пустой то юзер будет пустой и уйдет запрос на сервер
 
   const getCurrentUser = () => {
-    if (localStorage) {
+    if (localStorage.getItem('user')) {
       let object = JSON.parse(localStorage.getItem('user'));
       setUser(object);
       setLoading(false);
@@ -25,6 +25,7 @@ export const UserProvider = ({ children }) => {
 
   const logOut = () => {
     localStorage.removeItem('user');
+    localStorage.removeItem('apartments');
     navigate('/signin')
   }
 

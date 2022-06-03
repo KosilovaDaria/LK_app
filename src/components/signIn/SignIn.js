@@ -59,21 +59,21 @@ export default function SignIn() {
     }
 
 
-    //эмуляция для проверки работы локалстореджа
-//     let userr = {
-//       email: "kosilova@edelink.ru",
-//       ext_headoffice_id: "1",
-//       ext_id: "827",
-//       ext_sys_shortname: "ecvilocal",
-//       firstname: "Дарья",
-//       id: "1",
-//       lastname: "Косилова",
-//       status: "1",
-//       surname: "Дмитриевна"
-//     }
-//     localStorage.setItem('user', JSON.stringify(userr));
-//     getCurrentUser();
-//     console.log('sign in')
+  //   //эмуляция для проверки работы локалстореджа
+  //   let userr = {
+  //     email: "kosilova@edelink.ru",
+  //     ext_headoffice_id: "1",
+  //     ext_id: "827",
+  //     ext_sys_shortname: "ecvilocal",
+  //     firstname: "Дарья",
+  //     id: "1",
+  //     lastname: "Косилова",
+  //     status: "1",
+  //     surname: "Дмитриевна"
+  //   }
+  //   localStorage.setItem('user', JSON.stringify(userr));
+  //   getCurrentUser();
+  //   console.log('sign in')
 
   };
 // console.log(user +' sign in')

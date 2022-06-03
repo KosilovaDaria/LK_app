@@ -8,9 +8,33 @@ import { useUser } from "../userContext/UserContext";
 const AppHeader = () => {
 
   const {user, logOut, getCurrentUser } = useUser();
+  const [newNotifCount, setNewNotifCount] = useState(0)
 
   useEffect(() => {
     getCurrentUser();
+  }, [])
+
+  const getCountNewNotice = async (action, body) => {
+    const res = await fetch('http://lk.local/app/data', {
+      method: 'POST',
+      body: JSON.stringify({ action, ...body }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    return await res.json()
+  }
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user)
+    getCountNewNotice('getCountNewNotice', {
+      user_id: parseInt(user.id)
+    })
+    .then(res=>{ 
+      console.log(res.response);
+      setNewNotifCount(res.response.count);
+      })
   }, [])
 
   // //запросы для получения кол-ва новых уведомлений запускать раз в 10 секунд для постоянного отслеживания 
@@ -72,7 +96,7 @@ const AppHeader = () => {
                 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, mr: 1 }}>Уведомления от УК </Typography>
-                  <Badge badgeContent={5} color="primary">
+                  <Badge badgeContent={newNotifCount} color="primary">
                     <NotificationsNoneOutlined color="primary" />
                   </Badge>
                 </Box>
