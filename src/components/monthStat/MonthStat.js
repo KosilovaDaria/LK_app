@@ -4,60 +4,27 @@ import { styled } from '@mui/material/styles';
 import MonthStatCard from "../monthStatCard/MonthStatCard";
 import { useState, useEffect } from "react";
 import Spinner from '../spinner/Spinner';
+import { getData } from "../../services/services";
 
 const MonthStat = (props) => {
-
-  // const {stat} = props;
-  // console.log(stat);
+console.log('render monthStat')
+  const {date, value} = props;
+  // console.log(date);
   const [loading, setLoading] = useState(true);
   const [statDat, setStatDat] = useState([]);
-  // useEffect(() => {
-  //   setStatDat(stat)
-  // }, [stat]);
-
-  // console.log(statDat)
-
-
-  // const statData =
-  // {
-  //   month: "march",
-  //   occupancy: 73,
-  //   averege: 1325,
-  //   income: 48250,
-  // }
-
-
-  const getApartStatistic = async (action, body) => {
-    const res = await fetch('http://lk.local/app/data', {
-      method: 'POST',
-      body: JSON.stringify({ action, ...body }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    return await res.json()
-  }
 
   useEffect(() => {
-    getApartStatistic('getApartStatistic', {
+    getData('getApartStatistic', {
       apartment_id: 111,
-	    contract_id: "123",
-	    date: "04.2022",
-	    period: "month",
+      contract_id: "123",
+      date: date
     })
-    .then(res=>{ 
-      console.log(res);
-      console.log(res.response);
-      return res.response;
-      })
       .then(res => {
-        console.log(res);
-        setStatDat(res);
+        // console.log('юзэффект в монф стат')
+        setStatDat(res.response[0]);
         setLoading(false)
       })
-  }, [])
-
-
+  }, []);
 
   const CustomBox = styled(Paper)({
     maxWidth: '350px',
@@ -68,9 +35,9 @@ const MonthStat = (props) => {
     borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'space-between',
-    padding:'20px 0',
+    padding:'35px 60px',
     margin:'0 auto'
   })
 
@@ -86,9 +53,9 @@ const MonthStat = (props) => {
               title={'Загрузка'}
               subtitle={'Апартаменты были несвободны'}
             >
-              <Typography sx={{fontSize: '92px'}} color='emerald.main'>
-                {statDat.loading}
-                <Typography component={'span'} variant="h1"> %</Typography>
+              <Typography sx={{fontSize: '72px', fontWeight:700}} color='emerald.main'>
+                {statDat.occupancy}
+                <Typography component={'span'} variant="h3"> %</Typography>
               </Typography>
             </MonthStatCard>
           </CustomBox>
@@ -100,9 +67,9 @@ const MonthStat = (props) => {
               title={'Средний тариф'}
               subtitle={'Cтоимость 1 суток аренды'}
             >
-              <Typography variant="subtitle2" color='purple.main'>
-                {statDat.avg_amount} 
-                <Typography component={'span'} variant="h2"> руб</Typography>
+              <Typography sx={{fontSize: '48px',fontWeight:700}} color='purple.main'>
+                {statDat.averege} 
+                <Typography component={'span'} variant="h1"> руб</Typography>
               </Typography>
             </MonthStatCard>
           </CustomBox>
@@ -114,9 +81,9 @@ const MonthStat = (props) => {
               title={'Доход'}
               subtitle={'Совокупный доход'}
             >
-              <Typography variant="subtitle2" color='orange.main'>
-                {statDat.all_amount}
-                <Typography component={'span'} variant="h2"> руб</Typography>
+              <Typography sx={{fontSize: '48px',fontWeight:700}} color='orange.main'>
+                {statDat.income}
+                <Typography component={'span'} variant="h1"> руб</Typography>
               </Typography>
             </MonthStatCard>
           </CustomBox>

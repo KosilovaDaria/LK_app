@@ -2,53 +2,34 @@ import { Box, Typography, Button, IconButton, Table, TableBody, TableCell, Table
 import { ArrowBack, InsertChartOutlined, Download, ContentCopy, CheckCircle, Close } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import useService from '../../services/services';
+import { getData } from "../../services/services";
 import TitleBar from "../titleBar/TitleBar";
 import Subtitle from "../subtitle/Subtitle";
 import Spinner from '../spinner/Spinner';
+import "./singleReport.css";
 
 const SingleReport = (props) => {
 
   const { apartId } = props;
-  // let { apartmentId } = useParams();
   let { reportId } = useParams();
   console.log(apartId + reportId)
 
   const [report, setReport] = useState(null);
-  const [reportContent, setReportContent] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const { getReport } = useService();
-
-  const viewReport = async (action, body) => {
-    const res = await fetch('http://lk.local/app/data', {
-      method: 'POST',
-      body: JSON.stringify({ action, ...body }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    return await res.json()
-  }
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
     console.log(user)
-    viewReport('viewReport', {
+    getData('viewReport', {
       user_id: parseInt(user.id),
       apartment_id: 111,
       report_id: 11,
     })
       .then(res => {
-        console.log(res);
-        return res;
-      })
-      .then(res => {
-        // localStorage.setItem('apartments', JSON.stringify(res))
-        console.log(res);
         setReport(res);
         setLoading(false)
       })
+
   }, [])
 
   function createMarkupHeader() {
@@ -59,20 +40,6 @@ const SingleReport = (props) => {
     const htmlBody = report.html
     return { __html: htmlBody };
   }
-
-
-  // useEffect(() => {
-  //   onRequest();
-  // }, [])
-  // const onRequest = () => {
-  //   getReport(apartId, reportId)
-  //     .then(onReportLoaded)
-  // }
-  // const onReportLoaded = (newReport) => {
-  //   setReport(newReport);
-  //   setReportContent(newReport.content)
-  //   setLoading(false)
-  // }
 
   const [show, setShow] = useState(false);
 
@@ -100,35 +67,34 @@ const SingleReport = (props) => {
                 sx={{ m: '0 10px 0' }} />}
             title='Отчеты' />
 
-          <div dangerouslySetInnerHTML={createMarkupHeader()} />
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems:{ xs: 'flex-start', md: 'flex-end' } , mb:'20px',flexDirection: { xs: 'column', md: 'row' } }}>
+           
+            <div dangerouslySetInnerHTML={createMarkupHeader()} />
 
-          <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
-            <Typography sx={{ flexGrow: 1 }} variant="h1" component='h2'>
-              {/* {report.title} */}
-            </Typography>
-            <Box sx={{ display: 'flex' }}>
-              <Button
-                variant='contained'
-                onClick={() => {
-                  // props.changeReportStatusAccept(report.reportId);
-                  handleClick()
-                }}
-              >Принять</Button>
-
-              {show ? (
+              <Box sx={{ display: 'flex' }}>
                 <Button
-                  sx={{ position: 'absolute', top: '30%', left: '40%', width: '250px', mr: 1, mb: 5, textTransform: 'none', bgcolor: 'rgba(226, 236, 245, 1)' }}
-                  startIcon={<CheckCircle />}
-                  endIcon={<Close />}
-                  onClick={handleClick}
-                >
-                  <Typography >Отчет принят</Typography>
-                </Button>
-              ) : null}
+                  variant='contained'
+                  onClick={() => {
+                    // props.changeReportStatusAccept(report.reportId);
+                    handleClick()
+                  }}
+                >Принять</Button>
 
-              <Button variant='outlined' sx={{ mr: 1, ml: 1 }}><Download />Скачать</Button>
-              <Button variant='outlined'><ContentCopy />Печать</Button>
-            </Box>
+                {show ? (
+                  <Button
+                    sx={{ position: 'absolute', top: '30%', left: '40%', width: '250px', mr: 1, mb: 5, textTransform: 'none', bgcolor: 'rgba(226, 236, 245, 1)' }}
+                    startIcon={<CheckCircle />}
+                    endIcon={<Close />}
+                    onClick={handleClick}
+                  >
+                    <Typography >Отчет принят</Typography>
+                  </Button>
+                ) : null}
+
+                <Button variant='outlined' sx={{ mr: 1, ml: 1 }}><Download />Скачать</Button>
+                <Button variant='outlined'><ContentCopy />Печать</Button>
+              </Box>
+            
           </Box>
 
           <div dangerouslySetInnerHTML={createMarkupBody()} />

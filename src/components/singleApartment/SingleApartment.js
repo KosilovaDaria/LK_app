@@ -3,7 +3,6 @@ import { ArrowBack, CottageOutlined, QueryStats } from '@mui/icons-material';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
-import useService from '../../services/services';
 import TitleBar from "../titleBar/TitleBar";
 import Subtitle from "../subtitle/Subtitle";
 import StatCard from "../statCard/StatCard";
@@ -12,25 +11,21 @@ import Spinner from '../spinner/Spinner';
 import { useUser } from '../userContext/UserContext';
 
 const SingleApartment = (props) => {
-
+  console.log('render SingleApartment')
   let { apartmentId } = useParams();
-  console.log(apartmentId)
-  // const { apartId } = props;
+  // console.log(apartmentId)
 
   const [apartment, setApartment] = useState([]);
   const [userName, setUserName] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
 
-  // const { getApartment } = useService();
-
   useEffect(() => {
-    getUserName()
+    getUserName();
   }, [])
 
   const getUserName = () => {
     const user = JSON.parse(localStorage.getItem('user'));
-    // const userName = user.lastname + ' ' + user.firstname[0] + '.' + user.surname[0] + '.';
     const userName = user.lastname + ' ' + user.firstname + ' ' + user.surname + ', доля владения - ';
     setUserName(userName);
   }
@@ -43,7 +38,7 @@ const SingleApartment = (props) => {
     const apartments = JSON.parse(localStorage.getItem('apartments'));
     const apart = apartments?.find(item => item.id == id);
     onApartLoaded(apart);
-    console.log(apart)
+    // console.log(apart)
   }
   // const updateApart = () => {
   //   getApartment(apartmentId)

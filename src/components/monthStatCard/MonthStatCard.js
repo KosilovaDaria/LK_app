@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 const MonthStatCard = (props) => {
   return (
     <>
-      <Box sx={{ maxWidth: '350px', display: 'flex', justifyContent: 'center' }}  elevation={3}>
+      <Box sx={{ maxWidth: '350px', maxHeight:'238px', display: 'flex', justifyContent: 'center', mb:'10px' }}  elevation={3}>
         <>{props.icon}</>
         <Typography variant="h2">{props.title}</Typography>
       </Box>

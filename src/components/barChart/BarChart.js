@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 
 
 const BarChart = (stat) => {
+  console.log('render BarChart')
   const [statData, setStatData] = useState([]);
   useEffect(() => {
     setStatData(stat.stat);
@@ -18,14 +19,14 @@ const BarChart = (stat) => {
       H ${x} 
       Z`;
 
-  const labelStyle = { fill: 'rgb(105, 161, 172)', fontSize: '20px' };
+  const labelStyle = {  fontSize: '20px' };
   
   const BarWithLabel = ({ arg, barWidth, maxBarWidth, val, startVal, color, value, style, }) => {
     const width = maxBarWidth * barWidth;
     return (
       <>
         <linearGradient id="linear-gradient" x2='0%' y2='100%'>
-          <stop offset="0%"  stopColor='rgb(105, 161, 172)' />
+          <stop offset="0%"  stopColor={statData[0].color} />
           <stop offset="100%"  stopColor='rgb(245, 245, 245)' />
         </linearGradient>
         <path d={getPath(arg - width / 2, width, val, startVal)} fill="url(#linear-gradient)" style={style} />
@@ -34,8 +35,9 @@ const BarChart = (stat) => {
           y={(val - 4)}
           width={100}
           textAnchor="middle"
-          style={labelStyle}
-          fontSize='5px'
+          // style={labelStyle}
+          fontSize='12px'
+          color = {statData[0].color}
           >
           {value}
         </Chart.Label>
@@ -52,9 +54,9 @@ const BarChart = (stat) => {
       <ValueAxis max={100}  />
       <BarSeries
         valueField='value'
-        argumentField='month'
+        argumentField='date'
         pointComponent={BarWithLabel}
-        color='rgb(105, 161, 172)'
+        color='color'
       />
       <Tooltip />
       <Animation />

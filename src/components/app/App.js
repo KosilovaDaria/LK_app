@@ -23,6 +23,7 @@ import Notifications from '../notifications/Notifications';
 import SignIn from '../signIn/SignIn';
 import PassRecovery from '../passRecovery/PassRecovery';
 import NotFound from '../notFound/NotFound';
+import RequireAuth from '../auth/RequireAuth';
 
 let theme = createTheme({
   palette: {
@@ -114,7 +115,8 @@ let theme = createTheme({
 })
 theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disableAlign: false, factor: 4, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'body1', 'caption', 'button'] });
 
-function App(props) {
+function App() {
+  console.log('render App')
 
   const [selectedApart, setSelectedApart] = useState(null);
   //получение id апартамента при клике на карточку
@@ -122,8 +124,6 @@ function App(props) {
     setSelectedApart(id)
   }
  
-
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -131,9 +131,9 @@ function App(props) {
         <UserProvider>
           <Routes>
              <Route path="/" element={
-              <UserProvider><AppHeader /></UserProvider>} >
+              <RequireAuth><AppHeader/></RequireAuth>} >
               <Route path="apartments" element={<ApartLayout />} >
-                <Route index element={<UserProvider><Apartments onApartmentSelect={onApartmentSelected} /></UserProvider>} />
+                <Route index element={<RequireAuth><Apartments onApartmentSelect={onApartmentSelected} /> </RequireAuth>} />
                 <Route path=":apartmentId" element={<SingleApartment onApartmentSelected={onApartmentSelected} />} >
                 </Route>
                 <Route path="reports" element={<ReportLayout />} >
@@ -149,9 +149,9 @@ function App(props) {
               <Route path="*" element={<NotFound />} />
             </Route> 
             <Route path="/signin" element={
-              <UserProvider>
+              
                 <SignIn />
-              </UserProvider>} />
+              } />
             <Route path="/passrecovery" element={<PassRecovery />} />
           </Routes>
         </UserProvider>

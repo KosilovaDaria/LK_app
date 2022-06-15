@@ -1,62 +1,48 @@
 import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar, } from "@mui/material";
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
-import { NavLink, Outlet } from "react-router-dom";
+import { NavLink, Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import useService from '../../services/services';
+import { getData } from "../../services/services";
 import { useUser } from "../userContext/UserContext";
 
 const AppHeader = () => {
-
-  const {user, logOut, getCurrentUser } = useUser();
-  const [newNotifCount, setNewNotifCount] = useState(0)
+  console.log('render AppHeader')
+  const { getCurrentUser, logOut } = useUser();
+  const [newNotifCount, setNewNotifCount] = useState(0);
 
   useEffect(() => {
     getCurrentUser();
   }, [])
 
-  const getCountNewNotice = async (action, body) => {
-    const res = await fetch('http://lk.local/app/data', {
-      method: 'POST',
-      body: JSON.stringify({ action, ...body }),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    return await res.json()
-  }
-
+  // //запросы для получения кол-ва новых уведомлений запускать раз в 10 секунд для постоянного отслеживания 
+  //сбросить эффект
   useEffect(() => {
+    if (localStorage.getItem('user')) {
+      // console.log('use effect if')
+      return <Navigate to="/apartments" replace={true} />
+    }
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
-    getCountNewNotice('getCountNewNotice', {
+    getData('getCountNewNotice', {
       user_id: parseInt(user.id)
     })
-    .then(res=>{ 
-      console.log(res.response);
-      setNewNotifCount(res.response.count);
+      .then(res => {
+        setNewNotifCount(res.response.count);
       })
+    // setInterval(() => {
+    //   getData('getCountNewNotice', {
+    //     user_id: parseInt(user.id)
+    //   })
+    //   .then(res=>{ 
+    //     console.log(res.response);
+    //     setNewNotifCount(res.response.count);
+    //     })
+
+    // }, 20000)
   }, [])
-
-  // //запросы для получения кол-ва новых уведомлений запускать раз в 10 секунд для постоянного отслеживания 
-  // const { getNewNotifCount } = useService();
-  // const [newNotifCount, setNewNotifCount] = useState(0)
-
-  // useEffect(() => {
-  //   onRequest();
-  // }, [])
-
-  // const onRequest = () => {
-  //   getNewNotifCount()
-  //     .then(onNewNotifCountLoaded)
-  //     .catch(() => console.log('ooops'))
-  // }
-
-  // const onNewNotifCountLoaded = (newNotif) => {
-  //   setNewNotifCount(newNotif.length);
-  // }
-
+  
+  
   const handleLogout = () => {
-    logOut()
+    logOut();
   }
 
   return (

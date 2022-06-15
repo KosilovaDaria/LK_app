@@ -1,57 +1,65 @@
 import { Grid, Card, Typography, Button, Box } from "@mui/material";
 import { CottageOutlined } from '@mui/icons-material';
-import {  styled } from "@mui/material";
+import { styled } from "@mui/material";
 import { Chart, PieSeries } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
+import { getData } from "../../services/services";
 import { useUser } from '../userContext/UserContext';
-import useService from '../../services/services';
 import TitleBar from "../titleBar/TitleBar";
 import Spinner from '../spinner/Spinner';
 
 const Apartments = (props) => {
-
+  console.log('render apartments')
 
   const { user, getCurrentUser } = useUser();
 
   const [apartmentList, setapartmentList] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const getAparts = async(action, body) => {
-    const res = await fetch('http://lk.local/app/data', {
-      method: 'POST',
-      body: JSON.stringify({action, ...body}),
-      headers: {
-        'Content-Type': 'application/json'
-      }
-    });
-    return await res.json()
-  }
-
   useEffect(() => {
     getCurrentUser();
+    console.log('useEffect getCurrentUser')
   }, [])
 
   useEffect(() => {
+    console.log('useEffect onRequest')
+    // onRequest();
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
-    getAparts('getAparts', {
+    getData('getAparts', {
       user_id: parseInt(user.id)
     })
-    .then(res=>{ 
-      console.log(res);
-      console.log(res.response);
-      return res.response;
+      .then(res => {
+        console.log('useEffect getData then')
+        localStorage.setItem('apartments', JSON.stringify(res.response))
+        setapartmentList(res.response);
+        setLoading(false);
+        
       })
-    .then(res => {
-          localStorage.setItem('apartments', JSON.stringify(res))
-      console.log(res);
-      setapartmentList(res);
-      setLoading(false)
-    })
-  },[])
+  }, [])
+
+  // const onRequest = () => {
+  //   console.log('onRequest')
+  //   const user = JSON.parse(localStorage.getItem('user'));
+  //   getData('getAparts', {
+  //     user_id: parseInt(user.id)
+  //   })
+  //     .then(res => {
+  //       console.log('useEffect getData then')
+  //       onApartsListLoaded(res.response)
+  //     })
+  // }
+
+  // const onApartsListLoaded = (newApartList) => {
+  //   console.log('onApartsListLoaded')
+  //   localStorage.setItem('apartments', JSON.stringify(newApartList))
+  //   setapartmentList(newApartList);
+  //   setLoading(false);
+  // }
+
  
+
   // const aparts = [
   //   {
   //     address: "ОАО \"Пархоменко-Плаза\", Санкт-Петербург, ул. Капиталистическая, 25",
@@ -73,27 +81,6 @@ const Apartments = (props) => {
   //   setLoading(false);
   //   localStorage.setItem('apartments', JSON.stringify(aparts))
   // }, [])
-
-
-  // const { getAllApartments } = useService();
-
-  // useEffect(() => {
-  //   onRequest();
-  // }, [])
-
-  // useEffect(() => {
-  //   getCurrentUser();
-  // }, [])
-
-  // const onRequest = () => {
-  //   getAllApartments()
-  //     .then(onApartmentListLoaded);
-
-  // }
-  // const onApartmentListLoaded = (newApartmentList) => {
-  //   setapartmentList(newApartmentList);
-  //   setLoading(false)
-  // }
 
   const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
@@ -135,7 +122,7 @@ const Apartments = (props) => {
     [theme.breakpoints.up('s')]: {
       maxHeight: '150px',
     },
-    
+
   }))
 
   const ChartBox = styled(Box)(({ theme }) => ({
@@ -189,10 +176,11 @@ const Apartments = (props) => {
   }))
 
   function renderItems(arr) {
+    console.log('Apartments renderItems')
     const items = arr.map((item) => {
       return (
-        <Grid item md={12} lg={6} 
-        key={item.id} 
+        <Grid item md={12} lg={6}
+          key={item.id}
         >
           <CustomCard >
             <CustomContent>
@@ -216,8 +204,8 @@ const Apartments = (props) => {
                   <Typography variant="h1">{item.loading}%</Typography>
                 </ChartText>
                 <Chart data={[
-                  {value: item.loading},
-                  {value: 100 - item.loading},
+                  { value: item.loading },
+                  { value: 100 - item.loading },
                 ]}
                   width={200}
                   height={200}>
@@ -261,8 +249,13 @@ const Apartments = (props) => {
     );
   }
 
+  // const items = renderItems(apartmentList);
+  // const spinner = loading ? <Spinner /> : null;
+
+
   const userName = user ? (user.lastname + ' ' + user.firstname + ' ' + user.surname) : null;
-  const items = user ? renderItems(apartmentList) : console.log('no user');
+  const content = (apartmentList || !loading) ? renderItems(apartmentList) : null;
+  const spinner = loading ? <Spinner /> : null
 
   return (
     <>
@@ -270,13 +263,15 @@ const Apartments = (props) => {
         icon={<CottageOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
         title={userName}
       />
-      {loading ? <Spinner /> :
+      {/* {loading ? <Spinner /> : */}
         <Grid container spacing={2}
           direction="row"
           justifyContent="center"
           alignItems="center">
-          {items}
-        </Grid>}
+          {spinner}
+          {/* {items} */}
+          {content}
+        </Grid>
     </>
   )
 }

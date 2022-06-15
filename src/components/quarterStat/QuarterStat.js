@@ -1,30 +1,48 @@
 import { Button, ToggleButtonGroup, ToggleButton, Box, Typography, Grid, Stack, MenuItem } from "@mui/material";
 import { DateRange, Analytics, AccountBalanceWallet, ArrowBackIos } from '@mui/icons-material';
 import BarChart from "../barChart/BarChart";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
+import { getData } from "../../services/services";
 
-const QuarterStat = (stat) => {
-  const statData = [
-    {
-      month: "Март",
-      occupancy: 73,
-      averege: 1325,
-      income: 48250
-    },
-    {
-      month: "Февраль",
-      occupancy: 83,
-      averege: 1178,
-      income: 45732
-    },
-    {
-      month: "Январь",
-      occupancy: 62,
-      averege: 987,
-      income: 36587
-    }
-  ]
+const QuarterStat = (props) => {
+  console.log('render QuartStat')
+  const {date} = props;
+  // console.log(date);
+  const [loading, setLoading] = useState(true);
+  const [statDat, setStatDat] = useState([]);
+
+  useEffect(() => {
+    getData('getApartStatistic', {
+      apartment_id: 111,
+      contract_id: "123",
+      date: date
+    })
+      .then(res => {
+        setStatDat(res.response);
+        setLoading(false)
+      })
+  }, []);
+  // const statData = [
+  //   {
+  //     month: "Март",
+  //     occupancy: 73,
+  //     averege: 1325,
+  //     income: 48250
+  //   },
+  //   {
+  //     month: "Февраль",
+  //     occupancy: 83,
+  //     averege: 1178,
+  //     income: 45732
+  //   },
+  //   {
+  //     month: "Январь",
+  //     occupancy: 62,
+  //     averege: 987,
+  //     income: 36587
+  //   }
+  // ]
 
   const [barIndicator, setBarIndicator] = useState('occupancy');
 
@@ -32,7 +50,7 @@ const QuarterStat = (stat) => {
     setBarIndicator(newBarIndicator);
   };
   //создание массива данных для построения графика загрузки/ср тарифа/доходов
-  const mapStatData = (keys) => statData.map(data => keys.reduce((keyValue, key) => {
+  const mapStatData = (keys) => statDat.map(data => keys.reduce((keyValue, key) => {
     keyValue[key] = data[key];
     return keyValue;
   }, {}));
@@ -41,28 +59,29 @@ const QuarterStat = (stat) => {
   //написать функцию по замене названия ключа индикатора на value
   switch (barIndicator) {
     case 'occupancy':
-      newStatData = mapStatData(["month", "occupancy"]);
+      newStatData = mapStatData(["date", "occupancy"]);
       newStatData.map(({ occupancy, ...num }) => (num.value = num.occupancy, num));
-      newStatData.forEach(num => (num.value = num.occupancy, delete num.occupancy));
+      newStatData.forEach(num => (num.value = num.occupancy, num.color = '#69A1AC', delete num.occupancy));
       break;
     case 'averege':
-      newStatData = mapStatData(["month", "averege"]);
+      newStatData = mapStatData(["date", "averege"]);
       newStatData.map(({ averege, ...num }) => (num.value = num.averege, num));
-      newStatData.forEach(num => (num.value = num.averege, delete num.averege));
+      newStatData.forEach(num => (num.value = num.averege, num.color = '#676EBC', delete num.averege));
       break;
     case 'income':
-      newStatData = mapStatData(["month", "income"]);
+      newStatData = mapStatData(["date", "income"]);
       newStatData.map(({ income, ...num }) => (num.value = num.income, num));
-      newStatData.forEach(num => (num.value = num.income, delete num.income));
+      newStatData.forEach(num => (num.value = num.income, num.color = '#E58B1E', delete num.income));
       break;
     default:
-      newStatData = mapStatData(["month", "occupancy"]);
+      newStatData = mapStatData(["date", "occupancy"]);
 
       newStatData.map(({ occupancy, ...num }) => (num.value = num.occupancy, num));
-      newStatData.forEach(num => (num.value = num.occupancy, delete num.occupancy));
+      newStatData.forEach(num => (num.value = num.occupancy, num.color = '#69A1AC', delete num.occupancy));
 
       break;
   }
+  // console.log(newStatData)
 
   const CustomToggleBtn = styled(ToggleButton)(({ selectedcolor }) => ({
     width: 258,

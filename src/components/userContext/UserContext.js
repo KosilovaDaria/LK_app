@@ -4,6 +4,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -20,6 +21,7 @@ export const UserProvider = ({ children }) => {
     } else {
       setLoading(false);
       setUser(null);
+      navigate('/signin')
     }
   };
 
@@ -29,10 +31,8 @@ export const UserProvider = ({ children }) => {
     navigate('/signin')
   }
 
-// console.log(user)
-
   return (
-    <UserContext.Provider value={{ user, setUser, getCurrentUser, logOut, loading }}>
+    <UserContext.Provider value={{ user, setUser, getCurrentUser, logOut, loading, auth }}>
       {children}
     </UserContext.Provider>
   );
