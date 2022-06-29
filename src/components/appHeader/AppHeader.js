@@ -6,7 +6,7 @@ import { getData } from "../../services/services";
 import { useUser } from "../userContext/UserContext";
 
 const AppHeader = () => {
-  console.log('render AppHeader')
+  // console.log('render AppHeader')
   const { getCurrentUser, logOut } = useUser();
   const [newNotifCount, setNewNotifCount] = useState(0);
 
@@ -17,10 +17,11 @@ const AppHeader = () => {
   // //запросы для получения кол-ва новых уведомлений запускать раз в 10 секунд для постоянного отслеживания 
   //сбросить эффект
   useEffect(() => {
-    if (localStorage.getItem('user')) {
-      // console.log('use effect if')
-      return <Navigate to="/apartments" replace={true} />
-    }
+    // console.log('useEffect AppHeader')
+    // if (localStorage.getItem('user')) {
+    //   // console.log('use effect if')
+    //   return <Navigate to="/apartments" replace={true} />
+    // }
     const user = JSON.parse(localStorage.getItem('user'));
     getData('getCountNewNotice', {
       user_id: parseInt(user.id)
@@ -38,6 +39,7 @@ const AppHeader = () => {
     //     })
 
     // }, 20000)
+    console.log(newNotifCount)
   }, [])
   
   

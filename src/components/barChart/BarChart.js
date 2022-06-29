@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 
 const BarChart = (stat) => {
-  console.log('render BarChart')
+  // console.log('render BarChart')
   const [statData, setStatData] = useState([]);
   useEffect(() => {
     setStatData(stat.stat);
@@ -22,6 +22,7 @@ const BarChart = (stat) => {
   const labelStyle = {  fontSize: '20px' };
   
   const BarWithLabel = ({ arg, barWidth, maxBarWidth, val, startVal, color, value, style, }) => {
+  //  console.log('BarWithLabel')
     const width = maxBarWidth * barWidth;
     return (
       <>

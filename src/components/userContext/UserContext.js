@@ -4,6 +4,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [userName, setUserName] = useState('');
   const [auth, setAuth] = useState(false);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
@@ -15,7 +16,9 @@ export const UserProvider = ({ children }) => {
   const getCurrentUser = () => {
     if (localStorage.getItem('user')) {
       let object = JSON.parse(localStorage.getItem('user'));
+      let name = object ? (object.lastname + ' ' + object.firstname + ' ' + object.surname) : null;
       setUser(object);
+      setUserName(name);
       setLoading(false);
       navigate('/apartments')
     } else {
@@ -32,7 +35,7 @@ export const UserProvider = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={{ user, setUser, getCurrentUser, logOut, loading, auth }}>
+    <UserContext.Provider value={{ user, userName, setUser, getCurrentUser, logOut, loading, auth }}>
       {children}
     </UserContext.Provider>
   );

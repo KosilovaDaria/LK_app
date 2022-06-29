@@ -1,6 +1,6 @@
 import { Box, Typography} from "@mui/material";
 const TitleBar = (props) => {
-  console.log('render TitleBar')
+  // console.log('render TitleBar')
 
   return (
     <>

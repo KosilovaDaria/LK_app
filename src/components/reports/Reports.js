@@ -14,37 +14,15 @@ const Reports = () => {
   const [loading, setLoading] = useState(true);
   
   useEffect(() => {
+    const apartments = JSON.parse(localStorage.getItem('apartments'));
     getData('getReports', {
-      apartment_id: 111,
-      contract_id: "123",
+      apartment_id: apartments[0].id,
     })
     .then(res=>{ 
       setReportList(res.response);
       setLoading(false)
     })  
   }, [])
-
-
-  // const reports= [
-  //   {id: 12, date: '2022-04'},
-  //   {id: 12, date: '2022-03'},
-  //   {id: 12, date: '2022-02'},
-  //   {id: 12, date: '2022-01'},
-  //   {id: 12, date: '2021-12'},
-  //   {id: 12, date: '2021-11'},
-  //   {id: 12, date: '2021-10'},
-  //   {id: 12, date: '2021-09'},
-  //   {id: 12, date: '2021-08'},
-  //   {id: 12, date: '2021-07'}
-  // ];
-  // const [reportList, setReportsList] = useState([]);
-  // const [loading, setLoading] = useState(true);
-
-  // useEffect(() => {
-  //   setReportsList(reports);
-  //   setLoading(false);
-  // }, [])
-  //   console.log(reportsList)
 
   const NewReport = styled(Box)({
     width: 8,
@@ -72,10 +50,8 @@ const Reports = () => {
             <TableCell width='5px'>{row.new ? <NewReport sx={{ bgcolor: 'orange.main' }} /> : <NewReport sx={{ bgcolor: 'none' }} />}</TableCell>
             <TableCell align="left" sx={{height:'40px'}} >
               <Link
-                to={`/apartments/reports/${row.date}`}
-                // to={`/apartments/${apartmentId}/reports/${row.urlparam}`}
+                to={`/apartments/reports/${row.id}`}
                 style={{ color: '#000' }}
-              // onClick={() => props.changeReportStatusUnread(row.reportId)}
               >
                 {getMonthName(new Date(`${row.date}`))}
               </Link>

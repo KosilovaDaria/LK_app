@@ -8,22 +8,23 @@ import Subtitle from "../subtitle/Subtitle";
 import Spinner from '../spinner/Spinner';
 import "./singleReport.css";
 
-const SingleReport = (props) => {
+const SingleReport = () => {
 
-  const { apartId } = props;
+  // const { apartId } = props;
   let { reportId } = useParams();
-  console.log(apartId + reportId)
+  console.log(reportId)
 
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    console.log(user)
+    const apartments = JSON.parse(localStorage.getItem('apartments'));
+    // console.log(user)
     getData('viewReport', {
       user_id: parseInt(user.id),
-      apartment_id: 111,
-      report_id: 11,
+      apartment_id: apartments[0].id,
+      report_id: reportId,
     })
       .then(res => {
         setReport(res);
@@ -67,34 +68,34 @@ const SingleReport = (props) => {
                 sx={{ m: '0 10px 0' }} />}
             title='Отчеты' />
 
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems:{ xs: 'flex-start', md: 'flex-end' } , mb:'20px',flexDirection: { xs: 'column', md: 'row' } }}>
-           
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: { xs: 'flex-start', md: 'flex-end' }, mb: '20px', flexDirection: { xs: 'column', md: 'row' } }}>
+
             <div dangerouslySetInnerHTML={createMarkupHeader()} />
 
-              <Box sx={{ display: 'flex' }}>
+            <Box sx={{ display: 'flex' }}>
+              <Button
+                variant='contained'
+                onClick={() => {
+                  // props.changeReportStatusAccept(report.reportId);
+                  handleClick()
+                }}
+              >Принять</Button>
+
+              {show ? (
                 <Button
-                  variant='contained'
-                  onClick={() => {
-                    // props.changeReportStatusAccept(report.reportId);
-                    handleClick()
-                  }}
-                >Принять</Button>
+                  sx={{ position: 'absolute', top: '30%', left: '40%', width: '250px', mr: 1, mb: 5, textTransform: 'none', bgcolor: 'rgba(226, 236, 245, 1)' }}
+                  startIcon={<CheckCircle />}
+                  endIcon={<Close />}
+                  onClick={handleClick}
+                >
+                  <Typography >Отчет принят</Typography>
+                </Button>
+              ) : null}
 
-                {show ? (
-                  <Button
-                    sx={{ position: 'absolute', top: '30%', left: '40%', width: '250px', mr: 1, mb: 5, textTransform: 'none', bgcolor: 'rgba(226, 236, 245, 1)' }}
-                    startIcon={<CheckCircle />}
-                    endIcon={<Close />}
-                    onClick={handleClick}
-                  >
-                    <Typography >Отчет принят</Typography>
-                  </Button>
-                ) : null}
+              <Button variant='outlined' sx={{ mr: 1, ml: 1 }}><Download />Скачать</Button>
+              <Button variant='outlined'><ContentCopy />Печать</Button>
+            </Box>
 
-                <Button variant='outlined' sx={{ mr: 1, ml: 1 }}><Download />Скачать</Button>
-                <Button variant='outlined'><ContentCopy />Печать</Button>
-              </Box>
-            
           </Box>
 
           <div dangerouslySetInnerHTML={createMarkupBody()} />

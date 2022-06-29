@@ -24,6 +24,7 @@ import SignIn from '../signIn/SignIn';
 import PassRecovery from '../passRecovery/PassRecovery';
 import NotFound from '../notFound/NotFound';
 import RequireAuth from '../auth/RequireAuth';
+import { ApartsProvider } from '../../apartsContext/ApartsContext';
 
 let theme = createTheme({
   palette: {
@@ -116,29 +117,23 @@ let theme = createTheme({
 theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disableAlign: false, factor: 4, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'body1', 'caption', 'button'] });
 
 function App() {
-  console.log('render App')
-
-  const [selectedApart, setSelectedApart] = useState(null);
-  //получение id апартамента при клике на карточку
-  const onApartmentSelected = (id) => {
-    setSelectedApart(id)
-  }
  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <UserProvider>
+          <ApartsProvider>
           <Routes>
              <Route path="/" element={
               <RequireAuth><AppHeader/></RequireAuth>} >
               <Route path="apartments" element={<ApartLayout />} >
-                <Route index element={<RequireAuth><Apartments onApartmentSelect={onApartmentSelected} /> </RequireAuth>} />
-                <Route path=":apartmentId" element={<SingleApartment onApartmentSelected={onApartmentSelected} />} >
+                <Route index element={<RequireAuth><Apartments/></RequireAuth>} />
+                <Route path=":apartmentId" element={<SingleApartment/>} >
                 </Route>
                 <Route path="reports" element={<ReportLayout />} >
-                  <Route index element={<Reports apartId={selectedApart}/>} />
-                  <Route path=":reportId" element={<SingleReport apartId={selectedApart}/>} />
+                  <Route index element={<Reports/>} />
+                  <Route path=":reportId" element={<SingleReport/>} />
                 </Route>
               </Route>
               <Route path="notifications" element={
@@ -149,11 +144,11 @@ function App() {
               <Route path="*" element={<NotFound />} />
             </Route> 
             <Route path="/signin" element={
-              
                 <SignIn />
               } />
             <Route path="/passrecovery" element={<PassRecovery />} />
           </Routes>
+          </ApartsProvider>
         </UserProvider>
       </BrowserRouter>
     </ThemeProvider>

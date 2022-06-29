@@ -26,7 +26,7 @@ const StatCard = (props) => {
   const getCurrentDate = (value) => {
     // let currentMonth = value.getMonth();
     // let currentYear = value.getYear();
-    let currentDate = [ value.getMonth() + '.' + value.getFullYear()];
+    let currentDate = [ value.getMonth() + 1 + '.' + value.getFullYear()];
     return currentDate;
   }
   const getQuartal = (value) => {
@@ -38,8 +38,11 @@ const StatCard = (props) => {
  
 //придумать фукнцию которая будет преобразововать вэлью в массив строк
   useEffect(() => {
+    const apartments = JSON.parse(localStorage.getItem('apartments'));
     getData('getApartStatistic', {
-      apartment_id: 111,
+      // apartment_id: apartments[0].id,
+      apartment_id: 15,
+
       contract_id: "123",
       date: getCurrentDate(value)
     })

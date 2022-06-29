@@ -36,6 +36,12 @@ const Notifications = () => {
   const handleChange = (panel, id) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
     changeNotifStatus(id, notifList);
+    const user = JSON.parse(localStorage.getItem('user'));
+    getData('readNotice', {
+      // owner_id: parseInt(user.id),
+      notice_id: id
+    });
+
   };
 
   const NewNotifLabel = styled(Box)({

@@ -4,45 +4,39 @@ import BarChart from "../barChart/BarChart";
 import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import { getData } from "../../services/services";
+import { useParams } from "react-router-dom";
+import Spinner from "../spinner/Spinner";
 
 const QuarterStat = (props) => {
-  console.log('render QuartStat')
-  const {date} = props;
-  // console.log(date);
-  const [loading, setLoading] = useState(true);
+  // const { apartmentId } = useParams();
+
+  // console.log('render QuartStat')
+  const {data} = props;
+  console.log(data);
+  // const [loading, setLoading] = useState(true);
   const [statDat, setStatDat] = useState([]);
 
+  const getMonthName = (monthNum) => {
+    const monthArr = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
+    return monthArr[monthNum.getMonth()]
+  }
   useEffect(() => {
-    getData('getApartStatistic', {
-      apartment_id: 111,
-      contract_id: "123",
-      date: date
-    })
-      .then(res => {
-        setStatDat(res.response);
-        setLoading(false)
-      })
-  }, []);
-  // const statData = [
-  //   {
-  //     month: "Март",
-  //     occupancy: 73,
-  //     averege: 1325,
-  //     income: 48250
-  //   },
-  //   {
-  //     month: "Февраль",
-  //     occupancy: 83,
-  //     averege: 1178,
-  //     income: 45732
-  //   },
-  //   {
-  //     month: "Январь",
-  //     occupancy: 62,
-  //     averege: 987,
-  //     income: 36587
-  //   }
-  // ]
+    setStatDat(data);
+    // const mapData = data.map(item=> getMonthName(new Date(item.date.split('.')[0])));
+    // setStatDat(...data, mapData );
+    console.log('useEffect')
+    // newData(statDat);
+  //   getData('getApartStatistic', {
+  //     apartment_id: apartmentId,
+  //     // contract_id: "123",
+  //     date: date
+  //   })
+  //     .then(res => {
+  //       setStatDat(res.response);
+  //       setLoading(false)
+  //     })
+  }, [data]);
+ console.log(statDat);
 
   const [barIndicator, setBarIndicator] = useState('occupancy');
 
@@ -55,29 +49,44 @@ const QuarterStat = (props) => {
     return keyValue;
   }, {}));
 
+  const mapData = (arr, key) => { 
+    arr.map(({key, ...num}) => (num.value = num.key, num));
+    return arr;  
+  }
+  // const addColorToarr = (arr, key, clr) => {
+  //   arr.forEach(num => (num.value =  Math.round(num.key), num.color = clr, delete num.key));
+  //   return arr;
+  // }
+  
+
   let newStatData;
   //написать функцию по замене названия ключа индикатора на value
   switch (barIndicator) {
     case 'occupancy':
       newStatData = mapStatData(["date", "occupancy"]);
-      newStatData.map(({ occupancy, ...num }) => (num.value = num.occupancy, num));
-      newStatData.forEach(num => (num.value = num.occupancy, num.color = '#69A1AC', delete num.occupancy));
+      // newStatData.map(({ occupancy, ...num }) => (num.value = num.occupancy, num));
+      newStatData = mapData(newStatData, newStatData.occupancy);
+      // newStatData = addColorToarr(newStatData, newStatData.occupancy, '#69A1AC' )
+       newStatData.forEach(num => (num.value =  Math.round(num.occupancy), num.date = getMonthName( new Date(num.date.split('.')[0])),  num.color = '#69A1AC', delete num.occupancy));
+      newStatData.forEach(num => (num.value =  Math.round(num.occupancy),   num.color = '#69A1AC', delete num.occupancy));
       break;
     case 'averege':
       newStatData = mapStatData(["date", "averege"]);
-      newStatData.map(({ averege, ...num }) => (num.value = num.averege, num));
-      newStatData.forEach(num => (num.value = num.averege, num.color = '#676EBC', delete num.averege));
+      newStatData = mapData(newStatData, newStatData.averege);
+      // newStatData.map(({ averege, ...num }) => (num.value = num.averege, num));
+      newStatData.forEach(num => (num.value =  Math.round(num.averege), num.date = getMonthName( new Date(num.date.split('.')[0])), num.color = '#676EBC', delete num.averege));
       break;
     case 'income':
       newStatData = mapStatData(["date", "income"]);
-      newStatData.map(({ income, ...num }) => (num.value = num.income, num));
-      newStatData.forEach(num => (num.value = num.income, num.color = '#E58B1E', delete num.income));
+      newStatData = mapData(newStatData, newStatData.income);
+      // newStatData.map(({ income, ...num }) => (num.value = num.income, num));
+      newStatData.forEach(num => (num.value =  Math.round(num.income), num.date = getMonthName( new Date(num.date.split('.')[0])), num.color = '#E58B1E', delete num.income));
       break;
     default:
       newStatData = mapStatData(["date", "occupancy"]);
-
-      newStatData.map(({ occupancy, ...num }) => (num.value = num.occupancy, num));
-      newStatData.forEach(num => (num.value = num.occupancy, num.color = '#69A1AC', delete num.occupancy));
+      newStatData = mapData(newStatData, newStatData.occupancy);
+      // newStatData.map(({ occupancy, ...num }) => (num.value = num.occupancy, num));
+      newStatData.forEach(num => (num.value = Math.round(num.occupancy), num.date = getMonthName( new Date(num.date.split('.')[0])), num.color = '#69A1AC', delete num.occupancy));
 
       break;
   }
@@ -104,6 +113,8 @@ const QuarterStat = (props) => {
   }))
 
   return (
+    <>
+    {!statDat ? <Spinner/> : 
     <Grid container mt={6} justifyContent="center" >
       <Grid item lg={6} l={7} md={8} s={10} sm={12} xs={12}>
         <BarChart stat={newStatData}/>
@@ -154,7 +165,9 @@ const QuarterStat = (props) => {
             <AccountBalanceWallet sx={{ mr: 1 }} />Доход
           </CustomToggleBtn> */}
       </Grid>
-    </Grid>
+    </Grid> 
+  }
+  </>
   )
 }
 
