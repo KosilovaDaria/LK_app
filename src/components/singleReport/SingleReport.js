@@ -2,34 +2,46 @@ import { Box, Typography, Button, IconButton, Table, TableBody, TableCell, Table
 import { ArrowBack, InsertChartOutlined, Download, ContentCopy, CheckCircle, Close } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import TitleBar from "../titleBar/TitleBar";
 import Subtitle from "../subtitle/Subtitle";
 import Spinner from '../spinner/Spinner';
 import "./singleReport.css";
 
 const SingleReport = () => {
+  console.log('render SingleReport');
 
-  // const { apartId } = props;
+  const { apartmentId } = useParams();
   let { reportId } = useParams();
-  console.log(reportId)
 
   const [report, setReport] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    const apartments = JSON.parse(localStorage.getItem('apartments'));
+    // const apartments = JSON.parse(localStorage.getItem('apartments'));
     // console.log(user)
     getData('viewReport', {
       user_id: parseInt(user.id),
-      apartment_id: apartments[0].id,
+      apartment_id: apartmentId,
       report_id: reportId,
     })
       .then(res => {
         setReport(res);
         setLoading(false)
       })
+
+  }, [])
+
+  useEffect(() => {
+    getData('readReport', {
+      report_id: parseInt(reportId),
+    })
+      // .then(res => {
+      //   // setReport(res);
+      //   setLoading(false)
+      // })
+
 
   }, [])
 
@@ -46,6 +58,10 @@ const SingleReport = () => {
 
   const handleClick = () => {
     setShow(!show);
+    getData('doAccepted', {
+      report_id: parseInt(reportId),
+    })
+    console.log('handleClick')
   };
 
   return (
@@ -56,8 +72,8 @@ const SingleReport = () => {
             arrow={
               <IconButton
                 component={Link}
-                // to={`/apartments/${apartmentId}/reports`} 
-                to={`/apartments/reports`}
+                to={`/apartments/${apartmentId}/reports`} 
+                // to={`/apartments/reports`}
               >
                 <ArrowBack />
               </IconButton>}

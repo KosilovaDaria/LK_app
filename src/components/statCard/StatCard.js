@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link, Outlet } from "react-router-dom";
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import MonthPicker from "../monthPicker/MonthPicker";
 import MonthStat from "../monthStat/MonthStat";
 import QuarterStat from "../quarterStat/QuarterStat";
@@ -15,6 +15,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import ruLocale from 'date-fns/locale/ru'
 
+
+//НЕ ИСПОЛЬЗУЕТСЯ
 const StatCard = (props) => {
   console.log('render statcard')
   const [value, setValue] = useState(new Date());

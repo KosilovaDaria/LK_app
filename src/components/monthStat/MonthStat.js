@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles';
 import MonthStatCard from "../monthStatCard/MonthStatCard";
 import { useState, useEffect } from "react";
 import Spinner from '../spinner/Spinner';
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import { useParams } from "react-router-dom";
 
 const MonthStat = (props) => {

@@ -7,12 +7,12 @@ import { Animation } from '@devexpress/dx-react-chart';
 import { useEffect, useState } from 'react';
 import { Link } from "react-router-dom";
 
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import { useUser } from '../userContext/UserContext';
 
 import TitleBar from "../titleBar/TitleBar";
 import Spinner from '../spinner/Spinner';
-import { useAparts } from "../../apartsContext/ApartsContext";
+import { useAparts } from "../apartsContext/ApartsContext";
 
 const Apartments = () => {
 
@@ -169,7 +169,7 @@ const Apartments = () => {
             </CustomContent>
             <CardButtons>
               <Button sx={{ mr: 2 }} variant="contained" component={Link}
-                to={`/apartments/reports`}
+                to={`/apartments/${item.id}/reports`}
               // to={`/apartments/${item.urlparam}/reports`}
               >Отчеты</Button>
               <Button variant="outlined" component={Link}

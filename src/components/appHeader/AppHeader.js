@@ -2,7 +2,7 @@ import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar,
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
 import { NavLink, Outlet, Navigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import { useUser } from "../userContext/UserContext";
 
 const AppHeader = () => {

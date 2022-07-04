@@ -6,7 +6,7 @@ import '@fontsource/roboto/700.css';
 
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import useService from '../../services/services';
+// import useService from '../services/services';
 
 import { UserProvider } from '../userContext/UserContext';
 import { useUser } from '../userContext/UserContext';
@@ -24,7 +24,7 @@ import SignIn from '../signIn/SignIn';
 import PassRecovery from '../passRecovery/PassRecovery';
 import NotFound from '../notFound/NotFound';
 import RequireAuth from '../auth/RequireAuth';
-import { ApartsProvider } from '../../apartsContext/ApartsContext';
+import { ApartsProvider } from '../apartsContext/ApartsContext';
 
 let theme = createTheme({
   palette: {
@@ -127,7 +127,19 @@ function App() {
           <Routes>
              <Route path="/" element={
               <RequireAuth><AppHeader/></RequireAuth>} >
-              <Route path="apartments" element={<ApartLayout />} >
+                <Route index element={<RequireAuth><ApartLayout /></RequireAuth>} />
+              <Route path="apartments" element={<RequireAuth><ApartLayout /></RequireAuth>} >
+                <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
+                <Route path=":apartmentId" element={<ReportLayout />} >
+                  <Route index element={<SingleApartment />} />
+                  <Route path="reports" element={<ReportLayout />} >
+                    <Route index element={<Reports />} />
+                    <Route path=":reportId" element={<SingleReport />} />
+                  </Route>
+                </Route>
+              </Route>
+              
+              {/* <Route path="apartments" element={<ApartLayout />} >
                 <Route index element={<RequireAuth><Apartments/></RequireAuth>} />
                 <Route path=":apartmentId" element={<SingleApartment/>} >
                 </Route>
@@ -135,18 +147,22 @@ function App() {
                   <Route index element={<Reports/>} />
                   <Route path=":reportId" element={<SingleReport/>} />
                 </Route>
-              </Route>
+              </Route> */}
               <Route path="notifications" element={
                 <ProtectedRoute>
                     <Notifications />
                 </ProtectedRoute>
               } />
-              <Route path="*" element={<NotFound />} />
+              
             </Route> 
             <Route path="/signin" element={
                 <SignIn />
               } />
             <Route path="/passrecovery" element={<PassRecovery />} />
+            <Route path="*" element={<NotFound />} />
+
+              
+            
           </Routes>
           </ApartsProvider>
         </UserProvider>

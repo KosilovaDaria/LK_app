@@ -9,7 +9,7 @@ import StatCard from "../statCard/StatCard";
 import Spinner from '../spinner/Spinner';
 // import ErrorMessage from "../errorMessage/ErrorMessage";
 import { useUser } from '../userContext/UserContext';
-import { useAparts } from "../../apartsContext/ApartsContext";
+import { useAparts } from "../apartsContext/ApartsContext";
 import MonthPicker from "../monthPicker/MonthPicker";
 import MonthStat from "../monthStat/MonthStat";
 import QuarterStat from "../quarterStat/QuarterStat";
@@ -23,7 +23,7 @@ import ruLocale from 'date-fns/locale/ru'
 import { styled } from '@mui/material/styles';
 
 
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 
 const SingleApartment = () => {
   console.log('render SingleApartment')
@@ -62,8 +62,8 @@ const SingleApartment = () => {
   // }, [])
   // console.log(apartList)
 
-  function renderApart(arr) {
-    const apart = arr.map(item => {
+  function renderApartInfo(arr) {
+    const info = arr.map(item => {
       if (item.id == apartmentId) {
         return (
           <Box key={item.id}>
@@ -77,7 +77,7 @@ const SingleApartment = () => {
               text={item.address} />
             <Subtitle
               title='Договор:'
-              text={item.contract_num} />
+              text={'№ ' + item.contract_num} />
             <Subtitle
               title='Владелец: '
               text={userName + ', доля владения - ' + parseInt(item.interest) * 100 + '%'} />
@@ -86,10 +86,10 @@ const SingleApartment = () => {
       }
     })
     return (
-      <>{apart}</>
+      <>{info}</>
     )
   }
-  const content = apartList ? renderApart(apartList) : null;
+  const content = apartList ? renderApartInfo(apartList) : null;
 
   const onRequest = (date) => {
     getData('getApartStatistic', {
@@ -272,8 +272,8 @@ const getCurrentDate = (value) => {
           sx={{ padding: '8px 96px' }}
           variant="contained"
           component={Link}
-          // to={`/apartments/${apartmentId}/reports`}
-          to='/apartments/reports'
+          to={`/apartments/${apartmentId}/reports`}
+          // to='/apartments/reports'
         >
           Отчеты
         </Button>

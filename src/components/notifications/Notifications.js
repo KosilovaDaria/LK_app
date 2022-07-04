@@ -1,7 +1,7 @@
 import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Container, } from "@mui/material";
 import { NotificationsNoneOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import { useEffect, useState } from "react";
 import Clamp from 'react-multiline-clamp';
 import TitleBar from "../titleBar/TitleBar";

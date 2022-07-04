@@ -1,6 +1,6 @@
 import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typography, Container, Stack } from '@mui/material';
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
-import { getAuth } from '../../services/services';
+import { getAuth } from '../services/services';
 import { useUser } from '../userContext/UserContext';
 import { Link,  Navigate, useLocation, useNavigate  } from 'react-router-dom';
 import bgImage from '../../assets/backGround.png';

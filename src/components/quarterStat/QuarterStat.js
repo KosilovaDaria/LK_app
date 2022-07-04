@@ -3,7 +3,7 @@ import { DateRange, Analytics, AccountBalanceWallet, ArrowBackIos } from '@mui/i
 import BarChart from "../barChart/BarChart";
 import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
-import { getData } from "../../services/services";
+import { getData } from "../services/services";
 import { useParams } from "react-router-dom";
 import Spinner from "../spinner/Spinner";
 
@@ -68,7 +68,7 @@ const QuarterStat = (props) => {
       newStatData = mapData(newStatData, newStatData.occupancy);
       // newStatData = addColorToarr(newStatData, newStatData.occupancy, '#69A1AC' )
        newStatData.forEach(num => (num.value =  Math.round(num.occupancy), num.date = getMonthName( new Date(num.date.split('.')[0])),  num.color = '#69A1AC', delete num.occupancy));
-      newStatData.forEach(num => (num.value =  Math.round(num.occupancy),   num.color = '#69A1AC', delete num.occupancy));
+      // newStatData.forEach(num => (num.value =  Math.round(num.occupancy),   num.color = '#69A1AC', delete num.occupancy));
       break;
     case 'averege':
       newStatData = mapStatData(["date", "averege"]);
