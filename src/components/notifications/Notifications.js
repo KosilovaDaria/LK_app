@@ -2,18 +2,23 @@ import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Contain
 import { NotificationsNoneOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { getData } from "../services/services";
+import { useNotice } from "../noticeContext/NoticeContext";
 import { useEffect, useState } from "react";
 import Clamp from 'react-multiline-clamp';
 import TitleBar from "../titleBar/TitleBar";
 import Spinner from '../spinner/Spinner';
-import { useUser } from '../userContext/UserContext';
 
-const Notifications = () => {
-
+const Notifications = (props) => {
+  // const { getCountNewNotice } = props
   const [notifList, setNotifList] = useState([]);
   const [loading, setLoading] = useState(true);
-  const { getCurrentUser, user } = useUser();
-  // console.log(user)
+  const { getCountNewNotice } = useNotice()
+
+  const readNotice = (id) => {
+    getData('readNotice', {
+      notice_id: id
+    });
+  }
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
@@ -35,13 +40,11 @@ const Notifications = () => {
   const [expanded, setExpanded] = useState(false);
   const handleChange = (panel, id) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
+    if (isExpanded) {
+      readNotice(id);
+      getCountNewNotice()
+    }
     changeNotifStatus(id, notifList);
-    const user = JSON.parse(localStorage.getItem('user'));
-    getData('readNotice', {
-      // owner_id: parseInt(user.id),
-      notice_id: id
-    });
-
   };
 
   const NewNotifLabel = styled(Box)({

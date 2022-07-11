@@ -3,38 +3,36 @@ import { ArrowBack, InsertChartOutlined, ArrowDropDownCircle } from '@mui/icons-
 import { styled } from '@mui/material/styles';
 import { useEffect, useState } from 'react';
 import { Link, Outlet, useParams } from "react-router-dom";
+
 import { getData } from "../services/services";
-import TitleBar from "../titleBar/TitleBar";
-import Subtitle from "../subtitle/Subtitle";
-import Spinner from '../spinner/Spinner';
 import { useAparts } from "../apartsContext/ApartsContext";
 import { useUser } from '../userContext/UserContext';
 
+import TitleBar from "../titleBar/TitleBar";
+import Subtitle from "../subtitle/Subtitle";
+import Spinner from '../spinner/Spinner';
+
 const Reports = () => {
-  console.log('render reports');
+  // console.log('render reports');
   const { apartmentId } = useParams();
   const [reportList, setReportList] = useState(null);
   const [loading, setLoading] = useState(true);
   const { apartList, getApartList } = useAparts();
   const { user } = useUser();
 
-  console.log(reportList)
   useEffect(() => {
-    // const apartments = JSON.parse(localStorage.getItem('apartments'));
     getData('getReports', {
       apartment_id: apartmentId,
     })
-    .then(res=>{ 
-      setReportList(res.response);
-      setLoading(false)
-    })  
+      .then(res => {
+        setReportList(res.response);
+        setLoading(false)
+      })
   }, []);
 
   useEffect(() => {
     const userId = user ? user.id : null;
     getApartList(userId);
-    console.log('useeffect apartList')
-
   }, [])
 
   function renderApartInfo(arr) {
@@ -80,9 +78,9 @@ const Reports = () => {
     const rows = data.map((row) => {
       if (getYear(`${row.date}`) == year) {
         return (
-          <TableRow key={row.id} sx={{height:'40px', '&:last-child td': { border: 0 }, '&:nth-of-type(even)': { background: '#F8F8F8' } }}>
+          <TableRow key={row.id} sx={{ height: '40px', '&:last-child td': { border: 0 }, '&:nth-of-type(even)': { background: '#F8F8F8' } }}>
             <TableCell width='5px'>{row.new ? <NewReport sx={{ bgcolor: 'orange.main' }} /> : <NewReport sx={{ bgcolor: 'none' }} />}</TableCell>
-            <TableCell align="left" sx={{height:'40px'}} >
+            <TableCell align="left" sx={{ height: '40px' }} >
               <Link
                 to={`/apartments/${apartmentId}/reports/${row.id}`}
                 style={{ color: '#000' }}
@@ -90,7 +88,7 @@ const Reports = () => {
                 {getMonthName(new Date(`${row.date}`))}
               </Link>
             </TableCell>
-            <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(105, 161, 172, 1)', height:'40px' }}>{row.accept ? <><ArrowDropDownCircle fontSize="small" /><Typography ml={0.5}> Принято</Typography></> : '-'}</TableCell>
+            <TableCell sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(105, 161, 172, 1)', height: '40px' }}>{row.accept ? <><ArrowDropDownCircle fontSize="small" /><Typography ml={0.5}> Принято</Typography></> : '-'}</TableCell>
           </TableRow>
         )
       }
@@ -100,29 +98,29 @@ const Reports = () => {
 
   function renderYearRow(data) {
     const yearRow = data[0].date.split('-')[0];
-          // console.log(yearRow)
+    // console.log(yearRow)
 
     return yearRow
-     
-      // console.log(yearRow)
-      // <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
-      //   <TableHead>
-      //     <TableRow>
-      //       <TableCell>2022</TableCell>
-      //       <TableCell></TableCell>
-      //       <TableCell></TableCell>
-      //     </TableRow>
-      //   </TableHead>
-      //   <TableBody>{renderRow(reportList, 2022)}</TableBody>
-      // </Table>
-    
-  }
- 
 
-  return ( 
+    // console.log(yearRow)
+    // <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
+    //   <TableHead>
+    //     <TableRow>
+    //       <TableCell>2022</TableCell>
+    //       <TableCell></TableCell>
+    //       <TableCell></TableCell>
+    //     </TableRow>
+    //   </TableHead>
+    //   <TableBody>{renderRow(reportList, 2022)}</TableBody>
+    // </Table>
+
+  }
+
+
+  return (
     <>
-    
-       {loading ? <Spinner /> :
+
+      {loading ? <Spinner /> :
         <>
           <TitleBar
             arrow={<IconButton component={Link} to='/apartments' ><ArrowBack /></IconButton>}
@@ -130,7 +128,7 @@ const Reports = () => {
             icon={<InsertChartOutlined color="primary" fontSize="large" sx={{ m: '0 10px 0' }} />}
             title='Отчеты' />
 
-            {content}
+          {content}
           <Typography variant="h1" component='h2'>Отчеты</Typography>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
@@ -154,7 +152,7 @@ const Reports = () => {
             <Outlet />
           </TableContainer>
         </>
-      } 
+      }
     </>
   )
 }

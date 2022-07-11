@@ -1,26 +1,24 @@
 import { createContext, useState, useContext } from "react";
-import { useNavigate } from 'react-router-dom';
 import { getData } from "../services/services";
 
 export const ApartsContext = createContext();
 
 export const ApartsProvider = ({ children }) => {
-  // console.log('apartsContext')
   const [apartList, setApartList] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const getApartList = (id) => {
+  const getApartList = () => {
     // console.log('getApartList')
-    if (localStorage.getItem('user')) {
+    const user = JSON.parse(localStorage.getItem('user'));
+    console.log(user);
+    if (user) {
       getData('getAparts', {
-        user_id: parseInt(id)
+        user_id: parseInt(user.id)
       })
         .then(res => {
-          // localStorage.setItem('apartments', JSON.stringify(res.response))
           setApartList(res.response);
           // setLoading(false);
         })
-
     } else {
       // setLoading(false);
       setApartList(null);

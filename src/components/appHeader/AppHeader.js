@@ -1,52 +1,31 @@
 import { AppBar, Container, Typography, Badge, IconButton, Toolbar, Box, Avatar, } from "@mui/material";
 import { CottageOutlined, NotificationsNoneOutlined, ExitToAppOutlined } from '@mui/icons-material';
-import { NavLink, Outlet, Navigate } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { getData } from "../services/services";
+import { NavLink, Outlet } from "react-router-dom";
+import { useEffect} from 'react';
 import { useUser } from "../userContext/UserContext";
+import { useNotice } from "../noticeContext/NoticeContext";
 
 const AppHeader = () => {
-  // console.log('render AppHeader')
-  const { getCurrentUser, logOut } = useUser();
-  const [newNotifCount, setNewNotifCount] = useState(0);
+  console.log('render AppHeader')
 
-  useEffect(() => {
-    getCurrentUser();
-  }, [])
-
-  // //запросы для получения кол-ва новых уведомлений запускать раз в 10 секунд для постоянного отслеживания 
-  //сбросить эффект
-  useEffect(() => {
-    // console.log('useEffect AppHeader')
-    // if (localStorage.getItem('user')) {
-    //   // console.log('use effect if')
-    //   return <Navigate to="/apartments" replace={true} />
-    // }
-    const user = JSON.parse(localStorage.getItem('user'));
-    getData('getCountNewNotice', {
-      user_id: parseInt(user.id)
-    })
-      .then(res => {
-        setNewNotifCount(res.response.count);
-      })
-    // setInterval(() => {
-    //   getData('getCountNewNotice', {
-    //     user_id: parseInt(user.id)
-    //   })
-    //   .then(res=>{ 
-    //     console.log(res.response);
-    //     setNewNotifCount(res.response.count);
-    //     })
-
-    // }, 20000)
-    console.log(newNotifCount)
-  }, [])
+  const { logOut } = useUser();
+  const {newNotifCount, getCountNewNotice} = useNotice()
   
-  
+  useEffect(() => {
+    getCountNewNotice();
+  //   (function loops(){
+  //     setTimeout(function(){
+  //       getCountNewNotice()
+  //         console.log('test');
+  //         loops(); 
+  //     }, 20000);
+  //  })();
+   
+  });
+
   const handleLogout = () => {
     logOut();
   }
-
   return (
     <>
       <AppBar position="static" color="header" elevation={3}>
@@ -84,9 +63,9 @@ const AppHeader = () => {
                 }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <Typography sx={{ display: { xs: 'none', sm: 'none', md: 'block' }, mr: 1 }}>Уведомления от УК </Typography>
-                  <Badge badgeContent={newNotifCount} color="primary">
+                  <>{newNotifCount > 0 ? <Badge badgeContent={newNotifCount} color="primary">
                     <NotificationsNoneOutlined color="primary" />
-                  </Badge>
+                  </Badge> : null}</>
                 </Box>
               </NavLink>
               <IconButton

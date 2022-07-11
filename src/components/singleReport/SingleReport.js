@@ -4,12 +4,11 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from "react-router-dom";
 import { getData } from "../services/services";
 import TitleBar from "../titleBar/TitleBar";
-import Subtitle from "../subtitle/Subtitle";
 import Spinner from '../spinner/Spinner';
 import "./singleReport.css";
 
 const SingleReport = () => {
-  console.log('render SingleReport');
+  // console.log('render SingleReport');
 
   const { apartmentId } = useParams();
   let { reportId } = useParams();
@@ -19,8 +18,6 @@ const SingleReport = () => {
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem('user'));
-    // const apartments = JSON.parse(localStorage.getItem('apartments'));
-    // console.log(user)
     getData('viewReport', {
       user_id: parseInt(user.id),
       apartment_id: apartmentId,
@@ -37,12 +34,6 @@ const SingleReport = () => {
     getData('readReport', {
       report_id: parseInt(reportId),
     })
-      // .then(res => {
-      //   // setReport(res);
-      //   setLoading(false)
-      // })
-
-
   }, [])
 
   function createMarkupHeader() {
@@ -72,8 +63,8 @@ const SingleReport = () => {
             arrow={
               <IconButton
                 component={Link}
-                to={`/apartments/${apartmentId}/reports`} 
-                // to={`/apartments/reports`}
+                to={`/apartments/${apartmentId}/reports`}
+              // to={`/apartments/reports`}
               >
                 <ArrowBack />
               </IconButton>}
@@ -92,7 +83,6 @@ const SingleReport = () => {
               <Button
                 variant='contained'
                 onClick={() => {
-                  // props.changeReportStatusAccept(report.reportId);
                   handleClick()
                 }}
               >Принять</Button>
@@ -124,86 +114,3 @@ const SingleReport = () => {
 export default SingleReport;
 
 
-{/* <Box sx={{display:'flex', justifyContent:'flex-start', alignItems:'flex-end', mb:1}}>
-<Typography sx= {{width:'120px',color:'rgb(139, 144, 151)' }} variant="body1"   >Adress</Typography>
-<Typography variant="body1">text</Typography>
-</Box>
-
-  <Subtitle
-    title='Адрес:'
-    // text= {report} 
-    />
-  <Subtitle
-    title='Лицевой счет:'
-    text='№ 223654' />
-  <Subtitle
-    title='Принципал: '
-    // text={report.principal} 
-    />
-  <Subtitle
-    title='Агент: '
-    // text={report.agent} 
-    />
-  <Subtitle
-    title='Генеральный директор: '
-    // text={report.director} 
-    />
-
-  <Box sx={{ display: 'flex', flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'space-between', alignItems: 'center' }}>
-    <Typography sx={{ flexGrow: 1 }} variant="h1" component='h2'>
-      {/* {report.title} */}
-//       </Typography>
-//     <Box sx={{ display: 'flex' }}>
-//       <Button
-//         variant='contained'
-//         onClick={() => {
-//           // props.changeReportStatusAccept(report.reportId);
-//           handleClick()
-//         }}
-//       >Принять</Button>
-
-//       {show ? (
-//         <Button
-//           sx={{ position: 'absolute', top: '30%', left: '40%', width: '250px', mr: 1, mb: 5, textTransform: 'none', bgcolor: 'rgba(226, 236, 245, 1)' }}
-//           startIcon={<CheckCircle />}
-//           endIcon={<Close />}
-//           onClick={handleClick}
-//         >
-//           <Typography >Отчет принят</Typography>
-//         </Button>
-//       ) : null}
-
-//       <Button variant='outlined' sx={{ mr: 1, ml: 1 }}><Download />Скачать</Button>
-//       <Button variant='outlined'><ContentCopy />Печать</Button>
-//     </Box>
-//   </Box>
-//   <TableContainer component={Paper}>
-//     <Table sx={{ minWidth: 350 }} size="small" aria-label="simple table">
-//       <TableHead>
-//         <TableRow >
-//           <TableCell>№</TableCell>
-//           <TableCell align="left">Показатель</TableCell>
-//           <TableCell align="right">Сумма, руб.</TableCell>
-//         </TableRow>
-//       </TableHead>
-//       <TableBody>
-//       {/* {newRep.map((row) => ( */}
-//           <TableRow
-//             //  key={row.num}
-//             sx={{ '&:last-child td, &:last-child th': { border: 0 }, '&:nth-child(12) td': { fontWeight: 500 }, '&:nth-of-type(even)': { background: '#F8F8F8' } }}
-//           >
-//             <TableCell component="th" scope="row">
-//               {/* {row.num} */}
-//             </TableCell>
-//             <TableCell align="left">
-//               {/* {row.text} */}
-//               </TableCell>
-//             <TableCell align="right">
-//               {/* {row.sum} */}
-//               </TableCell>
-//           </TableRow>
-        
-//       </TableBody>
-//     </Table>
-//   </TableContainer> 
-// </> 

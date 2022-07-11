@@ -6,11 +6,12 @@ import '@fontsource/roboto/700.css';
 
 import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import useService from '../services/services';
 
 import { UserProvider } from '../userContext/UserContext';
-import { useUser } from '../userContext/UserContext';
 import { ProtectedRoute } from '../protectedRoute/ProtectedRoute';
+import { ApartsProvider } from '../apartsContext/ApartsContext';
+import { NoticeProvider } from '../noticeContext/NoticeContext';
+import { getData } from "../services/services";
 
 import AppHeader from "../appHeader/AppHeader";
 import ApartLayout from '../apartLayout/ApartLayout';
@@ -24,7 +25,7 @@ import SignIn from '../signIn/SignIn';
 import PassRecovery from '../passRecovery/PassRecovery';
 import NotFound from '../notFound/NotFound';
 import RequireAuth from '../auth/RequireAuth';
-import { ApartsProvider } from '../apartsContext/ApartsContext';
+
 
 let theme = createTheme({
   palette: {
@@ -117,29 +118,58 @@ let theme = createTheme({
 theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disableAlign: false, factor: 4, variants: ['h1', 'h2', 'h3', 'subtitle1', 'subtitle2', 'body1', 'caption', 'button'] });
 
 function App() {
- 
+
+  // const [newNotifCount, setNewNotifCount] = useState(0);
+  // const user = JSON.parse(localStorage.getItem('user'));
+
+  // const getCountNewNotice = () => {
+  //  if (user){ 
+  //   getData('getCountNewNotice', {
+  //     user_id: parseInt(user.id)
+  //   })
+  //     .then(res => {
+  //       setNewNotifCount(res.response.count);
+  //     }) 
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   getCountNewNotice();
+  //   (function loops(){
+  //     setTimeout(function(){
+  //       getCountNewNotice()
+  //         console.log('test');
+  //         loops(); // рекурсия
+  //     }, 20000);
+  //  })();
+   
+  // }, [])
+
+  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <UserProvider>
           <ApartsProvider>
-          <Routes>
-             <Route path="/" element={
-              <RequireAuth><AppHeader/></RequireAuth>} >
+          <NoticeProvider>
+            <Routes>
+              <Route path="/" element={<RequireAuth><AppHeader 
+              // newNotifCount={newNotifCount}
+              /></RequireAuth>} >
                 <Route index element={<RequireAuth><ApartLayout /></RequireAuth>} />
-              <Route path="apartments" element={<RequireAuth><ApartLayout /></RequireAuth>} >
-                <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
-                <Route path=":apartmentId" element={<ReportLayout />} >
-                  <Route index element={<SingleApartment />} />
-                  <Route path="reports" element={<ReportLayout />} >
-                    <Route index element={<Reports />} />
-                    <Route path=":reportId" element={<SingleReport />} />
+                <Route path="apartments" element={<RequireAuth><ApartLayout /></RequireAuth>} >
+                  <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
+                  <Route path=":apartmentId" element={<ReportLayout />} >
+                    <Route index element={<SingleApartment />} />
+                    <Route path="reports" element={<ReportLayout />} >
+                      <Route index element={<Reports />} />
+                      <Route path=":reportId" element={<SingleReport />} />
+                    </Route>
                   </Route>
                 </Route>
-              </Route>
-              
-              {/* <Route path="apartments" element={<ApartLayout />} >
+
+                {/* <Route path="apartments" element={<ApartLayout />} >
                 <Route index element={<RequireAuth><Apartments/></RequireAuth>} />
                 <Route path=":apartmentId" element={<SingleApartment/>} >
                 </Route>
@@ -148,22 +178,25 @@ function App() {
                   <Route path=":reportId" element={<SingleReport/>} />
                 </Route>
               </Route> */}
-              <Route path="notifications" element={
-                <ProtectedRoute>
-                    <Notifications />
-                </ProtectedRoute>
-              } />
-              
-            </Route> 
-            <Route path="/signin" element={
+                <Route path="notifications" element={
+                  <ProtectedRoute>
+                    <Notifications 
+                    // getCountNewNotice={getCountNewNotice} 
+                    />
+                  </ProtectedRoute>
+                } />
+
+              </Route>
+              <Route path="/signin" element={
                 <SignIn />
               } />
-            <Route path="/passrecovery" element={<PassRecovery />} />
-            <Route path="*" element={<NotFound />} />
+              <Route path="/passrecovery" element={<PassRecovery />} />
+              <Route path="*" element={<NotFound />} />
 
-              
-            
-          </Routes>
+
+
+            </Routes>
+            </NoticeProvider>
           </ApartsProvider>
         </UserProvider>
       </BrowserRouter>
@@ -173,23 +206,3 @@ function App() {
 export default App;
 
 
-// репортсы вложенные в синглапартмент 
-//             <Route path="/" element={<AppHeader />}>
-            //   <Route index element={<ApartLayout />} />
-            //   <Route path="apartments" element={<ApartLayout />} >
-            //     <Route index element={<Apartments
-            //     // onApartmentSelect={onApartmentSelected} 
-            //     />} />
-            //     <Route path=":apartmentId" element={<ReportLayout />} >
-            //       <Route index element={<SingleApartment
-            //       // onApartmentSelected={onApartmentSelected} 
-            //       />} />
-            //       <Route path="reports" element={<ReportLayout />} >
-            //         <Route index element={<Reports />} />
-            //         <Route path=":reportId" element={<SingleReport />} />
-            //       </Route>
-            //     </Route>
-            //   </Route>
-            //   <Route path="notifications" element={<Notifications />} />
-            //   <Route path="*" element={<NotFound />} />
-            // </Route>

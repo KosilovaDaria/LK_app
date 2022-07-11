@@ -1,46 +1,24 @@
 import { Grid, Box, Paper, Typography } from "@mui/material";
 import { DateRange, Analytics, AccountBalanceWallet } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
-import MonthStatCard from "../monthStatCard/MonthStatCard";
 import { useState, useEffect } from "react";
 import Spinner from '../spinner/Spinner';
-import { getData } from "../services/services";
-import { useParams } from "react-router-dom";
+// import MonthStatCard from "../monthStatCard/MonthStatCard";
 
 const MonthStat = (props) => {
-  console.log('render monthStat')
-  // const { apartmentId } = useParams();
+  // console.log('render monthStat')
 
   const { data } = props;
-  console.log(data);
-  // console.log(value);
-  // const [loading, setLoading] = useState(true);
   const [statDat, setStatDat] = useState([]);
 
   useEffect(() => {
     setStatDat(data[0]);
-    // setLoading(false)
-  //   console.log('юзэффект в монф стат')
-  //   // if(date) {
-  //     getData('getApartStatistic', {
-  //     apartment_id: apartmentId,
-  //     // contract_id: "123",
-  //     date: date
-  //   })
-  //     .then(res => {
-  //       console.log('then монф стат')
-  //       setStatDat(res.response[0]);
-  //       setLoading(false)
-  //     })
-  //   // }
   }, [data]);
 
   const CustomBox = styled(Paper)({
     maxWidth: '350px',
     minWidth: '250px',
     minHeight: '250px',
-    // width: 350,
-    // height: 250, 
     borderRadius: '12px',
     display: 'flex',
     flexDirection: 'column',
@@ -49,7 +27,6 @@ const MonthStat = (props) => {
     padding: '35px 60px',
     margin: '0 auto'
   })
-//  console.log(statDat)
 
   return (
     <>
@@ -108,7 +85,7 @@ const MonthStat = (props) => {
             </Grid>
             <Grid item xl={4} lg={4} l={4} md={6} s={12} sm={12} xs={12}>
               <CustomBox elevation={6} sx={{ background: 'linear-gradient(320deg, rgba(229, 139, 30, 0.58), rgba(229, 139, 30, 0.11) 100%)' }}>
-                
+
                 <Box sx={{ maxWidth: '350px', maxHeight: '238px', display: 'flex', justifyContent: 'center', mb: '10px' }} elevation={3}>
                   <AccountBalanceWallet color='orange' sx={{ mr: 1 }} />
                   <Typography variant="h2">Доход</Typography>
@@ -134,7 +111,7 @@ const MonthStat = (props) => {
             </Grid>
           </Grid>
         </>
-       }
+      }
     </>
   )
 }

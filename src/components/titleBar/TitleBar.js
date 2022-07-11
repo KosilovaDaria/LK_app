@@ -1,7 +1,5 @@
 import { Box, Typography} from "@mui/material";
 const TitleBar = (props) => {
-  // console.log('render TitleBar')
-
   return (
     <>
       <Box sx={{ display: 'flex', alignItems: 'flex-end', p: '10px 0px', mt: 2}} >

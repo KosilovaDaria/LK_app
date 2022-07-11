@@ -4,44 +4,31 @@ import { styled } from "@mui/material";
 import { Chart, PieSeries } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 
-import { useEffect, useState } from 'react';
+import { useEffect} from 'react';
 import { Link } from "react-router-dom";
 
-import { getData } from "../services/services";
 import { useUser } from '../userContext/UserContext';
-
-import TitleBar from "../titleBar/TitleBar";
-import Spinner from '../spinner/Spinner';
 import { useAparts } from "../apartsContext/ApartsContext";
 
+import TitleBar from "../titleBar/TitleBar";
+
 const Apartments = () => {
+  console.log('render Apartments')
 
   const { user, userName, getCurrentUser } = useUser();
-
   const {apartList, getApartList } = useAparts();
-  console.log(apartList)
-
-  // const [apartmentList, setapartmentList] = useState([]);
-  // const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getCurrentUser();
-  }, [])
 
   useEffect(() => {
     const userId = user ? user.id : null
     getApartList(userId)
-    // getData('getAparts', {
-    //   user_id: parseInt(userId)
-    // })
-    //   .then(res => {
-    //     localStorage.setItem('apartments', JSON.stringify(res.response))
-    //     setapartmentList(res.response);
-    //     setLoading(false);
-    //   })
   }, [])
 
-  const CustomCard = styled(Card)(({ theme }) => ({
+  useEffect(() => {
+    getCurrentUser();
+  }, [])
+  
+
+   const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
     minWidth: '320px',
     minHeight: '300px',
@@ -186,7 +173,6 @@ const Apartments = () => {
   }
 
   const content = apartList  ? renderItems(apartList) : null;
-  // const spinner = loading ? <Spinner /> : null
 
   return (
     <>
@@ -195,7 +181,7 @@ const Apartments = () => {
         title={userName}
       />
       <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
-        {/* {spinner} */}
+
         {content}
       </Grid>
     </>
