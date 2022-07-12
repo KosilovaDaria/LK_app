@@ -5,6 +5,7 @@ import { useEffect} from 'react';
 import { useUser } from "../userContext/UserContext";
 import { useNotice } from "../noticeContext/NoticeContext";
 
+//НЕ ИСПОЛЬЗУЕТСЯ
 const AppHeader = () => {
   console.log('render AppHeader')
 

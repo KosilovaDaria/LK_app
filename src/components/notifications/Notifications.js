@@ -135,13 +135,13 @@ const Notifications = (props) => {
   const spinner = loading ? <Spinner /> : null;
 
   return (
-    <Container maxWidth='xl'>
+    <>
       <TitleBar
         icon={<NotificationsNoneOutlined color="primary" fontSize="large" sx={{ mr: 2 }} />}
         title='Уведомления от УК' />
       {spinner}
       {items}
-    </Container>
+    </>
   )
 }
 

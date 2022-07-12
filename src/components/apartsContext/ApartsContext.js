@@ -1,4 +1,5 @@
 import { createContext, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { getData } from "../services/services";
 
 export const ApartsContext = createContext();
@@ -7,6 +8,7 @@ export const ApartsProvider = ({ children }) => {
   const [apartList, setApartList] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  // const navigate = useNavigate();
   const getApartList = () => {
     // console.log('getApartList')
     const user = JSON.parse(localStorage.getItem('user'));
@@ -17,6 +19,7 @@ export const ApartsProvider = ({ children }) => {
       })
         .then(res => {
           setApartList(res.response);
+          // navigate('/apartments', {replace: true, state: {from: '/'}})
           // setLoading(false);
         })
     } else {

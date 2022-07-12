@@ -25,16 +25,23 @@ const SingleApartment = () => {
   const { userName, getUserName } = useUser();
   const { apartList, getApartList } = useAparts();
 
-  const [date, setDate] = useState(new Date());
+  //функция для получения предыдущего месяца для статистики за месяц
+  const getMonthBefore = () => {
+    let somedate = new Date();
+    somedate.setMonth(somedate.getMonth() - 1);
+    somedate.setDate(1);
+    return somedate;
+  }
+
+  const [date, setDate] = useState(getMonthBefore());
   const [statMonth, setStatMonth] = useState('month');
   const [statistics, setStatistics] = useState([]);
-  
+
   useEffect(() => {
     getApartList();
     getUserName();
   }, []);
 
- 
   useEffect(() => {
     if (statMonth == 'month') {
       onRequest(getCurrentDate(date))
@@ -61,12 +68,35 @@ const SingleApartment = () => {
     return currentDate;
   }
 
+  const getPrevQuartal = (value) => {
+    let currentMonth = value.getMonth() + 1;
+    let selectMonth = currentMonth - 1;
+    let rr = [selectMonth - selectMonth % 3, selectMonth - selectMonth % 3 - 1, selectMonth - selectMonth % 3 - 2];
+    return rr;
+  }
+  // console.log(prevQuartal(7))
+
+  const getCurrentQuartal = (value) => {
+    let currentMonth = value.getMonth() + 1;
+    let selectMonth = currentMonth - 1;
+    let rr = [selectMonth - selectMonth % 3 + 1, selectMonth - selectMonth % 3 + 2, selectMonth - selectMonth % 3 + 3];
+    return rr;
+  }
+
   // Функция получения массива месяцев квартала
   const getQuartal = (value) => {
-    let currentMonth = value.getMonth();
-    let currentYear = value.getFullYear();
-    const quartalArr = [currentMonth - currentMonth % 3 + 1, currentMonth - currentMonth % 3 + 2, currentMonth - currentMonth % 3 + 3].map(item => item + '.' + currentYear);
-    return quartalArr
+    let curentQuartal = getCurrentQuartal(value);
+    let _prevQuartal = getPrevQuartal(value);
+    let currentDate = new Date();
+    let currentMonth = currentDate.getMonth() + 1;
+    let currentYear = currentDate.getFullYear();
+    let maxMonthOfCurQuartal = Math.max(...curentQuartal);
+    let isCurQuartalClosed = currentMonth > maxMonthOfCurQuartal;
+    return (isCurQuartalClosed ? curentQuartal : _prevQuartal).map(item => (item > 0) ? item + '.' + currentYear : (item + 12) + '.' + (currentYear - 1));
+    // let currentMonth = value.getMonth() + 1;
+    // let currentYear = value.getFullYear();
+    // const quartalArr = [currentMonth - currentMonth % 3 + 1 , currentMonth - currentMonth % 3 +2, currentMonth - currentMonth % 3 +3].map(item => (item > 0) ? item + '.' + currentYear : (item + 12) + '.' + (currentYear - 1));
+    // return quartalArr
   }
   // Функция получения массива месяцев года
   const getFullYear = (value) => {
@@ -79,7 +109,7 @@ const SingleApartment = () => {
     setStatMonth(newStatMonth);
   };
 
- 
+
   function renderApartInfo(arr) {
     const info = arr.map(item => {
       if (item.id == apartmentId) {
@@ -98,7 +128,7 @@ const SingleApartment = () => {
               text={'№ ' + item.contract_num} />
             <Subtitle
               title='Владелец: '
-              text={userName  + ', доля владения - ' + parseInt(item.interest) * 100 + '%'} />
+              text={userName + ', доля владения - ' + parseInt(item.interest) * 100 + '%'} />
           </Box>
         )
       }
@@ -132,8 +162,8 @@ const SingleApartment = () => {
 
 
   return (
-    <> 
-    {content}
+    <>
+      {content}
       <Box sx={{ display: 'flex', alignItems: 'flex-end', p: '10px 0px', mt: 2 }} >
         <Box width="60px"></Box>
         <QueryStats color="primary" fontSize="large" sx={{ mr: 2 }} />

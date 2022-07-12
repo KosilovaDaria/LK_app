@@ -23,7 +23,6 @@ const CustomContainer = styled(Container)(({ theme }) => ({
 }))
 
 export default function SignIn() {
-  // Ваш пароль от ЛК: Rqbzk69R
  
   const { getCurrentUser, user } = useUser();
   console.log(user)
@@ -53,7 +52,6 @@ export default function SignIn() {
           getCurrentUser();
           navigate(fromPage, {replace: true});
         } else {
-          // обработать ошибку
           console.log('no user')
         }
       })

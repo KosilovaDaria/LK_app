@@ -1,9 +1,8 @@
 import { Outlet } from "react-router-dom";
 
-const ReportLayout = () => {
+const OverallLayout = () => {
   return (
     <><Outlet /></>
   )
 }
-
-export default ReportLayout;
+export default OverallLayout;

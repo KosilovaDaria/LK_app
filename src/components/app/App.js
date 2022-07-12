@@ -14,10 +14,10 @@ import { NoticeProvider } from '../noticeContext/NoticeContext';
 import { getData } from "../services/services";
 
 import AppHeader from "../appHeader/AppHeader";
-import ApartLayout from '../apartLayout/ApartLayout';
+import AppLayout from '../appLayout/AppLayout';
 import Apartments from '../apartments/Apartments';
 import SingleApartment from '../singleApartment/SingleApartment';
-import ReportLayout from '../reportLayout/ReportLayout';
+import OverallLayout from '../overallLayout/OverallLayout';
 import Reports from '../reports/Reports';
 import SingleReport from '../singleReport/SingleReport';
 import Notifications from '../notifications/Notifications';
@@ -119,83 +119,55 @@ theme = responsiveFontSizes(theme, { breakpoints: ['xs', 's', 'sm', 'md'], disab
 
 function App() {
 
-  // const [newNotifCount, setNewNotifCount] = useState(0);
-  // const user = JSON.parse(localStorage.getItem('user'));
-
-  // const getCountNewNotice = () => {
-  //  if (user){ 
-  //   getData('getCountNewNotice', {
-  //     user_id: parseInt(user.id)
-  //   })
-  //     .then(res => {
-  //       setNewNotifCount(res.response.count);
-  //     }) 
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   getCountNewNotice();
-  //   (function loops(){
-  //     setTimeout(function(){
-  //       getCountNewNotice()
-  //         console.log('test');
-  //         loops(); // рекурсия
-  //     }, 20000);
-  //  })();
-   
-  // }, [])
-
-  
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <BrowserRouter>
         <UserProvider>
           <ApartsProvider>
-          <NoticeProvider>
-            <Routes>
-              <Route path="/" element={<RequireAuth><AppHeader 
-              // newNotifCount={newNotifCount}
-              /></RequireAuth>} >
-                <Route index element={<RequireAuth><ApartLayout /></RequireAuth>} />
-                <Route path="apartments" element={<RequireAuth><ApartLayout /></RequireAuth>} >
-                  <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
-                  <Route path=":apartmentId" element={<ReportLayout />} >
-                    <Route index element={<SingleApartment />} />
-                    <Route path="reports" element={<ReportLayout />} >
-                      <Route index element={<Reports />} />
-                      <Route path=":reportId" element={<SingleReport />} />
+            <NoticeProvider>
+              <Routes>
+                {/* <Route path="/" element={<RequireAuth><AppHeader /></RequireAuth>} >
+                  <Route index element={<RequireAuth><ApartLayout /></RequireAuth>} />
+                  <Route path="apartments" element={<RequireAuth><ApartLayout /></RequireAuth>} >
+                    <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
+                    <Route path=":apartmentId" element={<ReportLayout />} >
+                      <Route index element={<SingleApartment />} />
+                      <Route path="reports" element={<ReportLayout />} >
+                        <Route index element={<Reports />} />
+                        <Route path=":reportId" element={<SingleReport />} />
+                      </Route>
                     </Route>
                   </Route>
+                  <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
                 </Route>
+                <Route path="/signin" element={<SignIn />} />
+                <Route path="/passrecovery" element={<PassRecovery />} />
+                <Route path="*" element={<NotFound />} /> */}
 
-                {/* <Route path="apartments" element={<ApartLayout />} >
-                <Route index element={<RequireAuth><Apartments/></RequireAuth>} />
-                <Route path=":apartmentId" element={<SingleApartment/>} >
+                <Route path="/" element={<RequireAuth><AppLayout /></RequireAuth>} >
+                  <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
+                  <Route path="apartments" element={<RequireAuth><OverallLayout /></RequireAuth>} >
+                    <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
+                    <Route path=":apartmentId" element={<OverallLayout />} >
+                      <Route index element={<SingleApartment />} />
+                      <Route path="reports" element={<OverallLayout />} >
+                        <Route index element={<Reports />} />
+                        <Route path=":reportId" element={<SingleReport />} />
+                      </Route>
+                    </Route>
+                  </Route>
+                  <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
                 </Route>
-                <Route path="reports" element={<ReportLayout />} >
-                  <Route index element={<Reports/>} />
-                  <Route path=":reportId" element={<SingleReport/>} />
-                </Route>
-              </Route> */}
-                <Route path="notifications" element={
-                  <ProtectedRoute>
-                    <Notifications 
-                    // getCountNewNotice={getCountNewNotice} 
-                    />
-                  </ProtectedRoute>
+                <Route path="/signin" element={
+                  <SignIn />
                 } />
-
-              </Route>
-              <Route path="/signin" element={
-                <SignIn />
-              } />
-              <Route path="/passrecovery" element={<PassRecovery />} />
-              <Route path="*" element={<NotFound />} />
+                <Route path="/passrecovery" element={<PassRecovery />} />
+                <Route path="*" element={<NotFound />} />
 
 
 
-            </Routes>
+              </Routes>
             </NoticeProvider>
           </ApartsProvider>
         </UserProvider>
@@ -206,3 +178,12 @@ function App() {
 export default App;
 
 
+{/* <Route path="apartments" element={<ApartLayout />} >
+                <Route index element={<RequireAuth><Apartments/></RequireAuth>} />
+                <Route path=":apartmentId" element={<SingleApartment/>} >
+                </Route>
+                <Route path="reports" element={<ReportLayout />} >
+                  <Route index element={<Reports/>} />
+                  <Route path=":reportId" element={<SingleReport/>} />
+                </Route>
+              </Route> */}
