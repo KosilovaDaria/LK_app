@@ -7,7 +7,7 @@ import { useNotice } from "../noticeContext/NoticeContext";
 
 const AppLayout = () => {
 
-  console.log('render AppLayout')
+  // console.log('render AppLayout')
 
   const { logOut } = useUser();
   const { newNotifCount, getCountNewNotice } = useNotice()

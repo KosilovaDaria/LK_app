@@ -8,7 +8,6 @@ const TitleBar = (props) => {
       </Box>
       <Box sx={{height:2, width:'100%', backgroundColor:'primary.main', mb:2}}></Box>
     </>
-
   )
 }
 

@@ -4,27 +4,24 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
-import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import { UserProvider } from '../userContext/UserContext';
 import { ProtectedRoute } from '../protectedRoute/ProtectedRoute';
+import { UserProvider } from '../userContext/UserContext';
 import { ApartsProvider } from '../apartsContext/ApartsContext';
 import { NoticeProvider } from '../noticeContext/NoticeContext';
-import { getData } from "../services/services";
 
-import AppHeader from "../appHeader/AppHeader";
+import RequireAuth from '../auth/RequireAuth';
 import AppLayout from '../appLayout/AppLayout';
+import OverallLayout from '../overallLayout/OverallLayout';
 import Apartments from '../apartments/Apartments';
 import SingleApartment from '../singleApartment/SingleApartment';
-import OverallLayout from '../overallLayout/OverallLayout';
 import Reports from '../reports/Reports';
 import SingleReport from '../singleReport/SingleReport';
 import Notifications from '../notifications/Notifications';
 import SignIn from '../signIn/SignIn';
 import PassRecovery from '../passRecovery/PassRecovery';
 import NotFound from '../notFound/NotFound';
-import RequireAuth from '../auth/RequireAuth';
 
 
 let theme = createTheme({
@@ -127,24 +124,6 @@ function App() {
           <ApartsProvider>
             <NoticeProvider>
               <Routes>
-                {/* <Route path="/" element={<RequireAuth><AppHeader /></RequireAuth>} >
-                  <Route index element={<RequireAuth><ApartLayout /></RequireAuth>} />
-                  <Route path="apartments" element={<RequireAuth><ApartLayout /></RequireAuth>} >
-                    <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
-                    <Route path=":apartmentId" element={<ReportLayout />} >
-                      <Route index element={<SingleApartment />} />
-                      <Route path="reports" element={<ReportLayout />} >
-                        <Route index element={<Reports />} />
-                        <Route path=":reportId" element={<SingleReport />} />
-                      </Route>
-                    </Route>
-                  </Route>
-                  <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
-                </Route>
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/passrecovery" element={<PassRecovery />} />
-                <Route path="*" element={<NotFound />} /> */}
-
                 <Route path="/" element={<RequireAuth><AppLayout /></RequireAuth>} >
                   <Route index element={<RequireAuth><Apartments /></RequireAuth>} />
                   <Route path="apartments" element={<RequireAuth><OverallLayout /></RequireAuth>} >
@@ -159,14 +138,9 @@ function App() {
                   </Route>
                   <Route path="notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
                 </Route>
-                <Route path="/signin" element={
-                  <SignIn />
-                } />
+                <Route path="/signin" element={<SignIn />} />
                 <Route path="/passrecovery" element={<PassRecovery />} />
                 <Route path="*" element={<NotFound />} />
-
-
-
               </Routes>
             </NoticeProvider>
           </ApartsProvider>
@@ -178,12 +152,3 @@ function App() {
 export default App;
 
 
-{/* <Route path="apartments" element={<ApartLayout />} >
-                <Route index element={<RequireAuth><Apartments/></RequireAuth>} />
-                <Route path=":apartmentId" element={<SingleApartment/>} >
-                </Route>
-                <Route path="reports" element={<ReportLayout />} >
-                  <Route index element={<Reports/>} />
-                  <Route path=":reportId" element={<SingleReport/>} />
-                </Route>
-              </Route> */}

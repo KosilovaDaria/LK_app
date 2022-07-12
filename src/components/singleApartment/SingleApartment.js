@@ -62,25 +62,24 @@ const SingleApartment = () => {
       })
   }
 
-  // Функция получения выбранного месяца и года
+  //получение текущей/выбранной даты
   const getCurrentDate = (value) => {
     let currentDate = [value.getMonth() + 1 + '.' + value.getFullYear()];
     return currentDate;
   }
-
+  //получение массива месяцев предыдущего квартала от текущей даты
   const getPrevQuartal = (value) => {
     let currentMonth = value.getMonth() + 1;
     let selectMonth = currentMonth - 1;
-    let rr = [selectMonth - selectMonth % 3, selectMonth - selectMonth % 3 - 1, selectMonth - selectMonth % 3 - 2];
-    return rr;
+    let arrQuartal = [selectMonth - selectMonth % 3, selectMonth - selectMonth % 3 - 1, selectMonth - selectMonth % 3 - 2];
+    return arrQuartal;
   }
-  // console.log(prevQuartal(7))
-
+  //получение массива месяцев текущего квартала
   const getCurrentQuartal = (value) => {
     let currentMonth = value.getMonth() + 1;
     let selectMonth = currentMonth - 1;
-    let rr = [selectMonth - selectMonth % 3 + 1, selectMonth - selectMonth % 3 + 2, selectMonth - selectMonth % 3 + 3];
-    return rr;
+    let arrQuartal = [selectMonth - selectMonth % 3 + 1, selectMonth - selectMonth % 3 + 2, selectMonth - selectMonth % 3 + 3];
+    return arrQuartal;
   }
 
   // Функция получения массива месяцев квартала
@@ -93,11 +92,8 @@ const SingleApartment = () => {
     let maxMonthOfCurQuartal = Math.max(...curentQuartal);
     let isCurQuartalClosed = currentMonth > maxMonthOfCurQuartal;
     return (isCurQuartalClosed ? curentQuartal : _prevQuartal).map(item => (item > 0) ? item + '.' + currentYear : (item + 12) + '.' + (currentYear - 1));
-    // let currentMonth = value.getMonth() + 1;
-    // let currentYear = value.getFullYear();
-    // const quartalArr = [currentMonth - currentMonth % 3 + 1 , currentMonth - currentMonth % 3 +2, currentMonth - currentMonth % 3 +3].map(item => (item > 0) ? item + '.' + currentYear : (item + 12) + '.' + (currentYear - 1));
-    // return quartalArr
   }
+
   // Функция получения массива месяцев года
   const getFullYear = (value) => {
     let currentYear = value.getFullYear();
@@ -108,7 +104,6 @@ const SingleApartment = () => {
   const handleStatMonth = (event, newStatMonth) => {
     setStatMonth(newStatMonth);
   };
-
 
   function renderApartInfo(arr) {
     const info = arr.map(item => {
@@ -143,7 +138,6 @@ const SingleApartment = () => {
   const quartStat = (statMonth == 'quartal' && statistics) ? <QuartYearStat data={statistics} /> : null;
   const yearStat = (statMonth == 'year' && statistics) ? <QuartYearStat data={statistics} /> : null
 
-
   const CustomToggleBtn = styled(ToggleButton)({
     width: 85,
     height: 36,
@@ -160,7 +154,6 @@ const SingleApartment = () => {
     }
   })
 
-
   return (
     <>
       {content}
@@ -169,7 +162,6 @@ const SingleApartment = () => {
         <QueryStats color="primary" fontSize="large" sx={{ mr: 2 }} />
         <Typography variant="h1" >Статистика по загрузке, среднему тарифу и доходам за период</Typography>
       </Box>
-
       <Box maxWidth='550px' sx={{ display: 'flex', flexDirection: { xs: 'column', s: 'row' }, justifyContent: 'space-between', alignItems: 'center', mt: 2 }}>
         <ToggleButtonGroup
           color="primary"
@@ -187,7 +179,6 @@ const SingleApartment = () => {
             Год
           </CustomToggleBtn>
         </ToggleButtonGroup>
-
         <LocalizationProvider dateAdapter={AdapterDateFns} locale={ruLocale}>
           <DesktopDatePicker
             views={['month', 'year']}
@@ -208,12 +199,10 @@ const SingleApartment = () => {
           variant="contained"
           component={Link}
           to={`/apartments/${apartmentId}/reports`}
-        // to='/apartments/reports'
         >
           Отчеты
         </Button>
       </Box>
-
     </>
   )
 }

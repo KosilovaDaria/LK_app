@@ -2,7 +2,7 @@ import { Button, CssBaseline, TextField, FormControlLabel, Checkbox, Box, Typogr
 import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
 import { getAuth } from '../services/services';
 import { useUser } from '../userContext/UserContext';
-import { Link,  Navigate, useLocation, useNavigate  } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import bgImage from '../../assets/backGround.png';
 
 const theme = createTheme({
@@ -23,9 +23,8 @@ const CustomContainer = styled(Container)(({ theme }) => ({
 }))
 
 export default function SignIn() {
- 
-  const { getCurrentUser, user } = useUser();
-  console.log(user)
+
+  const { getCurrentUser } = useUser();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -34,11 +33,10 @@ export default function SignIn() {
   }
 
   const fromPage = location.state?.from?.pathname || '/apartments'
-  
+
   const handleLogin = async (event) => {
     event.preventDefault();
 
-    //рабочий вариант с запросом
     const data = new FormData(event.currentTarget);
 
     getAuth(JSON.stringify({
@@ -50,28 +48,11 @@ export default function SignIn() {
         localStorage.setItem('user', JSON.stringify(res.user));
         if (res.success === true) {
           getCurrentUser();
-          navigate(fromPage, {replace: true});
+          navigate(fromPage, { replace: true });
         } else {
           console.log('no user')
         }
       })
-
-    //   //эмуляция для проверки работы локалстореджа
-    //   let userr = {
-    //     email: "kosilova@edelink.ru",
-    //     ext_headoffice_id: "1",
-    //     ext_id: "827",
-    //     ext_sys_shortname: "ecvilocal",
-    //     firstname: "Дарья",
-    //     id: "1",
-    //     lastname: "Косилова",
-    //     status: "1",
-    //     surname: "Дмитриевна"
-    //   }
-    //   localStorage.setItem('user', JSON.stringify(userr));
-    //   getCurrentUser();
-    //   console.log('sign in')
-
   };
 
   return (

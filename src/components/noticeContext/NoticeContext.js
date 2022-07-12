@@ -10,17 +10,17 @@ export const NoticeProvider = ({ children }) => {
 
   const getCountNewNotice = useCallback(
     () => {
-    if (user) {
-      getData('getCountNewNotice', {
-        user_id: parseInt(user.id)
-      })
-        .then(res => {
-          setNewNotifCount(res.response.count);
+      if (user) {
+        getData('getCountNewNotice', {
+          user_id: parseInt(user.id)
         })
-    } else {
-      setNewNotifCount(null)
-    }
-  }, [newNotifCount, user]
+          .then(res => {
+            setNewNotifCount(res.response.count);
+          })
+      } else {
+        setNewNotifCount(null)
+      }
+    }, [newNotifCount, user]
   )
   return (
     <NoticeContext.Provider value={{ newNotifCount, getCountNewNotice }}>

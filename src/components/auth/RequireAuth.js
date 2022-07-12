@@ -6,8 +6,6 @@ const RequireAuth = (props) => {
   if (!localStorage.getItem('user')) {
     return <Navigate to="/signin" state={{ from: location }} />
   }
-
   return props.children
 }
-
 export default RequireAuth;

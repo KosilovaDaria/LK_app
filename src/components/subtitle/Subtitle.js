@@ -6,9 +6,7 @@ const Subtitle = (props) => {
       <Typography minWidth='120px' width='120px' variant="body1" color='secondary.light'  >{props.title}</Typography>
       <Typography variant="body1">{props.text}</Typography>
     </Box>
-    
-
-  )
+      )
 }
 
 export default Subtitle

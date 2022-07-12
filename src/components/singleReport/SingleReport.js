@@ -64,7 +64,6 @@ const SingleReport = () => {
               <IconButton
                 component={Link}
                 to={`/apartments/${apartmentId}/reports`}
-              // to={`/apartments/reports`}
               >
                 <ArrowBack />
               </IconButton>}
@@ -86,7 +85,6 @@ const SingleReport = () => {
                   handleClick()
                 }}
               >Принять</Button>
-
               {show ? (
                 <Button
                   sx={{ position: 'absolute', top: '30%', left: '40%', width: '250px', mr: 1, mb: 5, textTransform: 'none', bgcolor: 'rgba(226, 236, 245, 1)' }}
@@ -97,13 +95,10 @@ const SingleReport = () => {
                   <Typography >Отчет принят</Typography>
                 </Button>
               ) : null}
-
               <Button variant='outlined' sx={{ mr: 1, ml: 1 }}><Download />Скачать</Button>
               <Button variant='outlined'><ContentCopy />Печать</Button>
             </Box>
-
           </Box>
-
           <div dangerouslySetInnerHTML={createMarkupBody()} />
         </>
       }

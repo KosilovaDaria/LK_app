@@ -1,9 +1,9 @@
 import { ToggleButtonGroup, ToggleButton, Typography, Grid } from "@mui/material";
 import { DateRange, Analytics, AccountBalanceWallet, } from '@mui/icons-material';
-import BarChart from "../barChart/BarChart";
 import { useState, useEffect } from "react";
 import { styled } from '@mui/material/styles';
 import Spinner from "../spinner/Spinner";
+import BarChart from "../barChart/BarChart";
 
 const QuartYearStat = (props) => {
   // console.log('render QuartStat')
@@ -36,7 +36,6 @@ const QuartYearStat = (props) => {
   }
 
   let newStatData;
-  //написать функцию по замене названия ключа индикатора на value
   switch (barIndicator) {
     case 'occupancy':
       newStatData = mapStatData(["date", "occupancy"]);
@@ -99,13 +98,11 @@ const QuartYearStat = (props) => {
                 <DateRange sx={{ mr: 1 }} />
                 <Typography variant="body1">Загрузка</Typography>
               </CustomToggleBtn>
-              <CustomToggleBtn value="averege" selectedcolor='#676EBC'
-              >
+              <CustomToggleBtn value="averege" selectedcolor='#676EBC' >
                 <Analytics sx={{ mr: 1 }} />
                 <Typography variant="body1">Средний тариф</Typography>
               </CustomToggleBtn>
-              <CustomToggleBtn value="income" selectedcolor='#E58B1E'
-              >
+              <CustomToggleBtn value="income" selectedcolor='#E58B1E'>
                 <AccountBalanceWallet sx={{ mr: 1 }} />
                 <Typography variant="body1">Доход</Typography>
               </CustomToggleBtn>

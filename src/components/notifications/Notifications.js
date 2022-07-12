@@ -1,4 +1,4 @@
-import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Container, } from "@mui/material";
+import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, } from "@mui/material";
 import { NotificationsNoneOutlined } from '@mui/icons-material';
 import { styled } from '@mui/material/styles';
 import { getData } from "../services/services";
@@ -8,8 +8,8 @@ import Clamp from 'react-multiline-clamp';
 import TitleBar from "../titleBar/TitleBar";
 import Spinner from '../spinner/Spinner';
 
-const Notifications = (props) => {
-  // const { getCountNewNotice } = props
+const Notifications = () => {
+  
   const [notifList, setNotifList] = useState([]);
   const [loading, setLoading] = useState(true);
   const { getCountNewNotice } = useNotice()

@@ -4,7 +4,7 @@ import { styled } from "@mui/material";
 import { Chart, PieSeries } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
 
-import { useEffect} from 'react';
+import { useEffect } from 'react';
 import { Link } from "react-router-dom";
 
 import { useUser } from '../userContext/UserContext';
@@ -13,10 +13,10 @@ import { useAparts } from "../apartsContext/ApartsContext";
 import TitleBar from "../titleBar/TitleBar";
 
 const Apartments = () => {
-  console.log('render Apartments')
+  // console.log('render Apartments')
 
   const { user, userName, getCurrentUser } = useUser();
-  const {apartList, getApartList } = useAparts();
+  const { apartList, getApartList } = useAparts();
 
   useEffect(() => {
     const userId = user ? user.id : null
@@ -26,9 +26,9 @@ const Apartments = () => {
   useEffect(() => {
     getCurrentUser();
   }, [])
-  
 
-   const CustomCard = styled(Card)(({ theme }) => ({
+
+  const CustomCard = styled(Card)(({ theme }) => ({
     maxWidth: '540px',
     minWidth: '320px',
     minHeight: '300px',
@@ -172,7 +172,7 @@ const Apartments = () => {
     );
   }
 
-  const content = apartList  ? renderItems(apartList) : null;
+  const content = apartList ? renderItems(apartList) : null;
 
   return (
     <>
@@ -181,7 +181,6 @@ const Apartments = () => {
         title={userName}
       />
       <Grid container spacing={2} direction="row" justifyContent="center" alignItems="center">
-
         {content}
       </Grid>
     </>
