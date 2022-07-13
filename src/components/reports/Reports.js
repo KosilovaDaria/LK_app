@@ -93,7 +93,19 @@ const Reports = () => {
         )
       }
     })
-    return rows;
+    // return rows;
+    return (
+      <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
+        <TableHead>
+          <TableRow>
+            <TableCell> {year}</TableCell>
+            <TableCell></TableCell>
+            <TableCell></TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{rows}</TableBody>
+      </Table>
+    )
   }
 
   function renderYearRow(data) {
@@ -116,7 +128,7 @@ const Reports = () => {
 
   }
 
-
+  const yearArr = [2021, 2022];
   return (
     <>
 
@@ -131,7 +143,7 @@ const Reports = () => {
           {content}
           <Typography variant="h1" component='h2'>Отчеты</Typography>
           <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
+            {/* <Table sx={{ minWidth: 350 }} size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
                   <TableCell> {renderYearRow(reportList)}</TableCell>
@@ -148,7 +160,8 @@ const Reports = () => {
                 </TableRow>
               </TableHead>
               <TableBody>{renderRow(reportList, 2021)}</TableBody>
-            </Table>
+            </Table> */}
+            <>{yearArr.map(item => renderRow(reportList, item))}</>
             <Outlet />
           </TableContainer>
         </>
